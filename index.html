@@ -78,7 +78,22 @@
                             fill="#18181B" />
                     </svg></button><button class="see button"><span class="text-scatter">See my projects</span></button>
             </div>
-            <div class="big_shadow"></div>
+            <div class="big_shadow">
+                <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width:0; height:0">
+                    <defs>
+                      <filter id="big_blur_filter" filterUnits="userSpaceOnUse" x="-200%" y="-200%" width="500%" height="500%">
+                        <!-- Appliquer un flou gaussien : ajustez stdDeviation pour contrôler l’intensité -->
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="200" result="blur"/>
+                        <!-- Appliquer un transfert de composante pour simuler brightness(1.1) -->
+                        <feComponentTransfer in="blur" result="bright">
+                          <feFuncR type="linear" slope="1.1"/>
+                          <feFuncG type="linear" slope="1.1"/>
+                          <feFuncB type="linear" slope="1.1"/>
+                        </feComponentTransfer>
+                      </filter>
+                    </defs>
+                  </svg>                  
+            </div>
         </div>
         <div class="second">
             <h2 class="title-second text-scatter"><i class="fi fi-sr-briefcase"></i> My Projects</h2>

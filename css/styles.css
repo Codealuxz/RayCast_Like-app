@@ -256,17 +256,19 @@ header i {
 
 .first .big_shadow {
     width: 60vw;
-    height: 60vw;
+    height: 60vh;
     background-color: var(--main-color);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -60vw;
+    bottom: -60vh;
     z-index: 0 !important;
     border-radius: 50%;
-    filter: blur(1000px) brightness(1.1);
+    /* Utilisation du filtre SVG à la place de blur(1000px) */
+    filter: url(#big_blur_filter) brightness(1.1);
     will-change: opacity, transform;
 }
+
 
 
 .first .line {
