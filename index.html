@@ -35,21 +35,21 @@
     <header>
         <div class="nav">
             <div class="logo-nav">
-                <button class="home logo">
+                <button type="button" class="home logo">
                     <i class="fi fi-sr-home"></i>
                     <span class="text-scatter">Home</span>
                 </button>
-                <button class="skill logo">
+                <button type="button" class="skill logo" onclick="window.location.href='#second'">
                     <i class="fi fi-sr-briefcase"></i>
                     <span class="text-scatter">Work</span>
                 </button>
-                <button class="work logo">
+                <button type="button" class="work logo">
                     <i class="fi fi-sr-phone-flip"></i>
                     <span class="text-scatter">Contact</span>
                 </button>
             </div>
             <div class="project-nav">
-                <button class="project"><span class="text-scatter">Start a Project </span> <svg width="8" height="8"
+                <button type="button" class="project"><span class="text-scatter">Start a Project </span> <svg width="8" height="8"
                         viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd"
                             d="M0.175483 7.82452C0.287991 7.93688 0.440501 8 0.599512 8C0.758523 8 0.911032 7.93688 1.02354 7.82452L6.79992 2.04814V6.60044C6.79992 6.75958 6.86314 6.9122 6.97567 7.02473C7.0882 7.13726 7.24082 7.20048 7.39996 7.20048C7.5591 7.20048 7.71172 7.13726 7.82425 7.02473C7.93678 6.9122 8 6.75958 8 6.60044V0.60004C8 0.440899 7.93678 0.288277 7.82425 0.175747C7.71172 0.0632182 7.5591 0 7.39996 0H1.39956C1.24042 0 1.0878 0.0632182 0.975272 0.175747C0.862743 0.288277 0.799525 0.440899 0.799525 0.60004C0.799525 0.75918 0.862743 0.911803 0.975272 1.02433C1.0878 1.13686 1.24042 1.20008 1.39956 1.20008H5.95186L0.175483 6.97646C0.0631157 7.08897 0 7.24148 0 7.40049C0 7.5595 0.0631157 7.71201 0.175483 7.82452Z"
@@ -59,7 +59,7 @@
         </div>
     </header>
     <main>
-        <div class="first">
+        <div class="first" id="first">
             <h1 class="title text-scatter">Hello, I’m Morgan<svg class="line" width="417" height="21"
                     viewBox="0 0 417 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -71,12 +71,12 @@
                 <br>and I never stop learning.
             </p>
             <div class="cta">
-                <button class="project"><span class="text-scatter">Start a Project </span> <svg width="8" height="8"
+                <button type="button" class="project"><span class="text-scatter">Start a Project </span> <svg width="8" height="8"
                         viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd"
                             d="M0.175483 7.82452C0.287991 7.93688 0.440501 8 0.599512 8C0.758523 8 0.911032 7.93688 1.02354 7.82452L6.79992 2.04814V6.60044C6.79992 6.75958 6.86314 6.9122 6.97567 7.02473C7.0882 7.13726 7.24082 7.20048 7.39996 7.20048C7.5591 7.20048 7.71172 7.13726 7.82425 7.02473C7.93678 6.9122 8 6.75958 8 6.60044V0.60004C8 0.440899 7.93678 0.288277 7.82425 0.175747C7.71172 0.0632182 7.5591 0 7.39996 0H1.39956C1.24042 0 1.0878 0.0632182 0.975272 0.175747C0.862743 0.288277 0.799525 0.440899 0.799525 0.60004C0.799525 0.75918 0.862743 0.911803 0.975272 1.02433C1.0878 1.13686 1.24042 1.20008 1.39956 1.20008H5.95186L0.175483 6.97646C0.0631157 7.08897 0 7.24148 0 7.40049C0 7.5595 0.0631157 7.71201 0.175483 7.82452Z"
                             fill="#18181B" />
-                    </svg></button><button class="see button"><span class="text-scatter">See my projects</span></button>
+                    </svg></button><button type="button" class="see button"><span class="text-scatter">See my projects</span></button>
             </div>
             <div class="big_shadow">
                 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width:0; height:0">
@@ -95,20 +95,19 @@
                   </svg>                  
             </div>
         </div>
-        <div class="second">
+        <div class="second" id="second">
             <h2 class="title-second text-scatter"><i class="fi fi-sr-briefcase"></i> My Projects</h2>
             <div class="separator"></div>
-            <!-- From Uiverse.io by Smit-Prajapati -->
             <div class="project-section">
                 <div class="radio-container">
                     <input checked="" id="radio-photo" name="radio" type="radio" />
-                    <label for="radio-photo">Codealuxz photo</label>
+                    <label for="radio-photo" class="text-scatter">Codealuxz photo</label>
                     <input id="radio-board" name="radio" type="radio" />
-                    <label for="radio-board">Pixels-Board</label>
+                    <label for="radio-board" class="text-scatter">Pixels-Board</label>
                     <input id="radio-protonix" name="radio" type="radio" />
-                    <label for="radio-protonix">Protonix</label>
+                    <label for="radio-protonix" class="text-scatter">Protonix</label>
                     <input id="radio-spita" name="radio" type="radio" />
-                    <label for="radio-spita">Spita</label>
+                    <label for="radio-spita" class="text-scatter">Spita</label>
                     <div class="glider-container">
                         <div class="glider"></div>
                     </div>
@@ -120,7 +119,7 @@
                             <h3 class="text-scatter">Codealuxz photo</h3>
                             <p class="text-scatter">This is a website for my photography. I expose my works and share
                                 them.</p>
-                            <button class="see button"><span class="text-scatter">Go to the website</span></button>
+                            <button type="button" class="see button"><span class="text-scatter">Go to the website</span></button>
                         </div>
                     </div>
                     <div class="board project-item">
@@ -128,7 +127,7 @@
                         <div class="board-text">
                             <h3 class="text-scatter">Pixels-Board</h3>
                             <p class="text-scatter">This is a website how recreat the experience of a r/place (the pixel war) but with an infinit canvas and lot of tools. (Temporary unavailable)</p>
-                            <button class="see button" onclick="window.open('https://pixels-board.codealuxz.fr/','_blank')"><span class="text-scatter">Go to the website</span></button>
+                            <button type="button" class="see button" onclick="window.open('https://pixels-board.codealuxz.fr/','_blank')"><span class="text-scatter">Go to the website</span></button>
                         </div>
                     </div>
                     <div class="protonix project-item">
@@ -136,7 +135,15 @@
                         <div class="protonix-text">
                             <h3 class="text-scatter">Protonix</h3>
                             <p class="text-scatter">This is a game how I made with Godot engine. The goal is to nd avoid the enemies in a world 2d with 3 differents modes.</p>
-                            <button class="see button" onclick="window.open('https://codealuxz.itch.io/protonix','_blank')"><span class="text-scatter">Play at the game</span></button>
+                            <button type="button" class="see button" onclick="window.open('https://codealuxz.itch.io/protonix','_blank')"><span class="text-scatter">Play at the game</span></button>
+                        </div>
+                    </div>
+                    <div class="spita project-item">
+                        <img src="img/spita.png" alt="">
+                        <div class="spita-text">
+                            <h3 class="text-scatter">Spita</h3>
+                            <p class="text-scatter">This is a game how I made with Godot engine. This is a 2d platformer game with a lot of levels and 2 worlds.</p>
+                            <button type="button" class="see button" onclick="window.open('https://codealuxz.itch.io/spita','_blank')"><span class="text-scatter">Play at the game</span></button> <button type="button" class="see button" onclick="window.open('https://codealuxz.itch.io/spitaexe','_blank')"><span class="text-scatter">Download the game</span></button>
                         </div>
                     </div>
                 </div>

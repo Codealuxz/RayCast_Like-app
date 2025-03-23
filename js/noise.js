@@ -30,6 +30,7 @@ function generateGrainTexture() {
             opacity: 1; /* Ajuste l'intensité du grain */
             mix-blend-mode: multiply;
             filter: brightness(0.8);
+            -webkit-backdrop-filter: blur(5px);
             backdrop-filter: blur(5px);
             pointer-events: none;
             z-index: -1;

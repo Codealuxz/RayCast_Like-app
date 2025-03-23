@@ -11,9 +11,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const circle = document.createElement('div');
     circle.classList.add('cursor-circle');
 
+    // Création de l'élément texte "scroll down" qui tourne
+    const scrollText = document.createElement('div');
+    scrollText.classList.add('cursor-scroll-text');
+
+    // Créer le texte circulaire autour du cercle
+    const text = "SCROLL DOWN - SCROLL DOWN - ";
+    const textLength = text.length;
+    const radius = 70; // Rayon du cercle de texte
+
+    for (let i = 0; i < textLength; i++) {
+        const angle = i * (360 / textLength);
+        const charContainer = document.createElement('div');
+        charContainer.className = 'char-container';
+        charContainer.style.transform = `rotate(${angle}deg)`;
+
+        const char = document.createElement('span');
+        char.className = 'scroll-char';
+        char.textContent = text[i];
+        char.style.transform = `translateY(${radius}px) rotate(180deg)`;
+
+        charContainer.appendChild(char);
+        scrollText.appendChild(charContainer);
+    }
+
     // Ajout des éléments au curseur
     cursor.appendChild(point);
     cursor.appendChild(circle);
+    cursor.appendChild(scrollText);
 
     // Variables pour le suivi fluide
     let mouseX = 0;
@@ -22,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let circleY = 0;
     let animationFrameId = null;
     let isVisible = false;
+    let scrollAngle = 0;
 
     // Vérifier si l'appareil est tactile
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -32,11 +58,69 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Fonction pour vérifier le défilement et masquer le texte
+    function checkScrollPosition() {
+        // Calculer 1% de la hauteur totale de la page
+        const scrollThreshold = Math.max(
+            document.body.scrollHeight,
+            document.documentElement.scrollHeight
+        ) * 0.01;
+
+        // Si le défilement est supérieur à 1%, masquer le texte
+        if (window.scrollY > scrollThreshold) {
+            scrollText.style.opacity = '0';
+            scrollText.style.fontSize = '49.3px';
+
+        } else {
+            scrollText.style.opacity = '1';
+            scrollText.style.fontSize = '11.9px';
+        }
+    }
+
+    // Appel initial pour vérifier le défilement
+    checkScrollPosition();
+
+    // Vérifier la position lors du défilement
+    window.addEventListener('scroll', checkScrollPosition);
+
     // Masquer le curseur par défaut
     document.body.style.cursor = 'none';
 
     // Suivi de la position de la souris avec throttling
     let lastMoveTime = 0;
+
+    // Fonction améliorée pour vérifier si un élément est cliquable
+    function isClickable(element) {
+        if (!element) return false;
+
+        // Liste de tous les sélecteurs d'éléments cliquables
+        const clickableSelectors = 'a, button, input, textarea, select, [role="button"], .logo, .project, .radio-container label, .radio-container input, [onclick], [data-clickable="true"]';
+
+        // Vérifier l'élément lui-même
+        if (element.matches(clickableSelectors)) return true;
+
+        // Vérifier si l'élément a un pointeur spécifique en CSS
+        const computedStyle = window.getComputedStyle(element);
+        if (computedStyle.cursor === 'pointer') return true;
+
+        // Vérifier tous les parents (pas seulement 3 niveaux)
+        let parent = element.parentElement;
+        while (parent) {
+            if (parent.matches(clickableSelectors)) return true;
+
+            const parentStyle = window.getComputedStyle(parent);
+            if (parentStyle.cursor === 'pointer') return true;
+
+            // Vérifier également les attributs onclick
+            if (parent.hasAttribute('onclick')) return true;
+
+            parent = parent.parentElement;
+        }
+
+        return false;
+    }
+
+    // Utiliser document.elementsFromPoint pour une meilleure détection
     document.addEventListener('mousemove', (e) => {
         // Limiter le taux de mise à jour à 60fps (environ 16ms)
         const now = performance.now();
@@ -53,6 +137,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Le point suit directement la souris
         point.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+
+        // Vérifier tous les éléments à cette position (pas seulement e.target)
+        const elementsAtPoint = document.elementsFromPoint(mouseX, mouseY);
+        let isElementClickable = false;
+
+        for (let i = 0; i < elementsAtPoint.length; i++) {
+            if (isClickable(elementsAtPoint[i])) {
+                isElementClickable = true;
+                break;
+            }
+        }
+
+        if (isElementClickable) {
+            cursor.classList.add('cursor-hover');
+            scrollText.style.opacity = '0';
+        } else {
+            cursor.classList.remove('cursor-hover');
+            checkScrollPosition();
+        }
     });
 
     // Animation optimisée pour le cercle qui suit plus lentement
@@ -72,6 +175,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Application de la transformation
         circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
 
+        // Animation de rotation du texte autour du cercle
+        scrollAngle += 0.5;
+        scrollText.style.transform = `translate(${circleX}px, ${circleY}px) rotate(${scrollAngle}deg)`;
+
         animationFrameId = requestAnimationFrame(animateCircle);
     }
 
@@ -90,24 +197,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Animation au clic
     document.addEventListener('mousedown', () => {
         point.classList.add('cursor-point-clicked');
+        point.style.transition = `width 0.2s ease, height 0.2s ease, top 0.1s ease, left 0.1s ease`;
         circle.classList.add('cursor-circle-clicked');
+        circle.style.transition = `width 0.2s ease, height 0.2s ease, top 0.1s ease, left 0.1s ease`;
+        scrollText.style.opacity = `0`;
     });
 
     document.addEventListener('mouseup', () => {
         point.classList.remove('cursor-point-clicked');
         circle.classList.remove('cursor-circle-clicked');
-    });
-
-    // Gestion des éléments cliquables avec délégation d'événement
-    document.addEventListener('mouseover', (e) => {
-        if (e.target.matches('a, button, input, textarea, select, [role="button"], .logo, .project, .radio-container label, .radio-container input')) {
-            cursor.classList.add('cursor-hover');
-        }
-    });
-
-    document.addEventListener('mouseout', (e) => {
-        if (e.target.matches('a, button, input, textarea, select, [role="button"], .logo, .project, .radio-container label, .radio-container input')) {
-            cursor.classList.remove('cursor-hover');
+        if (scrollText.style.fontSize !== `49.3px`) {
+            scrollText.style.opacity = `1`;
         }
     });
 
