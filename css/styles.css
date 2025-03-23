@@ -18,17 +18,92 @@ body {
     padding: 0;
 }
 
-.cursor {
-    pointer-events: none;
+
+.noise::before {
     position: fixed;
-    display: none;
-    transition: all 0.3s ease-in-out;
-    border-radius: 0;
-    mix-blend-mode: difference;
-    z-index: 99999;
-    filter: contrast(1.2);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    content: "";
+    opacity: .02;
+    z-index: 10;
+    pointer-events: none;
+    background: url(../icon/noise.gif);
 }
 
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999 !important;
+    pointer-events: none;
+    mix-blend-mode: difference;
+}
+
+.cursor-point {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    transition: width 0.2s, height 0.2s;
+}
+
+.cursor-point-clicked {
+    width: 20px;
+    height: 20px;
+}
+
+.cursor-circle {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+.cursor-circle-clicked {
+    width: 30px;
+    height: 30px;
+}
+
+/* Style spécifique pour le survol des éléments cliquables */
+.cursor-hover .cursor-circle {
+    width: 55px;
+    height: 55px;
+    background-color: white;
+    border-color: white;
+    z-index: 99998 !important;
+}
+
+.cursor-hover .cursor-point {
+    background-color: rgb(0, 0, 0) !important;
+    z-index: 99999 !important;
+}
+
+/* Masquer le curseur sur les éléments cliquables pour éviter d'avoir deux curseurs */
+a,
+button,
+input,
+textarea,
+select,
+[role="button"],
+.logo,
+.project,
+.radio-container label,
+.radio-container input {
+    cursor: none;
+}
+
+/* Masquer le curseur par défaut sur tout le document */
+html {
+    cursor: none;
+}
+
+/*
 .circle {
     pointer-events: none;
     transition: none;
@@ -46,7 +121,8 @@ body {
 
 .scaled {
     transform: scale(1.5);
-}
+}*/
+
 
 ::selection {
     background-color: var(--main-color);
@@ -68,6 +144,7 @@ header {
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    pointer-events: none;
 }
 
 header .nav {
@@ -76,10 +153,11 @@ header .nav {
     border-radius: 1000px;
     border: var(--main-color) solid 1px;
     background-color: var(--blur-bg-color);
-    backdrop-filter: blur(40px);
+    backdrop-filter: blur(50px);
     display: flex;
     align-items: center;
     padding-inline: 10px;
+    pointer-events: auto;
 }
 
 header img {
@@ -109,7 +187,6 @@ header .logo-nav .logo {
 header .logo-nav button {
     background-color: transparent;
     border: none;
-    cursor: pointer;
     font-family: 'JetBrains_Mono';
     color: var(--main-color);
     letter-spacing: 0.2px;
@@ -135,6 +212,13 @@ header .project-nav {
     align-items: center;
 }
 
+header i {
+    width: 25px;
+    height: 25px;
+    margin-inline: 10px;
+    font-size: 25px;
+}
+
 
 
 
@@ -149,12 +233,10 @@ header .project-nav {
     height: calc(100vh - 190px);
     width: 100vw;
     margin-top: 150px;
-    overflow: hidden;
-    position: relative;
 }
 
 .first .title {
-    font-size: 5rem;
+    font-size: 9.5vh;
     font-weight: 600;
     letter-spacing: 0.2px;
     text-align: center;
@@ -166,7 +248,7 @@ header .project-nav {
 }
 
 .first .description {
-    font-size: 1.7rem;
+    font-size: 3vh;
     font-weight: 400;
     letter-spacing: 0.2px;
     text-align: center;
@@ -179,17 +261,19 @@ header .project-nav {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -70vw;
+    bottom: -60vw;
     z-index: 0 !important;
-    border-radius: 800px;
-    filter: blur(1000px);
+    border-radius: 50%;
+    filter: blur(1000px) brightness(1.1);
+    will-change: opacity, transform;
 }
+
 
 .first .line {
     position: absolute;
     bottom: -10px;
-    right: 2.8rem;
-    width: 18rem;
+    right: 0;
+    width: calc(9.5vh * 3.65);
     z-index: 1;
 }
 
@@ -200,8 +284,7 @@ header .project-nav {
     align-items: center;
     gap: 30px;
     width: 100%;
-    height: 100px;
-    margin-top: 75px;
+    height: 40vh;
 }
 
 .project {
@@ -214,7 +297,6 @@ header .project-nav {
     font-size: 1.1rem;
     font-weight: 500;
     letter-spacing: 0.2px;
-    cursor: pointer;
     border: var(--main-color) solid 1px;
     background: rgb(255, 250, 250);
     background: linear-gradient(180deg, rgba(255, 250, 250, 1) 0%, rgb(189, 189, 189) 100%);
@@ -280,7 +362,6 @@ header .project-nav {
     font-size: 1.1rem;
     font-weight: 400;
     letter-spacing: 0.2px;
-    cursor: pointer;
     border: #b6b6b6 solid 1px;
     font-family: 'JetBrains_Mono';
     background-color: var(--blur-bg-color);
@@ -310,14 +391,210 @@ header .project-nav {
 
 
 .second {
-    width: 100%;
-    height: 100vh;
+    width: calc(100% - 20px);
+    height: 900px;
     background-color: var(--bg-color);
-    border-radius: 20px;
-    z-index: 10 !important;
+    border: var(--blur-bg-color) solid 1px;
+    border-radius: 50px;
+    z-index: 9 !important;
     position: relative;
     top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 -10px 10px var(--blur-bg-color);
 }
+
+.second .title-second {
+    font-size: 6vh;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    position: absolute;
+    top: 0px;
+    left: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.second .title-second i {
+    font-size: 8vh;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    margin: 20px;
+    background-color: var(--main-color);
+    color: var(--bg-color);
+    aspect-ratio: 1;
+    border-radius: 20px;
+    width: 10vh;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -10px;
+    padding: 10px;
+}
+
+.separator {
+    height: 25vh;
+    width: 100%;
+}
+
+.project-section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.radio-container {
+    --main-color-opacity: #ffffff1d;
+
+    /* change this according inputs count */
+    --total-radio: 4;
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 0.5rem;
+    left: 50px;
+    width: 280px;
+    top: 50px;
+    z-index: 10;
+}
+
+.radio-container input {
+    appearance: none;
+}
+
+.radio-container .glider-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(0deg,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(27, 27, 27, 1) 50%,
+            rgba(0, 0, 0, 0) 100%);
+    width: 1px;
+}
+
+.radio-container .glider-container .glider {
+    position: relative;
+    height: calc(100% / var(--total-radio));
+    width: 100%;
+    background: linear-gradient(0deg,
+            rgba(0, 0, 0, 0) 0%,
+            var(--main-color) 50%,
+            rgba(0, 0, 0, 0) 100%);
+    transition: transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56);
+}
+
+.radio-container .glider-container .glider::before {
+    content: "";
+    position: absolute;
+    height: 60%;
+    width: 300%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--main-color);
+    filter: blur(10px);
+}
+
+.radio-container .glider-container .glider::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 150px;
+    background: linear-gradient(90deg,
+            var(--main-color-opacity) 0%,
+            rgba(0, 0, 0, 0) 100%);
+}
+
+.radio-container label {
+    cursor: pointer;
+    padding: 1rem;
+    position: relative;
+    color: rgb(216, 216, 216);
+    transition: all 0.3s ease-in-out;
+}
+
+.radio-container input:checked+label {
+    color: var(--main-color);
+}
+
+.radio-container input:nth-of-type(1):checked~.glider-container .glider {
+    transform: translateY(0);
+}
+
+.radio-container input:nth-of-type(2):checked~.glider-container .glider {
+    transform: translateY(100%);
+}
+
+.radio-container input:nth-of-type(3):checked~.glider-container .glider {
+    transform: translateY(200%);
+}
+
+.radio-container input:nth-of-type(4):checked~.glider-container .glider {
+    transform: translateY(300%);
+}
+
+.radio-container input:nth-of-type(5):checked~.glider-container .glider {
+    transform: translateY(400%);
+}
+
+.radio-container input:nth-of-type(6):checked~.glider-container .glider {
+    transform: translateY(500%);
+}
+
+.radio-container input:nth-of-type(7):checked~.glider-container .glider {
+    transform: translateY(600%);
+}
+
+.radio-container input:nth-of-type(8):checked~.glider-container .glider {
+    transform: translateY(700%);
+}
+
+.radio-container input:nth-of-type(9):checked~.glider-container .glider {
+    transform: translateY(800%);
+}
+
+.radio-container input:nth-of-type(10):checked~.glider-container .glider {
+    transform: translateY(900%);
+}
+
+.project-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 50px;
+    left: 100px;
+    position: absolute;
+}
+
+.project-item {
+    width: calc(100% - 500px);
+    border-radius: 20px;
+    display: none;
+    transform: initial;
+}
+
+.project-item img {
+    max-width: 80%;
+    height: auto;
+    border-radius: 10px;
+    border: var(--main-color) solid 2px;
+    box-shadow: 0 0 10px 5px var(--blur-bg-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.project-item img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px -1px var(--main-color);
+}
+
 
 
 
@@ -329,69 +606,96 @@ header .project-nav {
 
 
 /*
-.first .social_media {
+.radio-input {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    height: 270px;
     align-items: center;
-    gap: 10px;
-    width: 700px;
-    height: 120px;
-    margin-top: 100px;
+    left: 100px;
+    top: 100px;
     position: relative;
-    border-radius: 1000px;
-    backdrop-filter: blur(10px);
-    background-color: var(--blur-bg-color);
-    box-shadow: 0 0 15px #fffafa2f;
-    overflow: hidden;
 }
 
-
-.first .social_media svg {
-    width: 70px;
-    height: 70px;
-    cursor: pointer;
-    fill: var(--main-color);
-    position: relative;
-    top: 2px;
-    left: 1.5px;
-    transition: all 0.3s ease-in-out;
+.glass {
+    z-index: 2;
+    height: 110%;
+    width: 95px;
+    margin-right: 25px;
+    padding: 8px;
+    background-color: rgba(190, 189, 189, 0.5);
+    border-radius: 40px;
+    box-shadow: rgba(50, 50, 93, 0.2) 0px 25px 50px -10px,
+        rgba(0, 0, 0, 0.25) 0px 10px 30px -15px,
+        rgba(10, 37, 64, 0.26) 0px -2px 6px 0px inset;
+    backdrop-filter: blur(8px);
 }
 
-.first .social_media a {
-    position: relative;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease-in-out;
-    margin-inline: 0;
-}
-
-.first .social_media a::after {
-    content: "";
+.glass-inner {
     width: 100%;
     height: 100%;
+    border-color: rgba(245, 245, 245, 0.45);
+    border-width: 9px;
+    border-style: solid;
+    border-radius: 40px;
+    position: relative;
+    right: 10px;
+    bottom: 10px;
+}
+
+.selector {
+    display: flex;
+    flex-direction: column;
+}
+
+.choice {
+    margin: 10px 0 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.choice>div {
+    position: relative;
+    width: 41px;
+    height: 41px;
+    margin-right: 15px;
+    z-index: 0;
+}
+
+.choice-circle {
+    appearance: none;
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    border-width: 9px;
+    border-style: solid;
+    border-color: rgba(245, 245, 245, 0.45);
+    cursor: pointer;
+    box-shadow: 0px 0px 20px -13px gray, 0px 0px 20px -14px gray inset;
+}
+
+.ball {
+    z-index: 1;
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    border-radius: 20px;
-    border: var(--main-color) 2px solid;
-    transform: translateY(calc(100% + 11px));
-    transition: transform 0.2s ease-in-out;
-    background: var(--blur-bg-color);
+    inset: 0px;
+    transform: translateX(-102px);
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -10px 10px 0px inset,
+        rgba(0, 0, 0, 0.15) 0px -15px 15px 0px inset,
+        rgba(0, 0, 0, 0.1) 0px -40px 20px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+        rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+        rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px,
+        0px -1px 15px -8px rgba(0, 0, 0, 0.09);
+    border-radius: 100%;
+    transition: transform 800ms cubic-bezier(1, -0.4, 0, 1.4);
+    background-color: rgb(232, 232, 232, 1);
 }
 
-.first .social_media a:hover::after {
-    transform: translateY(0);
+.choice-circle:checked+.ball {
+    transform: translateX(5px) translateY(3px);
 }
 
-.first .social_media a:hover svg {
-    transform: scale(1.1);
-}
-
-.first .social_media a:hover {
-    padding: 15px;
-    margin-inline: 20px;
+.choice-name {
+    color: rgb(177, 176, 176);
+    font-size: 35px;
+    font-weight: 900;
+    font-family: monospace;
+    cursor: pointer;
 }*/

@@ -26,92 +26,26 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Codealuxz - Développeur Web & Photographe">
     <link rel="preconnect" href="https://photo.codealuxz.fr">
+    <link href="css/uicons-solid-rounded.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="cacheMis"></div>
-    <div class="cursor">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-    </div>
+    <div class="noise"></div>
+    <div class="cursor"></div>
     <header>
         <div class="nav">
             <div class="logo-nav">
                 <button class="home logo">
-                    <img src="./icon/home.gif" alt="">
+                    <i class="fi fi-sr-home"></i>
                     <span class="text-scatter">Home</span>
                 </button>
                 <button class="skill logo">
-                    <img src="./icon/skill.gif" alt="">
-                    <span class="text-scatter">Skills</span>
+                    <i class="fi fi-sr-briefcase"></i>
+                    <span class="text-scatter">Work</span>
                 </button>
                 <button class="work logo">
-                    <img src="./icon/work.gif" alt="">
-                    <span class="text-scatter">Work</span>
+                    <i class="fi fi-sr-phone-flip"></i>
+                    <span class="text-scatter">Contact</span>
                 </button>
             </div>
             <div class="project-nav">
@@ -126,15 +60,16 @@
     </header>
     <main>
         <div class="first">
-            <h1 class="title text-scatter">Hello, I’m Morgan. <svg class="line" width="417" height="21"
+            <h1 class="title text-scatter">Hello, I’m Morgan<svg class="line" width="417" height="21"
                     viewBox="0 0 417 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M2 2C122.033 2 241.943 13.6397 361.917 13.6397C379.143 13.6397 386.5 13.6397 415.107 19.4596"
                         stroke="white" stroke-opacity="1" stroke-width="3" stroke-linecap="round" />
                 </svg></h1>
-            <p class="description text-scatter">My passion is web development.<br>
-I love making projects, innovating,<br>
-and I never stop learning.</p>
+            <p class="description text-scatter">My passion is web development.
+                <br>I love making projects, innovating,
+                <br>and I never stop learning.
+            </p>
             <div class="cta">
                 <button class="project"><span class="text-scatter">Start a Project </span> <svg width="8" height="8"
                         viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,10 +81,56 @@ and I never stop learning.</p>
             <div class="big_shadow"></div>
         </div>
         <div class="second">
-            
+            <h2 class="title-second text-scatter"><i class="fi fi-sr-briefcase"></i> My Projects</h2>
+            <div class="separator"></div>
+            <!-- From Uiverse.io by Smit-Prajapati -->
+            <div class="project-section">
+                <div class="radio-container">
+                    <input checked="" id="radio-photo" name="radio" type="radio" />
+                    <label for="radio-photo">Codealuxz photo</label>
+                    <input id="radio-board" name="radio" type="radio" />
+                    <label for="radio-board">Pixels-Board</label>
+                    <input id="radio-protonix" name="radio" type="radio" />
+                    <label for="radio-protonix">Protonix</label>
+                    <input id="radio-spita" name="radio" type="radio" />
+                    <label for="radio-spita">Spita</label>
+                    <div class="glider-container">
+                        <div class="glider"></div>
+                    </div>
+                </div>
+                <div class="project-container">
+                    <div class="photo project-item">
+                        <img src="img/photo.png" alt="" class="img">
+                        <div class="photo-text">
+                            <h3 class="text-scatter">Codealuxz photo</h3>
+                            <p class="text-scatter">This is a website for my photography. I expose my works and share
+                                them.</p>
+                            <button class="see button"><span class="text-scatter">Go to the website</span></button>
+                        </div>
+                    </div>
+                    <div class="board project-item">
+                        <img src="img/board.png" alt="">
+                        <div class="board-text">
+                            <h3 class="text-scatter">Pixels-Board</h3>
+                            <p class="text-scatter">This is a website how recreat the experience of a r/place (the pixel war) but with an infinit canvas and lot of tools. (Temporary unavailable)</p>
+                            <button class="see button" onclick="window.open('https://pixels-board.codealuxz.fr/','_blank')"><span class="text-scatter">Go to the website</span></button>
+                        </div>
+                    </div>
+                    <div class="protonix project-item">
+                        <img src="img/protonix.png" alt="">
+                        <div class="protonix-text">
+                            <h3 class="text-scatter">Protonix</h3>
+                            <p class="text-scatter">This is a game how I made with Godot engine. The goal is to nd avoid the enemies in a world 2d with 3 differents modes.</p>
+                            <button class="see button" onclick="window.open('https://codealuxz.itch.io/protonix','_blank')"><span class="text-scatter">Play at the game</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </body>
-<script src="./js/script.js"></script>
+<script src="./js/letter.js"></script>
+<script src="./js/cursor.js"></script>
+<script src="./js/noise.js"></script>
 
 </html>

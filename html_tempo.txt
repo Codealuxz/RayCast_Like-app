@@ -1,0 +1,37 @@
+
+            <div class="radio-input">
+                <div class="glass">
+                    <div class="glass-inner"></div>
+                </div>
+                <div class="selector">
+                    <div class="choice">
+                        <div>
+                            <input class="choice-circle" checked="true" value="one" name="number-selector" id="one"
+                                type="radio" />
+                            <div class="ball"></div>
+                        </div>
+                        <label for="one" class="choice-name">Codealuxz photo</label>
+                    </div>
+                    <div class="choice">
+                        <div>
+                            <input class="choice-circle" value="two" name="number-selector" id="two" type="radio" />
+                            <div class="ball"></div>
+                        </div>
+                        <label for="two" class="choice-name">Pixels-Board</label>
+                    </div>
+                    <div class="choice">
+                        <div>
+                            <input class="choice-circle" value="three" name="number-selector" id="three" type="radio" />
+                            <div class="ball"></div>
+                        </div>
+                        <label for="three" class="choice-name">Protonix</label>
+                    </div>
+                    <div class="choice">
+                        <div>
+                            <input class="choice-circle" value="four" name="number-selector" id="four" type="radio" />
+                            <div class="ball"></div>
+                        </div>
+                        <label for="four" class="choice-name">Spita</label>
+                    </div>
+                </div>
+            </div>
