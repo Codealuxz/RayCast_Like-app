@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codealuxz - Développeur Web & Photographe</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="icon/logo.png" sizes="32x32" type="image/png">
+    <meta name="description" content="Moi c'est Codealuxz je suis développeur web et aussi photographe">
+    <meta name="keywords"
+        content="Morgan Mazza, développeur web, portfolio, photographe, full-stack, HTML, CSS, JavaScript, Python, Godot, jeux vidéo, codealuxz, Codealuxz, photo, code, photography">
+    <meta name="author" content="Morgan Mazza / Codealuxz">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    <meta name="alexa" content="index, follow">
+    <meta name="yandex" content="index, follow">
+
+    <meta property="og:title" content="Codealuxz - Développeur Web & Photographe" />
+    <meta property="og:description" content="Moi c'est Codealuxz je suis développeur web et aussi photographe" />
+    <meta property="og:image" content="icon/logo.png" />
+    <meta property="og:url" content="https://codealuxz.fr" />
+    <meta property="og:site_name" content="Codealuxz" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Codealuxz - Développeur Web & Photographe">
+    <link rel="preconnect" href="https://photo.codealuxz.fr">
+    <link href="css/uicons-solid-rounded.css" rel="stylesheet">
+    <link href="css/404.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="noise"></div>
+    <div class="cursor"></div>
+    <main>
+        <div class="first" id="first">
+            <h1 class="title text-scatter">404</h1>
+            <p class="description text-scatter">I think you're lost.
+                <br>This page doesn't exist.
+            </p><br>
+            <button class="project" onclick="window.location.href='/'"><span class="text-scatter">Go back</span></button>
+            <div class="big_shadow one">
+                <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width:0; height:0">
+                    <defs>
+                        <filter id="big_blur_filter" filterUnits="userSpaceOnUse" x="-200%" y="-200%" width="500%"
+                            height="500%">
+                            <!-- Appliquer un flou gaussien : ajustez stdDeviation pour contrôler l’intensité -->
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="200" result="blur" />
+                            <!-- Appliquer un transfert de composante pour simuler brightness(1.1) -->
+                            <feComponentTransfer in="blur" result="bright">
+                                <feFuncR type="linear" slope="1.1" />
+                                <feFuncG type="linear" slope="1.1" />
+                                <feFuncB type="linear" slope="1.1" />
+                            </feComponentTransfer>
+                        </filter>
+                    </defs>
+                </svg>
+            </div>
+            <div class="big_shadow two">
+                <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width:0; height:0">
+                    <defs>
+                        <filter id="big_blur_filter" filterUnits="userSpaceOnUse" x="-200%" y="-200%" width="500%"
+                            height="500%">
+                            <!-- Appliquer un flou gaussien : ajustez stdDeviation pour contrôler l’intensité -->
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="200" result="blur" />
+                            <!-- Appliquer un transfert de composante pour simuler brightness(1.1) -->
+                            <feComponentTransfer in="blur" result="bright">
+                                <feFuncR type="linear" slope="1.1" />
+                                <feFuncG type="linear" slope="1.1" />
+                                <feFuncB type="linear" slope="1.1" />
+                            </feComponentTransfer>
+                        </filter>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="./js/letter.js"></script>
+<script src="./js/cursor.js"></script>
+<script src="./js/noise.js"></script>
+
+</html>

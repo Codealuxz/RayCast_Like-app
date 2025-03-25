@@ -152,8 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isElementClickable) {
             cursor.classList.add('cursor-hover');
             scrollText.style.opacity = '0';
+            scrollText.style.fontSize = '49.3px';
         } else {
             cursor.classList.remove('cursor-hover');
+            scrollText.style.fontSize = '11.9px';
             checkScrollPosition();
         }
     });

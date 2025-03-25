@@ -1,0 +1,35 @@
+.title {
+    font-size: 15vh !important;
+}
+
+body {
+    overflow: hidden !important;
+}
+
+.cursor-scroll-text {
+    display: none !important;
+}
+
+.one {
+    width: 50vw !important;
+    height: 50vh !important;
+    bottom: 0 !important;
+    transform: translateX(-50%) translateY(75%) !important;
+    left: 0 !important;
+}
+
+.two {
+    width: 50vw !important;
+    height: 50vh !important;
+    bottom: 0 !important;
+    transform: translateX(50%) translateY(75%) !important;
+    right: 0 !important;
+}
+
+.first {
+    height: 100vh !important;
+    margin-top: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
