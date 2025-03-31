@@ -1,23 +1,163 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contactez-moi - Codealuxz</title>
+    <title>Codealuxz - Développeur Web & Photographe</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="icon/logo.png" sizes="32x32" type="image/png">
+    <meta name="description" content="Moi c'est Codealuxz je suis développeur web et aussi photographe">
+    <meta name="keywords"
+        content="Morgan Mazza, développeur web, portfolio, photographe, full-stack, HTML, CSS, JavaScript, Python, Godot, jeux vidéo, codealuxz, Codealuxz, photo, code, photography">
+    <meta name="author" content="Morgan Mazza / Codealuxz">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    <meta name="alexa" content="index, follow">
+    <meta name="yandex" content="index, follow">
+
+    <meta property="og:title" content="Codealuxz - Développeur Web & Photographe" />
+    <meta property="og:description" content="Moi c'est Codealuxz je suis développeur web et aussi photographe" />
+    <meta property="og:image" content="icon/logo.png" />
+    <meta property="og:url" content="https://codealuxz.fr" />
+    <meta property="og:site_name" content="Codealuxz" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Codealuxz - Développeur Web & Photographe">
+    <link rel="preconnect" href="https://photo.codealuxz.fr">
+    <link href="css/uicons-solid-rounded.css" rel="stylesheet">
+    <link href="css/autre.css" rel="stylesheet">
+    <link href="css/start.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <h1>Contactez-moi</h1>
-    </header>
-    <main>
-        <p>Vous pouvez me contacter par email à : <a href="mailto:contact@codealuxz.fr">contact@codealuxz.fr</a></p>
-    </main>
-    <footer>
-        <p>© 2025 Codealuxz. Tous droits réservés.</p>
-    </footer>
+    <div class="noise"></div>
+    <div class="cursor"></div>
+    <div class="body">
+        <header>
+            <div class="nav">
+                <div class="logo-nav">
+                    <button type="button" class="home logo" onclick="window.location.href='/#first'">
+                        <i class="fi fi-sr-home"></i>
+                        <span class="text-scatter">Home</span>
+                    </button>
+                    <button type="button" class="skill logo" onclick="window.location.href='/#second'">
+                        <i class="fi fi-sr-briefcase"></i>
+                        <span class="text-scatter">Work</span>
+                    </button>
+                    <button type="button" class="work logo" onclick="window.location.href='/#third'">
+                        <i class="fi fi-sr-phone-flip"></i>
+                        <span class="text-scatter">Contact</span>
+                    </button>
+                </div>
+                <div class="project-nav">
+                    <button type="button" class="project"><span class="text-scatter">See my projects </span> <svg
+                            width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" clipRule="evenodd"
+                                d="M0.175483 7.82452C0.287991 7.93688 0.440501 8 0.599512 8C0.758523 8 0.911032 7.93688 1.02354 7.82452L6.79992 2.04814V6.60044C6.79992 6.75958 6.86314 6.9122 6.97567 7.02473C7.0882 7.13726 7.24082 7.20048 7.39996 7.20048C7.5591 7.20048 7.71172 7.13726 7.82425 7.02473C7.93678 6.9122 8 6.75958 8 6.60044V0.60004C8 0.440899 7.93678 0.288277 7.82425 0.175747C7.71172 0.0632182 7.5591 0 7.39996 0H1.39956C1.24042 0 1.0878 0.0632182 0.975272 0.175747C0.862743 0.288277 0.799525 0.440899 0.799525 0.60004C0.799525 0.75918 0.862743 0.911803 0.975272 1.02433C1.0878 1.13686 1.24042 1.20008 1.39956 1.20008H5.95186L0.175483 6.97646C0.0631157 7.08897 0 7.24148 0 7.40049C0 7.5595 0.0631157 7.71201 0.175483 7.82452Z"
+                                fill="#18181B" />
+                        </svg></button>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="first" id="first">
+                <h1 class="title text-scatter">Contact me</h1>
+                <form name="contact" netlify>
+                    <p>
+                        <label class="text-scatter">Name <input type="text" name="name" /></label>
+                    </p>
+                    <p>
+                        <label class="text-scatter">Email <input type="email" name="email" /></label>
+                    </p>
+                    <p>
+                        <label class="text-scatter">Subject <input type="text" name="subject" /></label>
+                    </p>
+                    <p>
+                        <label class="text-scatter">Message <textarea name="message" rows="4"
+                                cols="50"></textarea></label>
+                    </p>
+                    <p>
+                        <label class="text-scatter">File <input type="file" name="file" /></label>
+                    </p>
+                    <p>
+                        <button type="submit" class="project"><span class="text-scatter">Send</span></button>
+                    </p>
+                </form>
+                <div class="big_shadow one">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width:0; height:0">
+                        <defs>
+                            <filter id="big_blur_filter" filterUnits="userSpaceOnUse" x="-200%" y="-200%" width="500%"
+                                height="500%">
+                                <!-- Appliquer un flou gaussien : ajustez stdDeviation pour contrôler l'intensité -->
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="200" result="blur" />
+                                <!-- Appliquer un transfert de composante pour simuler brightness(1.1) -->
+                                <feComponentTransfer in="blur" result="bright">
+                                    <feFuncR type="linear" slope="1.1" />
+                                    <feFuncG type="linear" slope="1.1" />
+                                    <feFuncB type="linear" slope="1.1" />
+                                </feComponentTransfer>
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="big_shadow two">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width:0; height:0">
+                        <defs>
+                            <filter id="big_blur_filter" filterUnits="userSpaceOnUse" x="-200%" y="-200%" width="500%"
+                                height="500%">
+                                <!-- Appliquer un flou gaussien : ajustez stdDeviation pour contrôler l'intensité -->
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="200" result="blur" />
+                                <!-- Appliquer un transfert de composante pour simuler brightness(1.1) -->
+                                <feComponentTransfer in="blur" result="bright">
+                                    <feFuncR type="linear" slope="1.1" />
+                                    <feFuncG type="linear" slope="1.1" />
+                                    <feFuncB type="linear" slope="1.1" />
+                                </feComponentTransfer>
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="infoot">
+                <h2><img src="./icon/logo.png" alt="logo" class="logo">You have a project in mind ?</h2>
+                <div class="buttons"><button class="project">Contact me</button><button class="project">Start a
+                        project</button></div>
+            </div>
+            <h2 class="menue-title">Codealuxz</h2>
+            <div class="menue">
+                <div class="page menue-item">
+                    <h3>Pages</h3>
+                    <a href="index.html">Home</a>
+                    <a href="start.html">Start a project</a>
+                    <a href="projects.html">See my projects</a>
+                    <a href="contact.html">Contact me</a>
+                </div>
+                <div class="legal menue-item">
+                    <h3>Legal</h3>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="cookie.html">Cookie Policy</a>
+                </div>
+                <div class="social menue-item">
+                    <h3>Social</h3>
+                    <a href="https://www.instagram.com/codealuxz2/">Instagram</a>
+                    <a href="https://www.youtube.com/@Codealuxz">Youtube</a>
+                    <a href="https://www.tiktok.com/@codealuxz">TikTok</a>
+                    <a href="https://github.com/Codealuxz">Github</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Copyright © 2025 Codealuxz. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
 </body>
+<script src="./js/letter.js"></script>
+<script src="./js/cursor.js"></script>
+<script src="./js/noise.js"></script>
 
 </html>
