@@ -1,9 +1,9 @@
 :root {
     --bg-color: #0C0C0C;
-    --bg-color-alt: #111111;
+    --bg-color-alt: #1e1e1e;
     --main-color: #FFFAFA;
     --blur-bg-color: #96969626;
-    --light-color: #494949;
+    --light-color: #ffffff48;
 }
 
 @font-face {
@@ -32,7 +32,7 @@ body {
     width: 100vw;
     height: 100vh;
     content: "";
-    opacity: 0.017;
+    opacity: 0.025;
     z-index: 10;
     pointer-events: none;
     background: url(../icon/noise.gif);
@@ -91,6 +91,7 @@ body {
     width: 55px;
     height: 55px;
     background-color: white;
+
     border-color: white;
     z-index: 99998 !important;
 }
@@ -285,6 +286,13 @@ header i {
     margin-top: 150px;
 }
 
+.position-first {
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: -1000px;
+}
+
 .first .title {
     font-size: 9.5vh;
     font-weight: 600;
@@ -307,6 +315,7 @@ header i {
 .first .big_shadow {
     width: 60vw;
     height: 60vh;
+    min-height: 35vw;
     background-color: var(--main-color);
     position: absolute;
     left: 50%;
@@ -450,7 +459,7 @@ header i {
     width: calc(100% - 20px);
     height: 920px;
     background-color: var(--bg-color);
-    border: var(--blur-bg-color) solid 1px;
+    border: var(--light-color) solid 1px;
     border-radius: 50px;
     z-index: 9 !important;
     position: relative;
@@ -653,7 +662,7 @@ header i {
 .project-item img:hover {
     transform: scale(1.05);
     box-shadow: 0 0 10px -1px var(--main-color);
-    filter: saturate(0.8);
+    filter: saturate(1);
 }
 
 .tag-contener {
@@ -703,6 +712,13 @@ header i {
     border-radius: 50px;
 }
 
+.position-third {
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: -1000px;
+}
+
 .title-third {
     font-size: 6vh;
     font-weight: 600;
@@ -722,7 +738,8 @@ header i {
     position: absolute;
     top: -100px;
 }
-.title-third .text::after{
+
+.title-third .text::after {
     content: "";
     position: absolute;
     bottom: -10px;
@@ -732,7 +749,7 @@ header i {
     border-radius: 10px;
     background-color: var(--main-color);
     box-shadow: 0 5px 10px 0px var(--main-color);
-} 
+}
 
 .title-third i {
     font-size: 7vh;
@@ -768,6 +785,10 @@ header i {
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+    width: 80%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .third .contact-container {
@@ -797,98 +818,122 @@ header i {
 
 
 
+footer {
+    width: calc(100% - 300px);
+    height: 370px;
+    background-color: var(--bg-color-alt);
+    border-inline: var(--main-color) solid 0.2px;
+    border-top: var(--main-color) solid 0.2px;
+    border-radius: 40px 40px 0 0;
+    z-index: 9 !important;
+    position: relative;
+    left: 50%;
+    bottom: -50px;
+    transform: translateX(-50%);
+    box-shadow: 0 -10px 10px var(--blur-bg-color);
+}
 
-/*
-.radio-input {
-    display: flex;
-    height: 270px;
+.infoot {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-direction: row;
     align-items: center;
-    left: 100px;
-    top: 100px;
-    position: relative;
+    padding-inline: 20px;
+    gap: 30px;
+    flex-wrap: wrap;
+    width: calc(100% - 60px);
+    height: 100px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--blur-bg-color);
+    border: var(--main-color) solid 0.2px;
+    border-radius: 30px;
 }
 
-.glass {
-    z-index: 2;
-    height: 110%;
-    width: 95px;
-    margin-right: 25px;
-    padding: 8px;
-    background-color: rgba(190, 189, 189, 0.5);
-    border-radius: 40px;
-    box-shadow: rgba(50, 50, 93, 0.2) 0px 25px 50px -10px,
-        rgba(0, 0, 0, 0.25) 0px 10px 30px -15px,
-        rgba(10, 37, 64, 0.26) 0px -2px 6px 0px inset;
-    backdrop-filter: blur(8px);
+.infoot .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-self: right;
+    align-items: center;
+    gap: 20px;
+
 }
 
-.glass-inner {
-    width: 100%;
-    height: 100%;
-    border-color: rgba(245, 245, 245, 0.45);
-    border-width: 9px;
-    border-style: solid;
-    border-radius: 40px;
-    position: relative;
-    right: 10px;
-    bottom: 10px;
+.infoot .logo {
+    width: 50px;
+    height: 50px;
 }
 
-.selector {
+.infoot h2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.copyright {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    font-size: 15px;
+    color: var(--light-color);
+}
+
+.menue {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+    right: 0;
+    bottom: 0;
+    transform: translateY(calc(-50% + 110px));
+    position: absolute;
+}
+
+.menue .menue-item {
     display: flex;
     flex-direction: column;
-}
-
-.choice {
-    margin: 10px 0 10px 0;
-    display: flex;
     align-items: center;
+    width: 150px;
+    height: calc(100% - 150px);
 }
 
-.choice>div {
-    position: relative;
-    width: 41px;
-    height: 41px;
-    margin-right: 15px;
-    z-index: 0;
-}
-
-.choice-circle {
-    appearance: none;
-    height: 100%;
+.menue h3 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: var(--light-color);
+    text-align: left;
     width: 100%;
-    border-radius: 100%;
-    border-width: 9px;
-    border-style: solid;
-    border-color: rgba(245, 245, 245, 0.45);
-    cursor: pointer;
-    box-shadow: 0px 0px 20px -13px gray, 0px 0px 20px -14px gray inset;
 }
 
-.ball {
-    z-index: 1;
+.menue-item a {
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    color: var(--main-color);
+    text-decoration: none;
+    text-align: left;
+    position: relative;
+    transition: all 0.1s ease-in-out !important;
+    width: 100%;
+    padding: 10px;
+    left: 0;
+}
+
+.menue-item a:hover {
+    position: relative;
+    left: 10px;
+}
+
+.menue-title {
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: var(--main-color);
     position: absolute;
-    inset: 0px;
-    transform: translateX(-102px);
-    box-shadow: rgba(0, 0, 0, 0.17) 0px -10px 10px 0px inset,
-        rgba(0, 0, 0, 0.15) 0px -15px 15px 0px inset,
-        rgba(0, 0, 0, 0.1) 0px -40px 20px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
-        rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
-        rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px,
-        0px -1px 15px -8px rgba(0, 0, 0, 0.09);
-    border-radius: 100%;
-    transition: transform 800ms cubic-bezier(1, -0.4, 0, 1.4);
-    background-color: rgb(232, 232, 232, 1);
+    top: 150px;
+    left: 30px;
 }
-
-.choice-circle:checked+.ball {
-    transform: translateX(5px) translateY(3px);
-}
-
-.choice-name {
-    color: rgb(177, 176, 176);
-    font-size: 35px;
-    font-weight: 900;
-    font-family: monospace;
-    cursor: pointer;
-}*/

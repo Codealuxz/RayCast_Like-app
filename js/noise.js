@@ -1,3 +1,5 @@
+
+
 function generateGrainTexture() {
     let canvas = document.createElement("canvas");
     let ctx = canvas.getContext("2d");
@@ -22,7 +24,8 @@ function generateGrainTexture() {
             content: "";
             position: absolute;
             width: 100%;
-            height: 300vh;
+            min-height: 100vh;
+            height: ;
             top: 0;
             left: 0;
             background-image: url('${grainTexture}');
@@ -34,6 +37,11 @@ function generateGrainTexture() {
             backdrop-filter: blur(5px);
             pointer-events: none;
             z-index: -1;
+        }
+    `;
+    styleTag.innerHTML += `
+        .first::after {
+            height: calc(${document.body.scrollHeight}px + 150px);
         }
     `;
     document.head.appendChild(styleTag);
