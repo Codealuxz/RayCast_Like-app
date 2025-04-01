@@ -22,11 +22,6 @@
     padding-bottom: 150px !important;
 }
 
-.body {
-    height: calc(100vh + 815px) !important;
-    overflow: hidden !important;
-    position: relative !important;
-}
 
 .file {
     display: flex;

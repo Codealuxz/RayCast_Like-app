@@ -1,5 +1,3 @@
-
-
 function generateGrainTexture() {
     let canvas = document.createElement("canvas");
     let ctx = canvas.getContext("2d");
@@ -160,4 +158,27 @@ if (document.readyState === 'loading') {
     // Si le DOM est déjà chargé (par exemple, si le script est chargé de manière asynchrone)
     showSelectedProject();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const styleTag = document.createElement('style');
+    const firstSection = document.querySelector('.first');
+
+    if (firstSection) {
+        // Vérifiez si nous sommes sur la page projects.html
+        if (window.location.pathname === '/projects.html') {
+            styleTag.innerHTML = `
+                .first::after {
+                    height: calc(100vh - 150px); /* Ajustez la hauteur ici */
+                }
+            `;
+        } else {
+            styleTag.innerHTML = `
+                .first::after {
+                    height: calc(${document.body.scrollHeight}px + 150px); /* Hauteur par défaut */
+                }
+            `;
+        }
+        document.head.appendChild(styleTag);
+    }
+});
 
