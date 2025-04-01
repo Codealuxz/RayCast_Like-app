@@ -1,0 +1,140 @@
+.one {
+    width: 60vw !important;
+    height: 50vh !important;
+    top: 0 !important;
+    transform: translateX(-60%) translateY(-50%) !important;
+    left: 0 !important;
+}
+
+.two {
+    width: 60vw !important;
+    height: 50vh !important;
+    bottom: 0 !important;
+    transform: translateX(40%) translateY(10%) !important;
+    right: 0 !important;
+}
+
+
+.first {
+    position: relative !important;
+    display: flex !important;
+    padding-top: 250px !important;
+    padding-bottom: 150px !important;
+}
+
+.body {
+    height: calc(100vh + 815px) !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+.file {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--blur-bg-color);
+    padding: 20px;
+    border-radius: 30px;
+    border: var(--main-color) solid 1px;
+    box-shadow: 0 0 20px 0px var(--light-color);
+    text-align: center;
+    color: var(--main-color);
+    width: 400px;
+    position: relative;
+}
+
+.form label {
+    display: grid;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 600;
+    position: relative;
+    left: -10px;
+}
+
+.form label input {
+    width: 300px;
+    height: 30px;
+    outline: var(--main-color) solid 1px;
+    border: none;
+    border-radius: 20px;
+    padding: 5px;
+    font-size: 1rem;
+    font-family: 'JetBrains_Mono';
+    box-shadow: 0 0 0px 0px var(--main-color);
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    left: 0;
+}
+
+.form label input:focus {
+    box-shadow: 0 0 20px 0px var(--main-color);
+    left: 10px;
+}
+
+.form label input:not(:focus):hover {
+    outline: var(--bg-color) solid 2px;
+    box-shadow: 0 0 10px 0px var(--main-color);
+    left: 5px;
+}
+
+.form label textarea {
+    width: 300px !important;
+    height: 100px;
+    resize: none;
+    outline: var(--main-color) solid 1px;
+    border-radius: 20px;
+    padding: 5px;
+    font-size: 1rem;
+    font-family: 'JetBrains_Mono';
+    border: none;
+    position: relative;
+    left: 0;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 0 0px 0px var(--main-color);
+}
+
+.form label textarea:focus {
+    box-shadow: 0 0 20px 0px var(--main-color);
+    left: 10px;
+}
+
+.form label textarea:not(:focus):hover {
+    outline: var(--bg-color) solid 2px;
+    box-shadow: 0 0 10px 0px var(--main-color);
+    left: 5px;
+}
+
+.sendbtn {
+    display: flex;
+    justify-self: center;
+}
+
+.optional {
+    font-size: 1rem;
+    color: var(--main-color);
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    width: 100%;
+    height: 1px;
+    background-color: var(--main-color);
+    border: none;
+}

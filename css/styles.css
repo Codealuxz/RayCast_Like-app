@@ -820,7 +820,7 @@ header i {
 
 footer {
     width: calc(100% - 300px);
-    height: 370px;
+    height: 380px;
     background-color: var(--bg-color-alt);
     border-inline: var(--main-color) solid 0.2px;
     border-top: var(--main-color) solid 0.2px;
@@ -888,7 +888,7 @@ footer {
     width: 50%;
     right: 0;
     bottom: 0;
-    transform: translateY(calc(-50% + 110px));
+    transform: translateY(calc(-50% + 80px));
     position: absolute;
 }
 
