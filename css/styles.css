@@ -462,7 +462,7 @@ header i {
     height: 920px;
     background-color: var(--bg-color);
     border: var(--light-color) solid 1px;
-    border-radius: 50px;
+    border-radius: 40px;
     z-index: 9 !important;
     position: relative;
     top: -10px;
@@ -702,6 +702,17 @@ header i {
     opacity: 1;
     scale: 1.1;
 }
+
+.more-projects {
+    position: absolute;
+    bottom: 26.5vh;
+    left: 10px;
+}
+
+
+
+
+
 
 
 

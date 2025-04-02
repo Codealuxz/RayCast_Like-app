@@ -29,6 +29,18 @@
     <link href="css/uicons-solid-rounded.css" rel="stylesheet">
     <link href="css/autre.css" rel="stylesheet">
     <link href="css/project.css" rel="stylesheet">
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.2.3/dist/lenis.css">
+    <script>
+        // Initialize Lenis
+        const lenis = new Lenis({
+            autoRaf: true,
+        });
+
+        // Listen for the scroll event and log the event data
+        lenis.on('scroll', (e) => {
+        });
+    </script>
 </head>
 
 <body>
@@ -52,7 +64,7 @@
                     </button>
                 </div>
                 <div class="project-nav">
-                    <button type="button" class="project"><span class="text-scatter">See my projects </span> <svg
+                    <button type="button" class="project"><span class="text-scatter">Start a project </span> <svg
                             width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd"
                                 d="M0.175483 7.82452C0.287991 7.93688 0.440501 8 0.599512 8C0.758523 8 0.911032 7.93688 1.02354 7.82452L6.79992 2.04814V6.60044C6.79992 6.75958 6.86314 6.9122 6.97567 7.02473C7.0882 7.13726 7.24082 7.20048 7.39996 7.20048C7.5591 7.20048 7.71172 7.13726 7.82425 7.02473C7.93678 6.9122 8 6.75958 8 6.60044V0.60004C8 0.440899 7.93678 0.288277 7.82425 0.175747C7.71172 0.0632182 7.5591 0 7.39996 0H1.39956C1.24042 0 1.0878 0.0632182 0.975272 0.175747C0.862743 0.288277 0.799525 0.440899 0.799525 0.60004C0.799525 0.75918 0.862743 0.911803 0.975272 1.02433C1.0878 1.13686 1.24042 1.20008 1.39956 1.20008H5.95186L0.175483 6.97646C0.0631157 7.08897 0 7.24148 0 7.40049C0 7.5595 0.0631157 7.71201 0.175483 7.82452Z"
@@ -72,7 +84,7 @@
                         </div>
                         <div class="title-item">
                             <h2>Codealuxz photo</h2><button type="button" class="project"
-                                onclick="openPopup('Codealuxz photo', 'Description de Codealuxz photo', ['img/photo.png'], false, true, 'https://example.com/codealuxz')">Open
+                                onclick="openPopup('Codealuxz photo', 'This is a website for my photography. I expose my works and share them.', ['img/photo.png'], false, true, 'https://photo.codealuxz.fr/', '', '', ['HTML', 'CSS', 'JavaScript'])">Open
                                 project <i class="fi fi-sr-resize"></i></button>
                         </div>
                     </div>
@@ -82,7 +94,7 @@
                         </div>
                         <div class="title-item">
                             <h2>Pyde</h2><button type="button" class="project"
-                                onclick="openPopup('Pyde', 'Description de Pyde', ['img/pyde.png'], false, true, 'https://example.com/pyde')">Open
+                                onclick="openPopup('Pyde', 'Pyde is a website how you can run python code in the browser and make your own programs it is a online IDE for python.', ['img/pyde.png', 'img/pyde_ui.png'], false, true, 'https://openedide.heberking.com/', '', '', ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Express'])">Open
                                 project <i class="fi fi-sr-resize"></i></button>
                         </div>
                     </div>
@@ -92,7 +104,7 @@
                         </div>
                         <div class="title-item">
                             <h2>Chess4stats</h2><button type="button" class="project"
-                                onclick="openPopup('Chess4stats', 'Description de Chess4stats', ['img/chess.png'], false, true, 'https://example.com/chess4stats')">Open
+                                onclick="openPopup('Chess4stats', 'This is a website made for a chess club. It\'s for cree groups and the user can join it and be convoqued.', ['img/chess.png'], false, false, '', '', '', ['HTML', 'CSS', 'JavaScript', 'Firebase'])">Open
                                 project <i class="fi fi-sr-resize"></i></button>
                         </div>
                     </div>
@@ -102,7 +114,7 @@
                         </div>
                         <div class="title-item">
                             <h2>Pixels-board</h2><button type="button" class="project"
-                                onclick="openPopup('Pixels-board', 'Description de Pixels-board', ['img/board.png'], false, true, 'https://example.com/pixels-board')">Open
+                                onclick="openPopup('Pixels-board', 'This is a website how recreat the experience of a r/place (the pixel war) but with an infinit canvas and lot of tools. (Temporary unavailable)', ['img/board.png'], false, true, 'https://pixels-board.codealuxz.fr/', '', '', ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Express', 'Socket.io'])">Open
                                 project <i class="fi fi-sr-resize"></i></button>
                         </div>
                     </div>
@@ -112,7 +124,7 @@
                         </div>
                         <div class="title-item">
                             <h2>Portfolio (old)</h2><button type="button" class="project"
-                                onclick="openPopup('Portfolio (old)', 'Description de Portfolio (old)', ['img/portfolioV1.png'], false, true, 'https://example.com/portfolio-old')">Open
+                                onclick="openPopup('Portfolio (old)', 'This is the first version of my old version portfolio.', ['img/portfolioV1.png'], false, true, 'https://v1.codealuxz.fr', '', '', ['HTML', 'CSS', 'JavaScript'])">Open
                                 project <i class="fi fi-sr-resize"></i></button>
                         </div>
                     </div>
@@ -122,7 +134,7 @@
                         </div>
                         <div class="title-item">
                             <h2>Protonix</h2><button type="button" class="project"
-                                onclick="openPopup('Protonix', 'Description de Protonix', ['img/protonix.png'], true, false, '', 'https://example.com/protonix')">Open
+                                onclick="openPopup('Protonix', 'This is a game made with Godot engine. The goal is to avoid the enemies in a world 2d with 3 differents modes and grind on the world leaderboard.', ['img/protonix.png'], true, false, '', 'https://codealuxz.itch.io/protonix', '', ['Godot Engine', 'GDscript', 'Firebase'])">Open
                                 project <i class="fi fi-sr-resize"></i></button>
                         </div>
                     </div>
@@ -132,7 +144,7 @@
                         </div>
                         <div class="title-item">
                             <h2>Spita</h2><button type="button" class="project"
-                                onclick="openPopup('Spita', 'Description de Spita', ['img/spita.png'], true, false, '', '', 'https://example.com/spita-download')">Open
+                                onclick="openPopup('Spita', 'This is a game made with Godot engine. This is a 2d platformer with a lot of levels and a lot of enemies.', ['img/spita.png'], true, false, '', 'https://codealuxz.itch.io/spita', 'https://codealuxz.itch.io/spitaexe', ['Godot Engine', 'GDscript'])">Open
                                 project <i class="fi fi-sr-resize"></i></button>
                         </div>
                     </div>
@@ -196,7 +208,6 @@
                     <h3>Legal</h3>
                     <a href="privacy.html">Privacy Policy</a>
                     <a href="terms.html">Terms of Service</a>
-                    <a href="cookie.html">Cookie Policy</a>
                 </div>
                 <div class="social menue-item">
                     <h3>Social</h3>
@@ -213,29 +224,43 @@
     </div>
 
     <!-- Ajout de la structure de la popup avec les nouveaux boutons -->
-    <div id="project-popup" class="popup" style="display:none;">
+    <div id="project-popup" class="popup" style="left:-100%;">
         <div class="popup-content">
             <div class="popup-header">
-                <span class="close button" onclick="closePopup()">
-                    Close <i class="fi fi-sr-x"></i></span>
+                <div id="popup-buttons" class="popup-buttons"></div>
+                <button class="close button" onclick="closePopup()">
+                    Close <i class="fi fi-sr-x"></i></button>
+
             </div>
             <h2 id="popup-title"></h2>
             <p id="popup-description"></p>
-            <div id="popup-images"></div>
-            <div id="popup-buttons" class="popup-buttons"></div>
+            <div id="popup-images" class="images-popup"></div>
+            <div id="tag-contener" class="tag-contener"></div>
         </div>
     </div>
 
     <script>
-        function openPopup(title, description, images, isGame = false, isWebsite = false, visitUrl = '', playUrl = '', downloadUrl = '') {
+        function openPopup(title, description, images, isGame = false, isWebsite = false, visitUrl = '', playUrl = '', downloadUrl = '', tags = []) {
             document.getElementById('popup-title').innerText = title;
+            document.getElementById('popup-title').classList.add('title-popup');
             document.getElementById('popup-description').innerText = description;
+            document.getElementById('popup-description').classList.add('description-popup');
             const imagesContainer = document.getElementById('popup-images');
+            imagesContainer.classList.add('images-popup');
             imagesContainer.innerHTML = '';
             images.forEach(img => {
                 const imgElement = document.createElement('img');
                 imgElement.src = img;
                 imagesContainer.appendChild(imgElement);
+            });
+
+            const tagsContainer = document.getElementById('tag-contener');
+            tagsContainer.innerHTML = '';
+            tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.classList.add('tag');
+                tagElement.innerText = tag;
+                tagsContainer.appendChild(tagElement);
             });
 
             const buttonsContainer = document.getElementById('popup-buttons');
@@ -265,11 +290,11 @@
                 buttonsContainer.appendChild(downloadButton);
             }
 
-            document.getElementById('project-popup').style.display = 'block';
+            document.getElementById('project-popup').style.left = '0';
         }
 
         function closePopup() {
-            document.getElementById('project-popup').style.display = 'none';
+            document.getElementById('project-popup').style.left = '-100%';
         }
 
         window.onclick = function (event) {
@@ -288,5 +313,7 @@
 <script src="./js/letter.js"></script>
 <script src="./js/cursor.js"></script>
 <script src="./js/noise.js"></script>
+
+
 
 </html>

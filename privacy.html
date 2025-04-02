@@ -28,7 +28,7 @@
     <link rel="preconnect" href="https://photo.codealuxz.fr">
     <link href="css/uicons-solid-rounded.css" rel="stylesheet">
     <link href="css/autre.css" rel="stylesheet">
-    <link href="css/contact.css" rel="stylesheet">
+    <link href="css/privacy.css" rel="stylesheet">
     <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.2.3/dist/lenis.css">
     <script>
@@ -64,9 +64,8 @@
                     </button>
                 </div>
                 <div class="project-nav">
-                    <button type="button" class="project" onclick="window.location.href='projects.html'"><span
-                            class="text-scatter">See my projects </span> <svg width="8" height="8" viewBox="0 0 8 8"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <button type="button" class="project"><span class="text-scatter">Start a project </span> <svg
+                            width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd"
                                 d="M0.175483 7.82452C0.287991 7.93688 0.440501 8 0.599512 8C0.758523 8 0.911032 7.93688 1.02354 7.82452L6.79992 2.04814V6.60044C6.79992 6.75958 6.86314 6.9122 6.97567 7.02473C7.0882 7.13726 7.24082 7.20048 7.39996 7.20048C7.5591 7.20048 7.71172 7.13726 7.82425 7.02473C7.93678 6.9122 8 6.75958 8 6.60044V0.60004C8 0.440899 7.93678 0.288277 7.82425 0.175747C7.71172 0.0632182 7.5591 0 7.39996 0H1.39956C1.24042 0 1.0878 0.0632182 0.975272 0.175747C0.862743 0.288277 0.799525 0.440899 0.799525 0.60004C0.799525 0.75918 0.862743 0.911803 0.975272 1.02433C1.0878 1.13686 1.24042 1.20008 1.39956 1.20008H5.95186L0.175483 6.97646C0.0631157 7.08897 0 7.24148 0 7.40049C0 7.5595 0.0631157 7.71201 0.175483 7.82452Z"
                                 fill="#18181B" />
@@ -76,41 +75,38 @@
         </header>
         <main>
             <div class="first" id="first">
-                <h1 class="title text-scatter">Contact me</h1>
+                <h1 class="title text-scatter">Privacy Policy</h1>
 
-                <form name="contact" netlify>
-                    <div class="form">
-                        <h2 class="text-scatter">Contact me</h2>
-                        <hr>
-                        <p>
-                            <label>Name: <input type="text" name="name" /></label>
-                        </p>
-                        <p>
-                            <label>Email: <input type="email" name="email" /></label>
-                        </p>
-                        <p>
-                            <label>Subject: <input type="text" name="subject" /></label>
-                        </p>
-                        <p>
-                            <label>Message: <textarea name="message" rows="4" cols="50"></textarea></label>
-                        </p>
-                        <p class="file">
-                            <label for="file" style="display: none;">File</label>
-                            <button type="button" id="fileButton" class="project text-scatter">Choose a file</button>
-                            <span id="fileName"></span>
-                            <input type="file" name="file" id="file" style="display: none;"
-                                onchange="updateFileName()" />
-                        </p>
-                        <span class="optional">(optional)</span>
-                    </div><br>
-                    <p>
-                        <button type="submit" class="project sendbtn"><span class="text-scatter">Send</span> <i
-                                class="fi fi-sr-paper-plane-top"></i>
-                        </button>
-                    </p>
-                </form>
-                <p style="text-align: center;">My email: <a href="mailto:contact@codealuxz.fr"
-                        style="color: var(--main-color);">contact@codealuxz.fr</a></p>
+                <div class="privacy-container">
+                    <h2>Privacy Policy</h2>
+                    <p>Last updated: 02/04/2025</p>
+                    <p>This Privacy Policy explains how we, Codealuxz, collect, use, and protect your personal information when you visit our website.</p>  
+                    <h3>1. Information We Collect</h3>
+                    <p>When you visit our website, we may collect certain information automatically:</p>
+                    <ul>
+                        <li>Your device information</li>
+                        <li>Your browser type and version</li>
+                        <li>Your operating system</li>
+                        <li>Your screen resolution</li>
+                        <li>Pages you view on our site</li>
+                    </ul>
+                    <h3>2. How We Use Your Information</h3>
+                    <p>We use the information we collect to:</p>
+                    <ul>
+                        <li>Provide and improve our website</li>
+                        <li>Analyze website traffic</li>
+                        <li>Customize your experience</li>
+                    </ul>
+                    <h3>3. Data Sharing and Disclosure</h3>
+                    <p>We do not share your personal information with third parties for marketing purposes.</p>
+                    <h3>4. Data Security</h3>
+                    <p>We implement reasonable security measures to protect your data. However, no method of transmission over the internet is 100% secure.</p>
+                    <h3>5. Your Rights</h3>
+                    <p>You have the right to access, correct, or delete your personal information. You can also object to the processing of your data.</p>
+                    <h3>6. Contact Us</h3>
+                    <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:contact@codealuxz.fr" style="color: var(--main-color);">contact@codealuxz.fr</a>.</p>
+                </div>
+
                 <div class="big_shadow one">
                     <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width:0; height:0">
                         <defs>
@@ -187,23 +183,7 @@
 <script src="./js/letter.js"></script>
 <script src="./js/cursor.js"></script>
 <script src="./js/noise.js"></script>
-<script>
-    function updateFileName() {
-        const fileInput = document.getElementById('file');
-        const fileName = document.getElementById('fileName');
-        fileName.textContent = fileInput.files.length > 0 ? fileInput.files[0].name : '';
-    }
 
-    document.getElementById('fileButton').addEventListener('click', function () {
-        document.getElementById('file').click();
-    });
 
-    // Vérifier si nous sommes sur la page de contact
-    const styleTag = document.createElement('style');
-    styleTag.innerHTML += `
-    height: calc(${window.location.pathname === '/contact.html' ? '300px' : 'calc(' + document.body.scrollHeight + 'px + 150px)'}); 
-    `;
-    document.head.appendChild(styleTag);
-</script>
 
 </html>

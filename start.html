@@ -29,6 +29,18 @@
     <link href="css/uicons-solid-rounded.css" rel="stylesheet">
     <link href="css/autre.css" rel="stylesheet">
     <link href="css/start.css" rel="stylesheet">
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.2.3/dist/lenis.css">
+    <script>
+        // Initialize Lenis
+        const lenis = new Lenis({
+            autoRaf: true,
+        });
+
+        // Listen for the scroll event and log the event data
+        lenis.on('scroll', (e) => {
+        });
+    </script>
 </head>
 
 <body>
@@ -73,6 +85,9 @@
                 <button class="project" onclick="window.open('https://tally.so/r/nG5BD2', '_blank')"><span
                         class="text-scatter">Share me
                         your project</span></button>
+                <br>
+                <button class="button" onclick="window.location.href='projects.html'"><span
+                        class="text-scatter">See my projects</span></button>
                 <div class="big_shadow one">
                     <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute; width:0; height:0">
                         <defs>
@@ -113,7 +128,9 @@
             <div class="infoot">
                 <h2 class="text-scatter"><img src="./icon/logo.png" alt="logo" class="logo">You have a project in mind
                     ?</h2>
-                <div class="buttons"><button class="project text-scatter" onclick="window.location.href='contact.html'">Contact me</button><button class="project text-scatter" onclick="window.location.href='start.html'">Start a
+                <div class="buttons"><button class="project text-scatter"
+                        onclick="window.location.href='contact.html'">Contact me</button><button
+                        class="project text-scatter" onclick="window.location.href='start.html'">Start a
                         project</button></div>
             </div>
             <h2 class="menue-title text-scatter">Codealuxz</h2>
@@ -129,7 +146,6 @@
                     <h3>Legal</h3>
                     <a href="privacy.html">Privacy Policy</a>
                     <a href="terms.html">Terms of Service</a>
-                    <a href="cookie.html">Cookie Policy</a>
                 </div>
                 <div class="social menue-item">
                     <h3>Social</h3>

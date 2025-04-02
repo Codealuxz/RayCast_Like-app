@@ -171,7 +171,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     height: calc(100vh - 150px); /* Ajustez la hauteur ici */
                 }
             `;
-        } else {
+        } 
+        else if (window.location.pathname === '/contact.html' || window.location.pathname === '/privacy.html' || window.location.pathname === '/terms.html') {
+            styleTag.innerHTML = `
+                .first::after {
+                    height: calc(${document.body.scrollHeight}px - 150px); /* Ajustez la hauteur ici */
+                }
+            `;
+        }
+
+        else {
             styleTag.innerHTML = `
                 .first::after {
                     height: calc(${document.body.scrollHeight}px + 150px); /* Hauteur par défaut */

@@ -104,12 +104,15 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+    transition: all 0.2s ease;
 }
+
 
 /* Contenu de la popup */
 .popup-content {
     background-color: var(--bg-color-alt);
-    border-radius: 20px;
+    border-radius: 20px 0 0 20px;
     padding: 20px;
     width: 80%;
     max-width: 800px;
@@ -118,29 +121,104 @@
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
     border: var(--light-color) solid 0.2px;
+    pointer-events: auto;
+    max-height: calc(100vh - 50px);
+    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 /* Bouton de fermeture */
 .close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size:1.2rem;
+    font-size: 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    top: 5px;
 }
-.close i{
-    font-size: 1.2rem;
+
+.close i {
+    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Styles pour les images dans la popup */
-#popup-images img {
-    max-width: 100%;
+.popup-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 20px);
+    height: 50px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.title-popup {
+    font-size: 3em;
+    font-weight: 600;
+    color: var(--main-color);
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.description-popup {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--main-color);
+    margin-top: -10px;
+    margin-left: 20px;
+}
+
+.images-popup img {
+    border-radius: 10px;
+    border: var(--main-color) solid 0.2px;
+    padding: 0;
+    margin: 5px;
+    max-width: calc(100% - 10px);
     height: auto;
     margin-top: 10px;
+}
+
+.images-popup {
+    padding: 10px;
+    max-height: 500px;
+    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.popup-content::-webkit-scrollbar,
+.images-popup::-webkit-scrollbar {
+    width: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0 10px 10px 0;
+}
+
+.popup-content::-webkit-scrollbar-thumb,
+.images-popup::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.popup-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.tag-contener {
+    height: 0px !important;
+    max-width: calc(100% - 10px) !important;
+    background-color: red !important;
+    margin: 0px;
+    margin-left: 15px;
+    padding: 0px;
+    margin-bottom: 40px;
 }
