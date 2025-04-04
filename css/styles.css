@@ -1181,9 +1181,9 @@ footer {
     .radio-container {
         rotate: 90deg;
         position: absolute;
-        top: -50px;
-        right: 10px;
-        width: 250px;
+        top: -30px;
+        right: -10px;
+        width: 265px;
         border-right: var(--main-color) solid 1px;
     }
 

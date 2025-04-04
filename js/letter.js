@@ -1,16 +1,71 @@
 // Variable pour contrôler la puissance de l'effet scatter
 let scatterPower = 0.8; // Valeur par défaut, peut être ajustée entre 0 et 3
 
-// Ajout d'une vérification pour les appareils tactiles
-const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+// Fonction pour traiter les éléments avec la classe 'rotate-text'
+function processRotateText(element) {
+    const text = element.textContent;
+    const fragment = document.createDocumentFragment();
+    const container = document.createElement('span');
+    container.className = 'scatter-container';
+    fragment.appendChild(container);
 
-// Ajout de l'effet d'écartement des lettres au passage de la souris
-document.addEventListener('mousemove', function (e) {
-    if (isTouchDevice) return; // Ne pas appliquer l'effet sur les appareils tactiles
+    // Diviser le texte en mots pour éviter les coupures
+    const words = text.split(/(\s+)/);
 
+    for (let i = 0; i < words.length; i++) {
+        const word = words[i];
+
+        if (word.trim() === '') {
+            // Préserver les espaces
+            container.appendChild(document.createTextNode(word));
+        } else {
+            // Créer un conteneur pour chaque mot
+            const wordSpan = document.createElement('span');
+            wordSpan.className = 'scatter-word';
+            wordSpan.style.display = 'inline-block';
+            wordSpan.style.whiteSpace = 'nowrap';
+
+            // Traiter chaque lettre du mot
+            for (let j = 0; j < word.length; j++) {
+                const span = document.createElement('span');
+                span.textContent = word[j];
+                span.style.display = 'inline-block';
+                span.style.transition = 'transform 0.2s ease-out';
+                span.className = 'rotated-letter';
+
+                wordSpan.appendChild(span);
+            }
+
+            container.appendChild(wordSpan);
+        }
+    }
+
+    element.innerHTML = ''; // Vider le contenu original
+    element.appendChild(container); // Ajouter le nouveau contenu
+}
+
+// Appeler la fonction pour traiter tous les éléments avec la classe 'rotate-text' lors du chargement
+document.addEventListener('DOMContentLoaded', function () {
     const textElements = document.querySelectorAll('.text-scatter');
 
     textElements.forEach(function (element) {
+        // Vérifier si la classe 'rotate-text' est présente
+        if (element.classList.contains('rotate-text')) {
+            processRotateText(element); // Appeler la fonction pour découper les lettres
+        }
+    });
+});
+
+// Ajout de l'effet d'écartement des lettres au passage de la souris
+document.addEventListener('mousemove', function (e) {
+    const textElements = document.querySelectorAll('.text-scatter');
+
+    textElements.forEach(function (element) {
+        // Vérifier si la classe 'rotate-text' est présente
+        if (element.classList.contains('rotate-text')) {
+            processRotateText(element); // Appeler la nouvelle fonction
+        }
+
         const rect = element.getBoundingClientRect();
 
         // Vérifier si la souris est sur ou proche du texte
