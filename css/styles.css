@@ -297,6 +297,7 @@ header i {
     font-size: 9.5vh;
     font-weight: 600;
     letter-spacing: 0.2px;
+    margin-inline: 5px;
     text-align: center;
     position: relative;
     background: #FFFAFA;
@@ -310,9 +311,10 @@ header i {
     font-weight: 400;
     letter-spacing: 0.2px;
     text-align: center;
+    margin-inline: 20px;
 }
 
-.first .big_shadow {
+.first .big_shadow:not(.ios-shadow) {
     width: 60vw;
     height: 60vh;
     min-height: 35vw;
@@ -325,7 +327,28 @@ header i {
     border-radius: 50%;
     /* Utilisation du filtre SVG à la place de blur(1000px) */
     filter: url(#big_blur_filter) brightness(1.1);
+    -webkit-filter: url(#big_blur_filter) brightness(1.1);
+    transform: translate3d(0, 0, 0);
     will-change: opacity, transform;
+}
+.first .ios-shadow{
+    width: 100vw;
+    height: 60vh;
+    background-color: var(--main-color);
+    position: absolute;
+    left: 0;
+    transform: translateX(-50%);
+    bottom: -60vh;
+    z-index: 0 !important;
+    border-radius: 50%;
+    /* Utilisation du filtre SVG à la place de blur(1000px) */
+    filter: blur(100px) brightness(1.1);
+    -webkit-filter: blur(100px) brightness(1.1);
+    transform: translate3d(0, 0, 0);
+    will-change: opacity, transform;
+}
+.first *{
+    z-index: 1 !important;
 }
 
 
@@ -365,6 +388,7 @@ header i {
     color: var(--bg-color);
     box-shadow: 0 78px 22px 0 transparent, 0 50px 20px 0 rgba(0, 0, 0, .01), 0 28px 17px 0 rgba(0, 0, 0, .05), 0 13px 13px 0 rgba(0, 0, 0, .09), 0 3px 7px 0 rgba(0, 0, 0, .1);
     transition: all 0.3s ease-in-out;
+    max-height: 60px;
 }
 
 .project svg,
@@ -900,7 +924,7 @@ footer {
     justify-content: space-between;
     width: 50%;
     right: 0;
-    bottom: 0;
+    bottom: 20px;
     transform: translateY(calc(-50% + 80px));
     position: absolute;
 }
@@ -949,4 +973,327 @@ footer {
     position: absolute;
     top: 150px;
     left: 30px;
+}
+
+/*1500*/
+@media (max-width: 1500px) {
+    footer .menue {
+        transform: translateY(calc(-50% + 120px));
+    }
+
+    .copyright {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 1037px) {
+    .infoot h2 {
+        font-size: 1em;
+    }
+
+    footer .menue {
+        scale: 0.8;
+        transform: translateY(calc(-50% + 100px));
+        right: 0;
+    }
+
+    .project-item img {
+        width: 100%;
+    }
+}
+
+@media (max-width: 900px) {
+    .infoot {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0px;
+        height: 170px;
+    }
+
+    .infoot .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -20px;
+    }
+
+    .infoot h2 {
+        font-size: 1.5em;
+    }
+
+    footer {
+        width: calc(100% - 100px);
+        height: 410px;
+    }
+
+    footer .menue {
+        scale: 0.8;
+        transform: translateY(calc(-50% + 100px));
+        width: 70%;
+        right: 0;
+    }
+
+    footer .menue-title {
+        top: 180px;
+    }
+}
+
+@media (max-width: 980px) {
+    header .nav {
+        margin-inline: 50px;
+    }
+}
+
+/* Styles pour le menu burger */
+.burger {
+    display: none;
+    /* Masquer par défaut */
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: var(--main-color);
+    cursor: pointer;
+    z-index: 10000;
+    /* Assurez-vous qu'il est au-dessus des autres éléments */
+}
+
+/* Styles pour le menu déroulant */
+.nav {
+    display: flex;
+    /* Affichage normal par défaut */
+    flex-direction: row;
+    /* Alignement horizontal */
+}
+
+@media (max-width: 800px) {
+    .burger {
+        display: block;
+        pointer-events: auto;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        border: var(--main-color) solid 1px;
+        background-color: var(--blur-bg-color);
+        -webkit-backdrop-filter: blur(50px);
+        backdrop-filter: blur(50px);
+        border-radius: 100px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    header {
+        width: 100%;
+        overflow: hidden;
+        height: 1000px;
+    }
+
+    .nav {
+        display: none;
+        scale: 0;
+        /* Masquer la barre de navigation par défaut */
+        flex-direction: column;
+        /* Alignement vertical */
+        position: absolute;
+        top: 0px;
+        right: -450px;
+        z-index: 9999;
+        gap: 20px;
+        transition: all 0.3s ease-in-out;
+        filter: blur(50px);
+        margin: 0;
+    }
+
+    .nav * {
+        scale: 0;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .nav .logo-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .nav.active {
+        position: absolute;
+        top: 20px;
+        right: 0px;
+        display: flex;
+        scale: 1;
+        width: 250px;
+        height: auto;
+        border-radius: 50px;
+        padding: 20px;
+        gap: 20px;
+        filter: blur(0px);
+    }
+
+    .nav.active * {
+        scale: 1;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .first {
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 850px) {
+    .line {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    * {
+        font-weight: 500 !important;
+    }
+
+    .first .title {
+        font-weight: 500;
+        font-size: 9vh;
+        margin-top: 25px;
+    }
+
+    .first .description {
+        font-weight: 400;
+        font-size: 3vh;
+        margin-top: -10px
+    }
+
+    .first {
+        margin-top: -10px;
+        height: calc(100vh - 10px);
+    }
+
+    .first .cta {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: -20px;
+    }
+
+    .radio-container {
+        rotate: 90deg;
+        position: absolute;
+        top: -50px;
+        right: 10px;
+        width: 250px;
+        border-right: var(--main-color) solid 1px;
+    }
+
+    .rotated-letter {
+        display: inline-block;
+        transform: rotate(-90deg);
+        margin-inline: 3px;
+        position: relative !important;
+        bottom: 10px !important;
+    }
+
+    .rotate-text {
+        display: flex;
+        align-items: center;
+    }
+
+    .project-container {
+        width: calc(100vw - 150px) !important;
+        display: flex !important;
+        justify-content: center !important;
+        top: 300px;
+    }
+
+    .tag-contener {
+        width: calc(120%);
+        gap: 10px;
+        margin: 0px;
+    }
+
+    .second {
+        height: 1150px;
+    }
+
+    .title-second {
+        top: 0px;
+        left: 0px !important;
+        margin: 0px;
+        font-size: 4vh !important;
+    }
+
+    .title-second i {
+        font-size: 5vh !important;
+        width: 7vh !important;
+        height: 7vh !important;
+    }
+
+    .third .title-third {
+        font-size: 5vh !important;
+        text-align: center;
+        top: 80px;
+    }
+
+    .third .title-third span::after {
+        display: none;
+    }
+
+    .third .title-third i {
+        margin-top: 40px;
+        font-size: 7vh !important;
+    }
+
+    .third .contact-container {
+        display: flex !important;
+        width: 100%;
+        margin-inline: 0 !important;
+    }
+
+    .third {
+        overflow: hidden;
+        padding-bottom: 30px;
+        padding-top: 100px;
+        margin-top: -100px;
+    }
+
+    footer {
+        width: calc(100vw - 20px);
+        left: 50;
+        transform: translateX(-50%);
+        margin: 0;
+        padding: 0;
+        height: 500px;
+        margin-top: 170px;
+    }
+
+    footer .infoot {
+        font-size: 15px;
+    }
+
+    footer .menue {
+        left: 0;
+        padding: 0;
+        margin: 0;
+        top: 230px;
+        width: 100%;
+    }
+
+    .social-container {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .social-container .project {
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+}
+@media (max-width: 400px) {
+    footer .infoot h2 {
+        font-size: 1.3em;
+    }
 }

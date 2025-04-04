@@ -18,7 +18,7 @@
 .first {
     position: relative !important;
     display: flex !important;
-    padding-top: 250px !important;
+    padding-top: 280px !important;
     padding-bottom: 150px !important;
 }
 
@@ -132,4 +132,43 @@ hr {
     height: 1px;
     background-color: var(--main-color);
     border: none;
+}
+
+@media (max-width: 530px) {
+    .form {
+        width: 80% !important;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .form label input {
+        width: 100% !important;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form label textarea {
+        width: 70% !important;
+    }
+
+    .form label:has(textarea) {
+        margin-left: 15%;
+    }
+
+    .sendbtn {
+        width: 80% !important;
+        justify-content: center !important;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        display: initial;
+    }
+    .sendbtn:hover {
+        transform: translateY(-5px) translateX(-50%);
+    }
 }

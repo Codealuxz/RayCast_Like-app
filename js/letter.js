@@ -1,8 +1,13 @@
 // Variable pour contrôler la puissance de l'effet scatter
 let scatterPower = 0.8; // Valeur par défaut, peut être ajustée entre 0 et 3
 
+// Ajout d'une vérification pour les appareils tactiles
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
 // Ajout de l'effet d'écartement des lettres au passage de la souris
 document.addEventListener('mousemove', function (e) {
+    if (isTouchDevice) return; // Ne pas appliquer l'effet sur les appareils tactiles
+
     const textElements = document.querySelectorAll('.text-scatter');
 
     textElements.forEach(function (element) {

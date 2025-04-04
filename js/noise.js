@@ -168,14 +168,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.location.pathname === '/projects.html') {
             styleTag.innerHTML = `
                 .first::after {
-                    height: calc(100vh - 150px); /* Ajustez la hauteur ici */
+                    height: calc(${document.body.scrollHeight}px - 150px); /* Ajustez la hauteur ici */
                 }
             `;
-        } 
+        }
         else if (window.location.pathname === '/contact.html' || window.location.pathname === '/privacy.html' || window.location.pathname === '/terms.html') {
             styleTag.innerHTML = `
                 .first::after {
                     height: calc(${document.body.scrollHeight}px - 150px); /* Ajustez la hauteur ici */
+                }
+            `;
+        }
+        else if (window.location.pathname === '/start.html') {
+            styleTag.innerHTML = `
+                .first::after {
+                    height: calc(${document.body.scrollHeight}px + 150px); /* Hauteur par défaut */
                 }
             `;
         }
@@ -188,6 +195,26 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
         document.head.appendChild(styleTag);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    if (isIOS) {
+        document.querySelectorAll(".big_shadow").forEach(original => {
+            const parent = original.parentElement;
+
+            // Crée un nouvel élément
+            const iosShadow = document.createElement("div");
+
+            // Copie toutes les classes existantes
+            original.classList.forEach(cls => iosShadow.classList.add(cls));
+            iosShadow.classList.add("ios-shadow"); // Ajoute la classe spécifique iOS
+
+            // Remplace l'ancien élément par le nouveau à la même position
+            parent.replaceChild(iosShadow, original);
+        });
     }
 });
 

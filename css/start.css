@@ -19,7 +19,9 @@
 }
 
 .body {
-    height: calc(100vh + 415px) !important;
+    height:auto !important;
+    width: 100vw !important;
     overflow: hidden !important;
     position: relative !important;
+    padding-bottom: 50px !important;
 }

@@ -75,3 +75,8 @@
     padding-bottom: 30px;
 }
 
+@media screen and (max-width: 800px) {
+    .privacy-container {
+        width: calc(100% - 50px) !important;
+    }
+}

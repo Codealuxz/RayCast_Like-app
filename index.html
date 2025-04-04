@@ -46,7 +46,8 @@
     <div class="noise"></div>
     <div class="cursor"></div>
     <header>
-        <div class="nav">
+        <button class="burger" onclick="toggleMenu()"><i class="fi fi-sr-menu-burger"></i></button>
+        <nav class="nav">
             <div class="logo-nav">
                 <button type="button" class="home logo" onclick="window.location.href='#first'">
                     <i class="fi fi-sr-home"></i>
@@ -70,7 +71,7 @@
                             fill="#18181B" />
                     </svg></button>
             </div>
-        </div>
+        </nav>
     </header>
     <main>
         <div class="first">
@@ -85,12 +86,14 @@
                 <br>and I never stop learning.
             </p>
             <div class="cta">
-                <button onclick="window.location.href = 'start.html'" type="button" class="project"><span class="text-scatter">Start a Project </span> <svg width="8"
-                        height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button onclick="window.location.href = 'start.html'" type="button" class="project"><span
+                        class="text-scatter">Start a Project </span> <svg width="8" height="8" viewBox="0 0 8 8"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd"
                             d="M0.175483 7.82452C0.287991 7.93688 0.440501 8 0.599512 8C0.758523 8 0.911032 7.93688 1.02354 7.82452L6.79992 2.04814V6.60044C6.79992 6.75958 6.86314 6.9122 6.97567 7.02473C7.0882 7.13726 7.24082 7.20048 7.39996 7.20048C7.5591 7.20048 7.71172 7.13726 7.82425 7.02473C7.93678 6.9122 8 6.75958 8 6.60044V0.60004C8 0.440899 7.93678 0.288277 7.82425 0.175747C7.71172 0.0632182 7.5591 0 7.39996 0H1.39956C1.24042 0 1.0878 0.0632182 0.975272 0.175747C0.862743 0.288277 0.799525 0.440899 0.799525 0.60004C0.799525 0.75918 0.862743 0.911803 0.975272 1.02433C1.0878 1.13686 1.24042 1.20008 1.39956 1.20008H5.95186L0.175483 6.97646C0.0631157 7.08897 0 7.24148 0 7.40049C0 7.5595 0.0631157 7.71201 0.175483 7.82452Z"
                             fill="#18181B" />
-                    </svg></button><button type="button" class="see button" onclick="window.location.href = 'projects.html'"><span class="text-scatter">See my
+                    </svg></button><button type="button" class="see button"
+                    onclick="window.location.href = 'projects.html'"><span class="text-scatter">See my
                         projects</span></button>
             </div>
             <div class="big_shadow">
@@ -117,13 +120,13 @@
             <div class="project-section">
                 <div class="radio-container">
                     <input checked="" id="radio-photo" name="radio" type="radio" />
-                    <label for="radio-photo" class="text-scatter">Codealuxz photo</label>
+                    <label for="radio-photo" class="text-scatter rotate-text">Codealuxz photo</label>
                     <input id="radio-board" name="radio" type="radio" />
-                    <label for="radio-board" class="text-scatter">Pixels-Board</label>
+                    <label for="radio-board" class="text-scatter rotate-text">Pixels-Board</label>
                     <input id="radio-protonix" name="radio" type="radio" />
-                    <label for="radio-protonix" class="text-scatter">Protonix</label>
+                    <label for="radio-protonix" class="text-scatter rotate-text">Protonix</label>
                     <input id="radio-spita" name="radio" type="radio" />
-                    <label for="radio-spita" class="text-scatter">Spita</label>
+                    <label for="radio-spita" class="text-scatter rotate-text">Spita</label>
                     <div class="glider-container">
                         <div class="glider"></div>
                     </div>
@@ -138,8 +141,9 @@
                             <div class="tag-contener">
                                 <span>HTML</span><span>CSS</span><span>JavaScript</span>
                             </div>
-                            <button type="button" class="see button"><span class="text-scatter">Go to the
-                                    website</span></button>
+                            <button type="button" class="see button"
+                                onclick="openPopup('Codealuxz photo', 'This is a website for my photography. I expose my works and share them.', ['img/photo.png'], ['HTML', 'CSS', 'JavaScript'], 'https://photo.codealuxz.fr', false, false)"><span
+                                    class="text-scatter">Open project</span></button>
                         </div>
                     </div>
                     <div class="board project-item">
@@ -152,8 +156,8 @@
                                 <span>HTML</span><span>CSS</span><span>JavaScript</span><span>NodeJS</span>
                             </div>
                             <button type="button" class="see button"
-                                onclick="window.open('https://pixels-board.codealuxz.fr/','_blank')"><span
-                                    class="text-scatter">Go to the website</span></button>
+                                onclick="openPopup('Pixels-Board', 'This is a website how recreat the experience of a r/place (the pixel war) but with an infinit canvas and lot of tools. (Temporary unavailable)', ['img/board.png'], ['HTML', 'CSS', 'JavaScript', 'NodeJS'], 'https://pixels-board.codealuxz.fr', true, 'https://pixels-board.codealuxz.fr')"><span
+                                    class="text-scatter">Open project</span></button>
                         </div>
                     </div>
                     <div class="protonix project-item">
@@ -167,8 +171,8 @@
                                 <span>Godot Engine</span><span>GDscript</span><span>Firebase</span>
                             </div>
                             <button type="button" class="see button"
-                                onclick="window.open('https://codealuxz.itch.io/protonix','_blank')"><span
-                                    class="text-scatter">Play at the game</span></button>
+                                onclick="openPopup('Protonix', 'This is a game how I made with Godot engine. The goal is to avoid the enemies in a world 2d with 3 differents modes and grind on the world leaderboard.', ['img/protonix.png'], ['Godot Engine', 'GDscript', 'Firebase'], 'https://codealuxz.itch.io/protonix', true, 'https://codealuxz.itch.io/protonix')"><span
+                                    class="text-scatter">Open project</span></button>
                         </div>
                     </div>
                     <div class="spita project-item">
@@ -181,18 +185,15 @@
                                 <span>Godot Engine</span><span>GDscript</span>
                             </div>
                             <button type="button" class="see button"
-                                onclick="window.open('https://codealuxz.itch.io/spita','_blank')"><span
-                                    class="text-scatter">Play at the game</span></button> <button type="button"
-                                class="see button"
-                                onclick="window.open('https://codealuxz.itch.io/spitaexe','_blank')"><span
-                                    class="text-scatter">Download the game</span></button>
+                                onclick="openPopup('Spita', 'This is a game how I made with Godot engine. This is a 2d platformer game with a lot of levels and 2 worlds.', ['img/spita.png'], ['Godot Engine', 'GDscript'], 'https://codealuxz.itch.io/spita', true, 'https://codealuxz.itch.io/spitaexe')"><span
+                                    class="text-scatter">Open project</span></button>
                         </div>
                     </div>
                 </div>
-            <div class="more-projects">
-                                <button class="see button" onclick="window.location.href='projects.html'"><span
-                        class="text-scatter">See all my projects</span></button>
-            </div>
+                <div class="more-projects">
+                    <button class="see button" onclick="window.location.href='projects.html'"><span
+                            class="text-scatter">See all my projects</span></button>
+                </div>
             </div>
         </div>
         <div class="positionthird" id="third"></div>
@@ -263,7 +264,8 @@
     <footer>
         <div class="infoot">
             <h2><img src="./icon/logo.png" alt="logo" class="logo">You have a project in mind ?</h2>
-            <div class="buttons"><button class="project" onclick="window.location.href='contact.html'">Contact me</button><button class="project" onclick="window.location.href='start.html'">Start a
+            <div class="buttons"><button class="project" onclick="window.location.href='contact.html'">Contact
+                    me</button><button class="project" onclick="window.location.href='start.html'">Start a
                     project</button></div>
         </div>
         <h2 class="menue-title">Codealuxz</h2>
