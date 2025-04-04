@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://codealuxz.fr/sitemap.xml
