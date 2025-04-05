@@ -236,6 +236,7 @@ function toggleMenu() {
     nav.classList.toggle('active'); // Ajoute ou enlève la classe active
 }
 
+
 // Fonction à appeler pour naviguer avec la transition
 function navigateWithTransition(url) {
     window.location.href = url;

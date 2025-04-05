@@ -1343,3 +1343,9 @@ footer {
     }
 }
 
+.blur {
+    filter: blur(5px);
+    /* Ajustez la valeur du flou selon vos préférences */
+    transition: filter 0.1s ease;
+    /* Transition douce pour le flou */
+}
