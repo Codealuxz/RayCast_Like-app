@@ -1343,29 +1343,3 @@ footer {
     }
 }
 
-
-.transition-overlay {
-    position: fixed;
-    width: 200vw;
-    height: 200vh;
-    top: -50vh;
-    left: -50vw;
-    background-color: rgb(255, 255, 255);
-    transform-origin: center;
-    z-index: 99999 !important;
-    pointer-events: none;
-    filter:
-        blur(10px) saturate(1.5) contrast(1.2) drop-shadow(0 0 5px rgba(255, 0, 0, 0.5)) drop-shadow(0 0 5px rgba(0, 255, 0, 0.5)) drop-shadow(0 0 5px rgba(0, 0, 255, 0.5));
-    /* Ajoutez un léger décalage pour l'aberration chromatique */
-    transform: translateZ(0);
-}
-
-/* Sur la page de départ, l'overlay est hors écran */
-.start-page .transition-overlay {
-    transform: rotate(45deg) translateX(-200%);
-}
-
-/* Sur la page d'arrivée, l'overlay commence en plein écran */
-.target-page .transition-overlay {
-    transform: rotate(45deg) translateX(0%);
-}
