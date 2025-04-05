@@ -316,8 +316,8 @@ header i {
 
 .first .big_shadow:not(.ios-shadow) {
     width: 60vw;
-    height: 60vh;
-    min-height: 35vw;
+    height: 70vh;
+    min-height: 40vw;
     background-color: var(--main-color);
     position: absolute;
     left: 50%;
@@ -328,7 +328,6 @@ header i {
     /* Utilisation du filtre SVG à la place de blur(1000px) */
     filter: url(#big_blur_filter) brightness(1.1);
     -webkit-filter: url(#big_blur_filter) brightness(1.1);
-    transform: translate3d(0, 0, 0);
     will-change: opacity, transform;
 }
 .first .ios-shadow{
