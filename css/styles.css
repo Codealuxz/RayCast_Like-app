@@ -316,6 +316,7 @@ header i {
 
 .first .big_shadow:not(.ios-shadow) {
     width: 60vw;
+    min-width: 70vh !important;
     height: 70vh;
     min-height: 40vw;
     background-color: var(--main-color);
@@ -330,7 +331,8 @@ header i {
     -webkit-filter: url(#big_blur_filter) brightness(1.1);
     will-change: opacity, transform;
 }
-.first .ios-shadow{
+
+.first .ios-shadow {
     width: 100vw;
     height: 60vh;
     background-color: var(--main-color);
@@ -346,7 +348,8 @@ header i {
     transform: translate3d(0, 0, 0);
     will-change: opacity, transform;
 }
-.first *{
+
+.first * {
     z-index: 1 !important;
 }
 
@@ -1291,8 +1294,78 @@ footer {
     }
 
 }
+
 @media (max-width: 400px) {
     footer .infoot h2 {
         font-size: 1.3em;
     }
+}
+
+/* Animation de glissement depuis le bas */
+@keyframes slideUp {
+    0% {
+        transform: translateY(100px);
+        scale: 1;
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(60px);
+        opacity: 1;
+        scale: 1.1;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+/* Animation de glissement depuis le bas */
+@keyframes slideUpBigShadow {
+    0% {
+        transform: translateY(100px) translateX(-50%);
+        scale: 1;
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(60px) translateX(-50%);
+        opacity: 1;
+        scale: 1.1;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+
+.transition-overlay {
+    position: fixed;
+    width: 200vw;
+    height: 200vh;
+    top: -50vh;
+    left: -50vw;
+    background-color: rgb(255, 255, 255);
+    transform-origin: center;
+    z-index: 99999 !important;
+    pointer-events: none;
+    filter:
+        blur(10px) saturate(1.5) contrast(1.2) drop-shadow(0 0 5px rgba(255, 0, 0, 0.5)) drop-shadow(0 0 5px rgba(0, 255, 0, 0.5)) drop-shadow(0 0 5px rgba(0, 0, 255, 0.5));
+    /* Ajoutez un léger décalage pour l'aberration chromatique */
+    transform: translateZ(0);
+}
+
+/* Sur la page de départ, l'overlay est hors écran */
+.start-page .transition-overlay {
+    transform: rotate(45deg) translateX(-200%);
+}
+
+/* Sur la page d'arrivée, l'overlay commence en plein écran */
+.target-page .transition-overlay {
+    transform: rotate(45deg) translateX(0%);
 }

@@ -44,6 +44,7 @@
 </head>
 
 <body>
+    <div class="transition-overlay"></div>
     <div class="noise"></div>
     <div class="cursor"></div>
     <div class="body">
@@ -51,15 +52,15 @@
             <button class="burger" onclick="toggleMenu()"><i class="fi fi-sr-menu-burger"></i></button>
             <div class="nav">
                 <div class="logo-nav">
-                    <button type="button" class="home logo" onclick="window.location.href='/#first'">
+                    <button type="button" class="home logo" onclick="navigateWithTransition('index.html#first'); return false;">
                         <i class="fi fi-sr-home"></i>
                         <span class="text-scatter">Home</span>
                     </button>
-                    <button type="button" class="skill logo" onclick="window.location.href='/#second'">
+                    <button type="button" class="skill logo" onclick="navigateWithTransition('index.html#second'); return false;">
                         <i class="fi fi-sr-briefcase"></i>
                         <span class="text-scatter">Work</span>
                     </button>
-                    <button type="button" class="work logo" onclick="window.location.href='/#third'">
+                    <button type="button" class="work logo" onclick="navigateWithTransition('index.html#third'); return false;">
                         <i class="fi fi-sr-phone-flip"></i>
                         <span class="text-scatter">Contact</span>
                     </button>
@@ -154,23 +155,23 @@
                 <h2 class="text-scatter"><img src="./icon/logo.png" alt="logo" class="logo">You have a project in mind
                     ?</h2>
                 <div class="buttons"><button class="project text-scatter"
-                        onclick="window.location.href='contact.html'">Contact me</button><button
-                        class="project text-scatter" onclick="window.location.href='start.html'">Start a
+                        onclick="navigateWithTransition('contact.html'); return false;">Contact me</button><button
+                        class="project text-scatter" onclick="navigateWithTransition('start.html'); return false;">Start a
                         project</button></div>
             </div>
             <h2 class="menue-title text-scatter">Codealuxz</h2>
             <div class="menue">
                 <div class="page menue-item">
                     <h3>Pages</h3>
-                    <a href="index.html">Home</a>
-                    <a href="start.html">Start a project</a>
-                    <a href="projects.html">See my projects</a>
-                    <a href="contact.html">Contact me</a>
+                    <a onclick="navigateWithTransition('index.html'); return false;" href="index.html">Home</a>
+                    <a onclick="navigateWithTransition('start.html'); return false;" href="start.html">Start a project</a>
+                    <a onclick="navigateWithTransition('projects.html'); return false;" href="projects.html">See my projects</a>
+                    <a onclick="navigateWithTransition('contact.html'); return false;" href="contact.html">Contact me</a>
                 </div>
                 <div class="legal menue-item">
                     <h3>Legal</h3>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Service</a>
+                    <a onclick="navigateWithTransition('privacy.html'); return false;" href="privacy.html">Privacy Policy</a>
+                    <a onclick="navigateWithTransition('terms.html'); return false;" href="terms.html">Terms of Service</a>
                 </div>
                 <div class="social menue-item">
                     <h3>Social</h3>

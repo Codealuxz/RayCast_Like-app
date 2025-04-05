@@ -57,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.cursor').style.display = 'none'; // Masquer le curseur
     } else {
         // Ne pas initialiser le curseur personnalisé sur les appareils tactiles
-        // Ne pas initialiser le curseur personnalisé sur les appareils tactiles
         if (isTouchDevice) {
             cursor.style.display = 'none';
             return;
@@ -236,3 +235,72 @@ function toggleMenu() {
     const nav = document.querySelector('.nav');
     nav.classList.toggle('active'); // Ajoute ou enlève la classe active
 }
+
+
+
+// JavaScript pour la transition diagonale
+document.addEventListener('DOMContentLoaded', function () {
+    var overlay = document.querySelector('.transition-overlay');
+
+    // En cas de rechargement de page, réinitialiser les états
+    if (performance.navigation.type === 1) {
+        localStorage.removeItem('isTransitioning');
+        document.body.classList.remove('is-target-page');
+        overlay.style.transform = 'rotate(45deg) translateY(-100%)';
+    }
+
+    // Vérifier si nous venons d'une transition
+    var isTransitioning = localStorage.getItem('isTransitioning') === 'true';
+
+    if (isTransitioning) {
+        // Nous sommes sur la page cible
+        document.body.classList.add('is-target-page');
+
+        // Attendre un petit moment pour s'assurer que tout est chargé
+        setTimeout(function () {
+            // Activer la transition
+            overlay.style.transition = 'transform 0.7s ease-in-out';
+            overlay.style.transform = 'rotate(45deg) translateY(100%)'; // Déplace vers le bas
+
+            // Marquer la transition comme terminée et afficher le contenu
+            setTimeout(function () {
+                document.body.classList.add('transition-complete');
+                localStorage.removeItem('isTransitioning');
+            }, 300);
+        }, 50);
+    } else {
+        // Page normale sans transition
+        document.body.classList.add('transition-complete');
+    }
+});
+
+// Fonction à appeler pour naviguer avec la transition
+function navigateWithTransition(url) {
+    var overlay = document.querySelector('.transition-overlay');
+
+    // Phase 1: La diagonale entre par le haut
+    overlay.style.transition = 'transform 0.7s ease-in-out';
+    overlay.style.transform = 'rotate(45deg) translateY(0%)';
+
+    // Marquer que nous sommes en transition
+    localStorage.setItem('isTransitioning', 'true');
+
+    // Attendre que la première phase soit terminée puis naviguer
+    setTimeout(function () {
+        window.location.href = url;
+    }, 700);
+}
+
+// Animation lors du chargement de la page
+document.addEventListener('DOMContentLoaded', function () {
+    var overlay = document.querySelector('.transition-overlay');
+
+    // Activer la transition du haut vers le bas
+    overlay.style.transition = 'transform 0.7s ease-in-out';
+    overlay.style.transform = 'rotate(45deg) translateY(-100%)'; // Déplace vers le bas
+
+    // Attendre un petit moment pour s'assurer que tout est chargé
+    setTimeout(function () {
+        overlay.style.transform = 'rotate(45deg) translateY(100%)'; // Déplace vers le bas
+    }, 50);
+});
