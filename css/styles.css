@@ -836,6 +836,8 @@ header i {
     justify-self: center;
     margin: 0px;
     width: 100%;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .light {
