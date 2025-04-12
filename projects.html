@@ -242,82 +242,11 @@
             <div id="tag-contener" class="tag-contener"></div>
         </div>
     </div>
-
-    <script>
-        function openPopup(title, description, images, isGame = false, isWebsite = false, visitUrl = '', playUrl = '', downloadUrl = '', tags = []) {
-            document.getElementById('popup-title').innerText = title;
-            document.getElementById('popup-title').classList.add('title-popup');
-            document.getElementById('popup-description').innerText = description;
-            document.getElementById('popup-description').classList.add('description-popup');
-            const imagesContainer = document.getElementById('popup-images');
-            imagesContainer.classList.add('images-popup');
-            imagesContainer.innerHTML = '';
-            images.forEach(img => {
-                const imgElement = document.createElement('img');
-                imgElement.src = img;
-                imagesContainer.appendChild(imgElement);
-            });
-
-            const tagsContainer = document.getElementById('tag-contener');
-            tagsContainer.innerHTML = '';
-            tags.forEach(tag => {
-                const tagElement = document.createElement('span');
-                tagElement.classList.add('tag');
-                tagElement.innerText = tag;
-                tagsContainer.appendChild(tagElement);
-            });
-
-            const buttonsContainer = document.getElementById('popup-buttons');
-            buttonsContainer.innerHTML = '';
-
-            if (isWebsite) {
-                const visitButton = document.createElement('button');
-                visitButton.innerText = 'Visiter';
-                visitButton.classList.add('project');
-                visitButton.onclick = () => window.open(visitUrl, '_blank');
-                buttonsContainer.appendChild(visitButton);
-            }
-
-            if (isGame) {
-                const playButton = document.createElement('button');
-                playButton.innerText = 'Jouer';
-                playButton.classList.add('project');
-                playButton.onclick = () => window.open(playUrl, '_blank');
-                buttonsContainer.appendChild(playButton);
-            }
-
-            if (title === 'Spita') {
-                const downloadButton = document.createElement('button');
-                downloadButton.innerText = 'Télécharger';
-                downloadButton.classList.add('project');
-                downloadButton.onclick = () => window.open(downloadUrl, '_blank');
-                buttonsContainer.appendChild(downloadButton);
-            }
-
-            document.getElementById('project-popup').style.left = '0';
-        }
-
-        function closePopup() {
-            document.getElementById('project-popup').style.left = '-100%';
-        }
-
-        window.onclick = function (event) {
-            if (event.target === document.getElementById('project-popup')) {
-                closePopup();
-            }
-        }
-
-        document.onkeydown = function (event) {
-            if (event.key === "Escape") {
-                closePopup();
-            }
-        }
-    </script>
 </body>
 <script src="./js/letter.js"></script>
 <script src="./js/cursor.js"></script>
 <script src="./js/noise.js"></script>
-
+<script src="./js/projects.js"></script>
 
 
 </html>

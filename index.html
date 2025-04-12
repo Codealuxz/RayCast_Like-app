@@ -97,9 +97,9 @@
                 </button>
             </div>
             <div class="project-nav">
-                <button onclick="navigateWithTransition('start.html'); return false;" type="button" class="project"><span
-                        class="text-scatter">Start a Project </span> <svg width="8" height="8" viewBox="0 0 8 8"
-                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button onclick="navigateWithTransition('start.html'); return false;" type="button"
+                    class="project"><span class="text-scatter">Start a Project </span> <svg width="8" height="8"
+                        viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd"
                             d="M0.175483 7.82452C0.287991 7.93688 0.440501 8 0.599512 8C0.758523 8 0.911032 7.93688 1.02354 7.82452L6.79992 2.04814V6.60044C6.79992 6.75958 6.86314 6.9122 6.97567 7.02473C7.0882 7.13726 7.24082 7.20048 7.39996 7.20048C7.5591 7.20048 7.71172 7.13726 7.82425 7.02473C7.93678 6.9122 8 6.75958 8 6.60044V0.60004C8 0.440899 7.93678 0.288277 7.82425 0.175747C7.71172 0.0632182 7.5591 0 7.39996 0H1.39956C1.24042 0 1.0878 0.0632182 0.975272 0.175747C0.862743 0.288277 0.799525 0.440899 0.799525 0.60004C0.799525 0.75918 0.862743 0.911803 0.975272 1.02433C1.0878 1.13686 1.24042 1.20008 1.39956 1.20008H5.95186L0.175483 6.97646C0.0631157 7.08897 0 7.24148 0 7.40049C0 7.5595 0.0631157 7.71201 0.175483 7.82452Z"
                             fill="#18181B" />
@@ -120,9 +120,9 @@
                 <br>and I never stop learning.
             </p>
             <div class="cta">
-                <button onclick="navigateWithTransition('start.html'); return false;" type="button" class="project"><span
-                        class="text-scatter">Start a Project </span> <svg width="8" height="8" viewBox="0 0 8 8"
-                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button onclick="navigateWithTransition('start.html'); return false;" type="button"
+                    class="project"><span class="text-scatter">Start a Project </span> <svg width="8" height="8"
+                        viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd"
                             d="M0.175483 7.82452C0.287991 7.93688 0.440501 8 0.599512 8C0.758523 8 0.911032 7.93688 1.02354 7.82452L6.79992 2.04814V6.60044C6.79992 6.75958 6.86314 6.9122 6.97567 7.02473C7.0882 7.13726 7.24082 7.20048 7.39996 7.20048C7.5591 7.20048 7.71172 7.13726 7.82425 7.02473C7.93678 6.9122 8 6.75958 8 6.60044V0.60004C8 0.440899 7.93678 0.288277 7.82425 0.175747C7.71172 0.0632182 7.5591 0 7.39996 0H1.39956C1.24042 0 1.0878 0.0632182 0.975272 0.175747C0.862743 0.288277 0.799525 0.440899 0.799525 0.60004C0.799525 0.75918 0.862743 0.911803 0.975272 1.02433C1.0878 1.13686 1.24042 1.20008 1.39956 1.20008H5.95186L0.175483 6.97646C0.0631157 7.08897 0 7.24148 0 7.40049C0 7.5595 0.0631157 7.71201 0.175483 7.82452Z"
                             fill="#18181B" />
@@ -176,7 +176,7 @@
                                 <span>HTML</span><span>CSS</span><span>JavaScript</span>
                             </div>
                             <button type="button" class="see button"
-                                onclick="openPopup('Codealuxz photo', 'This is a website for my photography. I expose my works and share them.', ['img/photo.png'], ['HTML', 'CSS', 'JavaScript'], 'https://photo.codealuxz.fr', false, false)"><span
+                                onclick="window.location.href='projects.html?project=Codealuxz%20photo';"><span
                                     class="text-scatter">Open project</span></button>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
                                 <span>HTML</span><span>CSS</span><span>JavaScript</span><span>NodeJS</span>
                             </div>
                             <button type="button" class="see button"
-                                onclick="openPopup('Pixels-Board', 'This is a website how recreat the experience of a r/place (the pixel war) but with an infinit canvas and lot of tools. (Temporary unavailable)', ['img/board.png'], ['HTML', 'CSS', 'JavaScript', 'NodeJS'], 'https://pixels-board.codealuxz.fr', true, 'https://pixels-board.codealuxz.fr')"><span
+                                onclick="window.location.href='projects.html?project=Pixels-board';"><span
                                     class="text-scatter">Open project</span></button>
                         </div>
                     </div>
@@ -205,7 +205,7 @@
                                 <span>Godot Engine</span><span>GDscript</span><span>Firebase</span>
                             </div>
                             <button type="button" class="see button"
-                                onclick="openPopup('Protonix', 'This is a game how I made with Godot engine. The goal is to avoid the enemies in a world 2d with 3 differents modes and grind on the world leaderboard.', ['img/protonix.png'], ['Godot Engine', 'GDscript', 'Firebase'], 'https://codealuxz.itch.io/protonix', true, 'https://codealuxz.itch.io/protonix')"><span
+                                onclick="window.open('projects.html?project=Protonix', '_blank');"><span
                                     class="text-scatter">Open project</span></button>
                         </div>
                     </div>
@@ -219,7 +219,7 @@
                                 <span>Godot Engine</span><span>GDscript</span>
                             </div>
                             <button type="button" class="see button"
-                                onclick="openPopup('Spita', 'This is a game how I made with Godot engine. This is a 2d platformer game with a lot of levels and 2 worlds.', ['img/spita.png'], ['Godot Engine', 'GDscript'], 'https://codealuxz.itch.io/spita', true, 'https://codealuxz.itch.io/spitaexe')"><span
+                                onclick="window.location.href='projects.html?project=Spita';"><span
                                     class="text-scatter">Open project</span></button>
                         </div>
                     </div>
@@ -250,8 +250,8 @@
             <div class="separator"></div>
             <div class="contact-container">
                 <button class="project" onclick="navigateWithTransition('contact.html'); return false;"><span
-                        class="text-scatter">Contact me</span><svg width="8" height="8"
-                        viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        class="text-scatter">Contact me</span><svg width="8" height="8" viewBox="0 0 8 8" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd"
                             d="M0.175483 7.82452C0.287991 7.93688 0.440501 8 0.599512 8C0.758523 8 0.911032 7.93688 1.02354 7.82452L6.79992 2.04814V6.60044C6.79992 6.75958 6.86314 6.9122 6.97567 7.02473C7.0882 7.13726 7.24082 7.20048 7.39996 7.20048C7.5591 7.20048 7.71172 7.13726 7.82425 7.02473C7.93678 6.9122 8 6.75958 8 6.60044V0.60004C8 0.440899 7.93678 0.288277 7.82425 0.175747C7.71172 0.0632182 7.5591 0 7.39996 0H1.39956C1.24042 0 1.0878 0.0632182 0.975272 0.175747C0.862743 0.288277 0.799525 0.440899 0.799525 0.60004C0.799525 0.75918 0.862743 0.911803 0.975272 1.02433C1.0878 1.13686 1.24042 1.20008 1.39956 1.20008H5.95186L0.175483 6.97646C0.0631157 7.08897 0 7.24148 0 7.40049C0 7.5595 0.0631157 7.71201 0.175483 7.82452Z"
                             fill="#18181B" />
@@ -299,8 +299,10 @@
     <footer>
         <div class="infoot">
             <h2><img src="./icon/logo.png" alt="logo" class="logo">You have a project in mind ?</h2>
-            <div class="buttons"><button class="project" onclick="navigateWithTransition('contact.html'); return false;">Contact
-                    me</button><button class="project" onclick="navigateWithTransition('start.html'); return false;">Start a
+            <div class="buttons"><button class="project"
+                    onclick="navigateWithTransition('contact.html'); return false;">Contact
+                    me</button><button class="project"
+                    onclick="navigateWithTransition('start.html'); return false;">Start a
                     project</button></div>
         </div>
         <h2 class="menue-title">Codealuxz</h2>
@@ -309,12 +311,14 @@
                 <h3>Pages</h3>
                 <a onclick="navigateWithTransition('index.html'); return false;" href="index.html">Home</a>
                 <a onclick="navigateWithTransition('start.html'); return false;" href="start.html">Start a project</a>
-                <a onclick="navigateWithTransition('projects.html'); return false;" href="projects.html">See my projects</a>
+                <a onclick="navigateWithTransition('projects.html'); return false;" href="projects.html">See my
+                    projects</a>
                 <a onclick="navigateWithTransition('contact.html'); return false;" href="contact.html">Contact me</a>
             </div>
             <div class="legal menue-item">
                 <h3>Legal</h3>
-                <a onclick="navigateWithTransition('privacy.html'); return false;" href="privacy.html">Privacy Policy</a>
+                <a onclick="navigateWithTransition('privacy.html'); return false;" href="privacy.html">Privacy
+                    Policy</a>
                 <a onclick="navigateWithTransition('terms.html'); return false;" href="terms.html">Terms of Service</a>
             </div>
             <div class="social menue-item">

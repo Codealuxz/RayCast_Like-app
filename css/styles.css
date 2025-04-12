@@ -834,7 +834,7 @@ header i {
     display: flex;
     justify-content: center;
     justify-self: center;
-    margin: 50px;
+    margin: 0px;
     width: 100%;
 }
 
