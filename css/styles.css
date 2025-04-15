@@ -188,7 +188,7 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 150px;
     display: flex;
     justify-content: center;
@@ -198,7 +198,7 @@ header {
 }
 
 header .nav {
-    width: 910px;
+    width: 700px;
     height: 85px;
     border-radius: 1000px;
     border: var(--main-color) solid 1px;
@@ -224,7 +224,7 @@ header .logo-nav {
     justify-content: space-around;
     align-items: center;
     height: 100%;
-    width: calc(100% - 350px);
+    width: calc(100% - 250px);
 }
 
 header .logo-nav .logo {
@@ -256,12 +256,18 @@ header .logo-nav button svg {
 }
 
 header .project-nav {
-    width: 350px;
+    width: 250px;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
 }
+header .project-nav button{
+    border-radius: 100px !important;
+    height: calc(100% - 10px);
+    transform: translateX(0) !important;
+}
+
 
 header i {
     width: 25px;
@@ -392,7 +398,8 @@ header i {
     transition: all 0.3s ease-in-out;
     max-height: 60px;
 }
-
+.button svg,
+.button i,
 .project svg,
 .project i {
     height: 15px;
@@ -401,7 +408,8 @@ header i {
     position: relative;
     filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0));
 }
-
+.button:hover svg,
+.button:hover i,
 .project:hover svg,
 .project:hover i {
     transform: translateX(5px) translateY(-5px);
@@ -731,7 +739,7 @@ header i {
 
 .more-projects {
     position: absolute;
-    bottom: 26.5vh;
+    bottom: 26vh;
     left: 10px;
 }
 
@@ -838,6 +846,18 @@ header i {
     width: 100%;
     margin-top: 40px;
     margin-bottom: 40px;
+}
+
+.third .contact-container button{
+    animation: scalvar 5s infinite;
+}
+
+.third .social-container svg{
+    filter: invert(1);
+}
+
+.third .social-container .button{
+    margin: 5px;
 }
 
 .light {
@@ -1352,4 +1372,22 @@ footer {
     /* Ajustez la valeur du flou selon vos préférences */
     transition: filter 0.1s ease;
     /* Transition douce pour le flou */
+}
+
+@keyframes scalvar {
+    0%{
+        scale: 1.1;
+    }
+    25%{
+        scale: 1.15;
+    }
+    50%{
+        scale: 1.13;
+    }
+    75%{
+        scale: 1.2;
+    }
+    100%{
+        scale: 1.1;
+    }
 }

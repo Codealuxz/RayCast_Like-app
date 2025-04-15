@@ -3,6 +3,7 @@ function openPopup(title, description, images, isGame = false, isWebsite = false
     url.searchParams.set('project', title);
     window.history.pushState({}, '', url);
 
+    document.body.classList.add('no-scroll');
     document.getElementById('popup-title').innerText = title;
     document.getElementById('popup-title').classList.add('title-popup');
     document.getElementById('popup-description').innerText = description;
@@ -137,11 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function closePopup() {
     document.getElementById('project-popup').style.left = '-100%';
+    document.body.classList.remove('no-scroll');
 
-    // Supprimer le paramètre 'project' de l'URL
     const url = new URL(window.location);
-    url.searchParams.delete('project'); // Supprime le paramètre 'project'
-    window.history.pushState({}, '', url); // Met à jour l'URL sans recharger la page
+    url.searchParams.delete('project');
+    window.history.pushState({}, '', url);
 }
 
 window.onclick = function (event) {
