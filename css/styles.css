@@ -133,6 +133,28 @@ body {
     transform-origin: center bottom;
     position: none;
 }
+.cursor-help-message {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 1000px;
+    border: var(--main-color) solid 1px;
+    background-color: var(--blur-bg-color);
+    -webkit-backdrop-filter: blur(50px);
+    backdrop-filter: blur(50px);
+    display: flex;
+    align-items: center;
+    padding-inline: 10px;
+    z-index: 10000;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+}
 
 /* Masquer le curseur sur les éléments cliquables pour éviter d'avoir deux curseurs */
 a,

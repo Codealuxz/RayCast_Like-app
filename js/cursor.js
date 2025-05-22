@@ -1,6 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Sélection de l'élément curseur
     const cursor = document.querySelector('.cursor');
+    // Variable pour suivre l'état du curseur personnalisé
+    let isCustomCursorEnabled = true;
+
+    // Créer le message d'aide (masqué par défaut)
+    const helpMessage = document.createElement('div');
+    helpMessage.classList.add('cursor-help-message');
+    helpMessage.textContent = 'Appuyez sur X pour revenir au curseur standard si le curseur personnalisé ne fonctionne pas correctement';
+    document.body.appendChild(helpMessage);
 
     // Création des éléments du curseur personnalisé seulement si le curseur existe
     if (!cursor) return;
@@ -59,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Ne pas initialiser le curseur personnalisé sur les appareils tactiles
         if (isTouchDevice) {
             cursor.style.display = 'none';
+            helpMessage.style.opacity = '1';
             return;
         }
 
@@ -221,13 +230,42 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('mouseleave', () => {
             cursor.style.opacity = '0';
             isVisible = false;
+            helpMessage.style.opacity = '1';
         });
 
         document.addEventListener('mouseenter', () => {
             cursor.style.opacity = '1';
             isVisible = true;
+            helpMessage.style.opacity = '0';
         });
     }
+    // Vérifie si le style du curseur est soit en opacité 0, soit en display none
+    function isCursorCache() {
+        const cursor = document.querySelector('.cursor');
+        if (!cursor) return false;
+        const style = window.getComputedStyle(cursor);
+        return style.opacity === '0' || style.display === 'none';
+    }
+    if (isCursorCache()) {
+        helpMessage.style.opacity = '1';
+    }
+
+    // Ajouter l'écouteur pour la touche X
+    document.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'x') {
+            // Ajouter des styles pour les éléments cliquables
+            const clickableElements = document.querySelectorAll('a, button, input, textarea, select, [role="button"], .logo, .project, .radio-container label, .radio-container input');
+            clickableElements.forEach(element => {
+                element.style.cursor = 'pointer';
+            });
+            
+            cursor.style.display = 'none';
+            document.body.style.cursor = 'auto';
+            document.documentElement.style.cursor = 'auto';
+            helpMessage.style.opacity = '0';
+            helpMessage.style.display = 'none';
+        }
+    });
 });
 
 
