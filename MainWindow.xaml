@@ -1,0 +1,359 @@
+<Window x:Class="RayCast.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RayCast"
+        mc:Ignorable="d"
+        Title="RayCast" Height="450" Width="800"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="True"
+        WindowStartupLocation="CenterScreen"
+        KeyDown="MainWindow_KeyDown"
+        PreviewKeyDown="MainWindow_KeyDown"
+        ResizeMode="NoResize"
+        Loaded="MainWindow_Loaded"
+        Closing="MainWindow_Closing">
+    <Window.Resources>
+        <!-- Couleurs -->
+        <SolidColorBrush x:Key="BackgroundColor" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="ForegroundColor" Color="#000000"/>
+        <SolidColorBrush x:Key="BorderColor" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="HoverColor" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="SelectionColor" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="SubtitleColor" Color="#666666"/>
+
+        <!-- Effet de glow -->
+        <DropShadowEffect x:Key="GlowEffect" 
+                         Color="#f8bfbf" 
+                         BlurRadius="10" 
+                         ShadowDepth="0" 
+                         Opacity="1"/>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SelectionColor}"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource HoverColor}"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Style pour la séparation entre les éléments -->
+        <Style x:Key="SeparatorStyle" TargetType="Separator">
+            <Setter Property="Margin" Value="10,2"/>
+            <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="Height" Value="1"/>
+        </Style>
+
+        <local:IconToImageSourceConverter x:Key="IconToImageSourceConverter"/>
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <local:InverseNullToVisibilityConverter x:Key="InverseNullToVisibilityConverter"/>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <local:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+        <local:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+        <local:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+
+        <!-- Style de la barre de défilement -->
+        <Style x:Key="CustomScrollBarStyle" TargetType="ScrollBar">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#80FFFFFF"/>
+            <Setter Property="Width" Value="8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Track x:Name="PART_Track" IsDirectionReversed="True">
+                            <Track.Thumb>
+                                <Thumb>
+                                    <Thumb.Style>
+                                        <Style TargetType="Thumb">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Thumb">
+                                                        <Border Background="#FFA500" 
+                                                                BorderBrush="#FFA500"
+                                                                BorderThickness="1"
+                                                                Margin="2,0"
+                                                                CornerRadius="4">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect Color="#40FFFFFF" 
+                                                                                BlurRadius="2" 
+                                                                                ShadowDepth="0" 
+                                                                                Opacity="1"/>
+                                                            </Border.Effect>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Thumb.Style>
+                                </Thumb>
+                            </Track.Thumb>
+                        </Track>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Ouvrir" Click="ShowWindow"/>
+            <MenuItem Header="Quitter" Click="ExitApplication"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Barre de recherche -->
+        <TextBox x:Name="SearchBox"
+                 Grid.Row="0"
+                 Margin="10"
+                 Padding="32,12,12,12"
+                 FontSize="16"
+                 Background="{DynamicResource BackgroundColor}"
+                 Foreground="{DynamicResource ForegroundColor}"
+                 BorderThickness="1"
+                 BorderBrush="{DynamicResource BorderColor}"
+                 TextChanged="SearchBox_TextChanged"
+                 KeyDown="SearchBox_KeyDown"
+                 PreviewKeyDown="SearchBox_KeyDown"
+                 VerticalContentAlignment="Center">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="25">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#f8bfbf" 
+                                                        BlurRadius="0" 
+                                                        ShadowDepth="0" 
+                                                        Opacity="1"/>
+                                    </Border.Effect>
+                                    <Grid>
+                                        <TextBlock Text="Recherche ce dont tu as besoin"
+                                                 FontSize="16"
+                                                 Foreground="#ce9797"
+                                                 Margin="32,0,0,0"
+                                                 VerticalAlignment="Center"
+                                                 Visibility="{Binding Text.IsEmpty, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                        <ScrollViewer x:Name="PART_ContentHost" 
+                                                    Margin="0,5,5,5"
+                                                    VerticalAlignment="Center"/>
+                                        <Button x:Name="SettingsButton" 
+                                                HorizontalAlignment="Right"
+                                                Margin="0,0,10,0"
+                                                Click="SettingsButton_Click"
+                                                Width="36" Height="36"
+                                                Background="Transparent"
+                                                BorderBrush="Transparent"
+                                                Foreground="{StaticResource ForegroundColor}">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Grid>
+                                                        <Ellipse x:Name="BackgroundEllipse" 
+                                                                 Fill="{TemplateBinding Background}"
+                                                                 Stroke="{TemplateBinding BorderBrush}"
+                                                                 StrokeThickness="1"/>
+                                                        <Path x:Name="SettingsIcon" 
+                                                              Data="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" 
+                                                              Fill="{TemplateBinding Foreground}"
+                                                              Stretch="Uniform"
+                                                              Width="20" Height="20"/>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="BackgroundEllipse" Property="Fill" Value="{StaticResource HoverColor}"/>
+                                                            <Setter TargetName="SettingsIcon" Property="Fill" Value="{StaticResource ForegroundColor}"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter TargetName="BackgroundEllipse" Property="Fill" Value="{StaticResource SelectionColor}"/>
+                                                            <Setter TargetName="SettingsIcon" Property="Fill" Value="{StaticResource ForegroundColor}"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Background" Value="#fff5f5"/>
+                            <Setter Property="BorderBrush" Value="#ee8c8c"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="#ee8c8c" 
+                                                    BlurRadius="10" 
+                                                    ShadowDepth="0" 
+                                                    Opacity="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+            <TextBox.Resources>
+                <Style TargetType="ScrollBar" BasedOn="{StaticResource CustomScrollBarStyle}"/>
+            </TextBox.Resources>
+        </TextBox>
+
+        <!-- Zone de résultats -->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Liste des résultats -->
+            <ListBox x:Name="ResultsList"
+                    Grid.Row="0"
+                    Margin="10,0,10,10"
+                    Background="{DynamicResource BackgroundColor}"
+                    Foreground="{DynamicResource ForegroundColor}"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    MouseDoubleClick="ResultsList_MouseDoubleClick"
+                    Height="Auto"
+                    MinHeight="0"
+                    MaxHeight="600"
+                    KeyDown="ResultsList_KeyDown"
+                    SelectionMode="Single"
+                    Visibility="{Binding ElementName=ResultsList, Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" 
+                                       Source="{Binding AppIcon}" 
+                                       Width="24" 
+                                       Height="24" 
+                                       Margin="0,0,10,0"
+                                       Visibility="{Binding AppIcon, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                <TextBlock Grid.Column="0" 
+                                         Text="{Binding Icon}" 
+                                         FontSize="20"
+                                         Margin="0,0,10,0"
+                                         Visibility="{Binding AppIcon, Converter={StaticResource InverseNullToVisibilityConverter}}"/>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{Binding Title}" 
+                                             FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding Description}" 
+                                             Foreground="#666666" 
+                                             FontSize="12"/>
+                                </StackPanel>
+                            </Grid>
+                            <Separator Style="{StaticResource SeparatorStyle}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.Style>
+                    <Style TargetType="ListBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBox">
+                                    <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="25">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="#f8bfbf" 
+                                                            BlurRadius="0" 
+                                                            ShadowDepth="0" 
+                                                            Opacity="1"/>
+                                        </Border.Effect>
+                                        <ScrollViewer Padding="0,5,5,5" 
+                                                    VerticalScrollBarVisibility="Auto"
+                                                    Focusable="False">
+                                            <ItemsPresenter />
+                                        </ScrollViewer>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Style>
+                <ListBox.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource CustomScrollBarStyle}"/>
+                </ListBox.Resources>
+            </ListBox>
+
+            <!-- Zone de réponse IA -->
+            <RichTextBox x:Name="IAResponseBox"
+                     Grid.Row="0"
+                     Margin="10"
+                     Padding="15"
+                     FontSize="14"
+                     Background="{DynamicResource BackgroundColor}"
+                     Foreground="{DynamicResource ForegroundColor}"
+                     BorderThickness="1"
+                     BorderBrush="{DynamicResource BorderColor}"
+                     IsReadOnly="True"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Disabled"
+                     Visibility="{Binding IsIAActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <RichTextBox.Style>
+                    <Style TargetType="RichTextBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="RichTextBox">
+                                    <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="15">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="#f8bfbf" 
+                                                            BlurRadius="0" 
+                                                            ShadowDepth="0" 
+                                                            Opacity="1"/>
+                                        </Border.Effect>
+                                        <ScrollViewer x:Name="PART_ContentHost" 
+                                                    Margin="0,5,5,5"
+                                                    VerticalScrollBarVisibility="Auto"
+                                                    HorizontalScrollBarVisibility="Disabled"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </RichTextBox.Style>
+                <RichTextBox.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource CustomScrollBarStyle}"/>
+                </RichTextBox.Resources>
+            </RichTextBox>
+
+            <!-- Barre des tâches -->
+            <StackPanel Grid.Row="1" 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Right" 
+                        Margin="0,0,10,10">
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window> 

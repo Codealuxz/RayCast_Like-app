@@ -1,0 +1,104 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Projects\\Scripts\\RayCast\\RayCast.csproj": {}
+  },
+  "projects": {
+    "D:\\Projects\\Scripts\\RayCast\\RayCast.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\Scripts\\RayCast\\RayCast.csproj",
+        "projectName": "RayCast",
+        "projectPath": "D:\\Projects\\Scripts\\RayCast\\RayCast.csproj",
+        "packagesPath": "C:\\Users\\Perso\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\Scripts\\RayCast\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Perso\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0-windows10.0.19041.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0-windows10.0.19041": {
+            "targetAlias": "net7.0-windows10.0.19041.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0-windows10.0.19041": {
+          "targetAlias": "net7.0-windows10.0.19041.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "System.Net.Http.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[7.0.20, 7.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[7.0.20, 7.0.20]"
+            },
+            {
+              "name": "Microsoft.Windows.SDK.NET.Ref",
+              "version": "[10.0.19041.31, 10.0.19041.31]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[7.0.20, 7.0.20]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.Windows.SDK.NET.Ref": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

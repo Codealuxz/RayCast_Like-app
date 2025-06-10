@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "rRJKHDgmEMJp5W8LrJ34w/h9E68birERFBcyOEeWqs57umer01iCPw4ib/+6qVnMxM1g52WCXagfjEWrcVUV5g==",
+  "success": true,
+  "projectFilePath": "D:\\Projects\\Scripts\\RayCast\\RayCast.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Perso\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\system.net.http.json\\7.0.0\\system.net.http.json.7.0.0.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.31\\microsoft.windows.sdk.net.ref.10.0.19041.31.nupkg.sha512"
+  ],
+  "logs": []
+}

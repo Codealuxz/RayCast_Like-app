@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="logo.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\default_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\default_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+</Project> 

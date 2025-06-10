@@ -1,0 +1,17 @@
+<Application x:Class="RayCast.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="BackgroundColor" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="ForegroundColor" Color="#333333"/>
+        <SolidColorBrush x:Key="BorderColor" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="SelectionColor" Color="#E3F2FD"/>
+        <SolidColorBrush x:Key="HoverColor" Color="#F5F5F5"/>
+        
+        <SolidColorBrush x:Key="DarkBackgroundColor" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="DarkForegroundColor" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="DarkBorderColor" Color="#3E3E3E"/>
+        <SolidColorBrush x:Key="DarkSelectionColor" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="DarkHoverColor" Color="#2D2D2D"/>
+    </Application.Resources>
+</Application> 
