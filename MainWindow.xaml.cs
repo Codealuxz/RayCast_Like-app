@@ -473,7 +473,7 @@ namespace RayCast
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/c {command}",
+                    Arguments = $"/k {command}",
                     UseShellExecute = true,
                     CreateNoWindow = true
                 });
@@ -1143,7 +1143,23 @@ namespace RayCast
                 hasResults = true;
             }
 
-            
+            if (IsTerminalCommand(searchText))
+            {
+                
+                await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    searchResults.Add(new SearchResult
+                    {
+                        Icon = ">_",
+                        Title = searchText,
+                        Description = "Entrez la commande dans le terminal",
+                        ActionType = "terminal"
+                    });
+                });
+                
+                hasResults = true;
+            }
+
             string searchEngine;
             using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\RayCast"))
             {
