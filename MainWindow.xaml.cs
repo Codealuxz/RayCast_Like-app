@@ -2025,6 +2025,11 @@ namespace RayCast
             [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
             private static extern IntPtr GetModuleHandle(string lpModuleName);
         }
+
+        private void IAResponseBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 
     public class SearchResult

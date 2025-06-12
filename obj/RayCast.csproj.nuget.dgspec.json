@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\Scripts\\RayCast\\RayCast.csproj": {}
+    "C:\\Users\\louis\\Documents\\openSource\\RayCast_Like-app\\RayCast.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\Scripts\\RayCast\\RayCast.csproj": {
+    "C:\\Users\\louis\\Documents\\openSource\\RayCast_Like-app\\RayCast.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Scripts\\RayCast\\RayCast.csproj",
+        "projectUniqueName": "C:\\Users\\louis\\Documents\\openSource\\RayCast_Like-app\\RayCast.csproj",
         "projectName": "RayCast",
-        "projectPath": "D:\\Projects\\Scripts\\RayCast\\RayCast.csproj",
-        "packagesPath": "C:\\Users\\Perso\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Scripts\\RayCast\\obj\\",
+        "projectPath": "C:\\Users\\louis\\Documents\\openSource\\RayCast_Like-app\\RayCast.csproj",
+        "packagesPath": "C:\\Users\\louis\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\louis\\Documents\\openSource\\RayCast_Like-app\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Perso\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\louis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0-windows10.0.19041.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,7 +38,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net7.0-windows10.0.19041": {
@@ -65,21 +77,21 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.Windows.SDK.NET.Ref",
-              "version": "[10.0.19041.31, 10.0.19041.31]"
+              "version": "[10.0.19041.55, 10.0.19041.55]"
             }
           ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             },
-            "Microsoft.Windows.SDK.NET.Ref": {
+            "Microsoft.Windows.SDK.NET.Ref.Windows": {
               "privateAssets": "all"
             },
             "Microsoft.WindowsDesktop.App": {
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
