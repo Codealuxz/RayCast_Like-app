@@ -1327,11 +1327,10 @@ namespace RayCast
         {
             
             text = text.Replace(" ", "");
-            
-            
-            if (!text.EndsWith("=")) return false;
 
-            
+
+
+
             text = text.TrimEnd('=');
 
             
