@@ -4,7 +4,7 @@
 #define MyAppExeName "RayCast.exe"
 
 [Setup]
-AppId={B8F1E0A0-0B0B-4B0B-8B0B-0B0B0B0B0B0B}
+AppId=B8F1E0A0-0B0B-4B0B-8B0B-0B0B0B0B0B0B}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
