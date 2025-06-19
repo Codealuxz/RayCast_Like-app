@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # RayCast v1.1.0
+=======
+# RayCast
+>>>>>>> b759362d32535175e990742b02ab9f1f12ceaced
 
 RayCast est une application de lancement rapide pour Windows, inspirée de Spotlight (macOS) et Raycast (macOS). Elle permet d'accéder rapidement à vos applications, fichiers et fonctionnalités système.
 
@@ -31,6 +35,7 @@ RayCast est une application de lancement rapide pour Windows, inspirée de Spotl
 2. Extrayez l'archive dans le dossier de votre choix
 3. Exécutez `RayCast.exe`
 4. Configurez votre clé API Gemini :
+<<<<<<< HEAD
    - Rendez-vous sur [Google AI Studio](https://aistudio.google.com/app/apikey)
    - Connectez-vous avec votre compte Google (ou créez-en un)
    - Cliquez sur « Créer une clé API »
@@ -39,6 +44,12 @@ RayCast est une application de lancement rapide pour Windows, inspirée de Spotl
    - Ajoutez votre clé Gemini ici :
    ```json
    "GeminiApiKey": "VOTRE_CLE_GEMINI_ICI"
+=======
+   - Le fichier ``SettingsWindow.xaml.cs``
+   - Ajouter votre api key de Gemini ici : 
+   ```c#
+   private const string GEMINI_API_KEY = "REPLACE_BY_YOUR_GEMINI_API_KEY";
+>>>>>>> b759362d32535175e990742b02ab9f1f12ceaced
    ```
 5. Puis recompilez et lancer utiliser la commande : ``.\run.bat``
 
@@ -51,9 +62,12 @@ L'application peut être configurée via le menu contextuel de l'icône dans la 
 - Moteur de recherche par défaut
 - Affichage dans la barre des tâches
 
+<<<<<<< HEAD
 
 **Attention :** Ne partagez jamais votre clé publiquement.
 
+=======
+>>>>>>> b759362d32535175e990742b02ab9f1f12ceaced
 ## Développement
 
 ### Prérequis

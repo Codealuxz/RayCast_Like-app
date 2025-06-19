@@ -11,7 +11,10 @@
         "dependencies": {
           "Newtonsoft.Json": "13.0.3",
           "System.Drawing.Common": "7.0.0",
+<<<<<<< HEAD
           "System.Management": "9.0.6",
+=======
+>>>>>>> b759362d32535175e990742b02ab9f1f12ceaced
           "System.Net.Http.Json": "7.0.0",
           "runtimepack.Microsoft.NETCore.App.Runtime.win-x64": "7.0.20",
           "runtimepack.Microsoft.WindowsDesktop.App.Runtime.win-x64": "7.0.20",
@@ -815,6 +818,13 @@
             "assemblyVersion": "7.0.0.0",
             "fileVersion": "7.0.2024.26905"
           },
+<<<<<<< HEAD
+=======
+          "System.CodeDom.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.2024.26716"
+          },
+>>>>>>> b759362d32535175e990742b02ab9f1f12ceaced
           "System.Configuration.ConfigurationManager.dll": {
             "assemblyVersion": "7.0.0.0",
             "fileVersion": "7.0.2024.26716"
@@ -983,6 +993,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "System.CodeDom/9.0.6": {
         "runtime": {
           "lib/netstandard2.0/System.CodeDom.dll": {
@@ -991,11 +1002,14 @@
           }
         }
       },
+=======
+>>>>>>> b759362d32535175e990742b02ab9f1f12ceaced
       "System.Drawing.Common/7.0.0": {
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "7.0.0"
         }
       },
+<<<<<<< HEAD
       "System.Management/9.0.6": {
         "dependencies": {
           "System.CodeDom": "9.0.6"
@@ -1007,6 +1021,8 @@
           }
         }
       },
+=======
+>>>>>>> b759362d32535175e990742b02ab9f1f12ceaced
       "System.Net.Http.Json/7.0.0": {
         "dependencies": {
           "System.Text.Json": "7.0.0"
@@ -1055,6 +1071,7 @@
       "path": "newtonsoft.json/13.0.3",
       "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
     },
+<<<<<<< HEAD
     "System.CodeDom/9.0.6": {
       "type": "package",
       "serviceable": true,
@@ -1062,6 +1079,8 @@
       "path": "system.codedom/9.0.6",
       "hashPath": "system.codedom.9.0.6.nupkg.sha512"
     },
+=======
+>>>>>>> b759362d32535175e990742b02ab9f1f12ceaced
     "System.Drawing.Common/7.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1069,6 +1088,7 @@
       "path": "system.drawing.common/7.0.0",
       "hashPath": "system.drawing.common.7.0.0.nupkg.sha512"
     },
+<<<<<<< HEAD
     "System.Management/9.0.6": {
       "type": "package",
       "serviceable": true,
@@ -1076,6 +1096,8 @@
       "path": "system.management/9.0.6",
       "hashPath": "system.management.9.0.6.nupkg.sha512"
     },
+=======
+>>>>>>> b759362d32535175e990742b02ab9f1f12ceaced
     "System.Net.Http.Json/7.0.0": {
       "type": "package",
       "serviceable": true,
