@@ -1,0 +1,12 @@
+{
+  "SearchEngine": "Qwant",
+  "Theme": "Dark",
+  "AIEngine": "Gemini",
+  "IsHotkeyEnabled": true,
+  "Hotkey": "Shift+A",
+  "Modifiers": 0,
+  "StartupEnabled": false,
+  "GeminiApiKey": "",
+  "ResultsOrder": "Web,IA,Application",
+  "AITheme": "Dark"
+}

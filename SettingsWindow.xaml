@@ -1,0 +1,171 @@
+<Window x:Class="RayCast.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Paramètres" Height="600" Width="400" WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource BackgroundColor}"
+        Foreground="{DynamicResource ForegroundColor}">
+    <Window.Resources>
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}"/>
+            <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+        </Style>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}"/>
+            <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource SelectionColor}"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource HoverColor}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}"/>
+            <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+        </Style>
+        <Style TargetType="Separator">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Height" Value="1"/>
+            <Setter Property="Margin" Value="0,8,0,8"/>
+            <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Separator">
+                        <Border Background="{TemplateBinding Background}" Height="{TemplateBinding Height}" HorizontalAlignment="Stretch"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10" Background="{DynamicResource BackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Background="{DynamicResource BackgroundColor}">
+            <StackPanel Margin="0,0,0,10" Background="{DynamicResource BackgroundColor}">
+                <GroupBox Header="Moteur de recherche" Margin="0,0,0,10" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
+                    <Grid Background="{DynamicResource BackgroundColor}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Moteur par défaut :" Grid.Column="0" Foreground="{DynamicResource ForegroundColor}"/>
+                        <ComboBox x:Name="SearchEngineComboBox" Grid.Column="1" Margin="5" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
+                            <ComboBoxItem Content="Google" Foreground="{DynamicResource ForegroundColor}"/>
+                            <ComboBoxItem Content="Bing" Foreground="{DynamicResource ForegroundColor}"/>
+                            <ComboBoxItem Content="DuckDuckGo" Foreground="{DynamicResource ForegroundColor}"/>
+                            <ComboBoxItem Content="Ecosia" Foreground="{DynamicResource ForegroundColor}"/>
+                            <ComboBoxItem Content="Qwant" Foreground="{DynamicResource ForegroundColor}"/>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+
+                <Grid>
+                    <Separator Width="Auto" HorizontalAlignment="Stretch" Height="1" Background="{DynamicResource BorderColor}"/>
+                </Grid>
+
+                <GroupBox Header="Apparence" Margin="0,0,0,10" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
+                    <Grid Background="{DynamicResource BackgroundColor}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Thème :" Grid.Column="0" Foreground="{DynamicResource ForegroundColor}"/>
+                        <ComboBox x:Name="ThemeComboBox" Grid.Column="1" Margin="5" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
+                            <ComboBoxItem Content="Light"/>
+                            <ComboBoxItem Content="Dark"/>
+                            <ComboBoxItem Content="System"/>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+
+                <Grid>
+                    <Separator Width="Auto" HorizontalAlignment="Stretch" Height="1" Background="{DynamicResource BorderColor}"/>
+                </Grid>
+
+                <GroupBox Header="Raccourcis" Margin="0,0,0,10" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
+                    <Grid Background="{DynamicResource BackgroundColor}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox x:Name="EnableHotkeyCheckBox" Content="Activer le raccourci" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,5" Foreground="{DynamicResource ForegroundColor}"/>
+                        <Label Content="Raccourci :" Grid.Row="1" Grid.Column="0" Foreground="{DynamicResource ForegroundColor}"/>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                            <TextBox x:Name="HotkeyTextBox" Width="120" Margin="5,0,0,0" IsReadOnly="True" IsEnabled="{Binding IsChecked, ElementName=EnableHotkeyCheckBox}" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}"/>
+                            <Button x:Name="SetHotkeyButton" Content="Définir..." Width="70" Margin="5,0,0,0" Click="SetHotkeyButton_Click" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+
+                <Grid>
+                    <Separator Width="Auto" HorizontalAlignment="Stretch" Height="1" Background="{DynamicResource BorderColor}"/>
+                </Grid>
+
+                <GroupBox Header="Démarrage" Margin="0,0,0,10" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
+                    <Grid Background="{DynamicResource BackgroundColor}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox x:Name="StartupCheckBox" Content="Lancer au démarrage de Windows" Grid.Column="0" Grid.ColumnSpan="2" Foreground="{DynamicResource ForegroundColor}"/>
+                    </Grid>
+                </GroupBox>
+
+                <Grid>
+                    <Separator Width="Auto" HorizontalAlignment="Stretch" Height="1" Background="{DynamicResource BorderColor}"/>
+                </Grid>
+
+                <GroupBox Header="Ordre d'affichage des résultats" Margin="0,0,0,10" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
+                    <Grid Background="{DynamicResource BackgroundColor}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Ordre :" Grid.Column="0" Foreground="{DynamicResource ForegroundColor}"/>
+                        <ComboBox x:Name="OrderComboBox" Grid.Column="1" Margin="5" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
+                            <ComboBoxItem Content="IA,Application,Web"/>
+                            <ComboBoxItem Content="IA,Web,Application"/>
+                            <ComboBoxItem Content="Application,IA,Web"/>
+                            <ComboBoxItem Content="Application,Web,IA"/>
+                            <ComboBoxItem Content="Web,IA,Application"/>
+                            <ComboBoxItem Content="Web,Application,IA"/>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+
+                <Grid>
+                    <Separator Width="Auto" HorizontalAlignment="Stretch" Height="1" Background="{DynamicResource BorderColor}"/>
+                </Grid>
+
+                <GroupBox Header="Thème de l'IA" Margin="0,0,0,10" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
+                    <Grid Background="{DynamicResource BackgroundColor}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Thème IA :" Grid.Column="0" Foreground="{DynamicResource ForegroundColor}"/>
+                        <ComboBox x:Name="AIThemeComboBox" Grid.Column="1" Margin="5" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
+                            <ComboBoxItem Content="Light"/>
+                            <ComboBoxItem Content="Dark"/>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Background="{DynamicResource BackgroundColor}">
+            <Button Content="Enregistrer" Width="80" Margin="0,0,10,0" Click="SaveButton_Click" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}"/>
+            <Button Content="Annuler" Width="80" Click="CancelButton_Click" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}"/>
+        </StackPanel>
+    </Grid>
+</Window> 
