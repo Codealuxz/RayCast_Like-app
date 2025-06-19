@@ -37,6 +37,22 @@
           }
         }
       },
+      "System.CodeDom/9.0.6": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netcoreapp2.0/System.CodeDom.targets": {}
+        }
+      },
       "System.Drawing.Common/7.0.0": {
         "type": "package",
         "dependencies": {
@@ -60,6 +76,25 @@
             "assetType": "runtime",
             "rid": "win"
           }
+        }
+      },
+      "System.Management/9.0.6": {
+        "type": "package",
+        "dependencies": {
+          "System.CodeDom": "9.0.6"
+        },
+        "compile": {
+          "lib/netstandard2.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netcoreapp2.0/System.Management.targets": {}
         }
       },
       "System.Net.Http.Json/7.0.0": {
@@ -101,6 +136,145 @@
             "assetType": "runtime",
             "rid": "browser"
           }
+        }
+      },
+      "System.Text.Json/7.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Encodings.Web": "7.0.0"
+        },
+        "compile": {
+          "lib/net7.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/System.Text.Json.targets": {}
+        }
+      }
+    },
+    "net7.0-windows10.0.19041/win-x64": {
+      "Microsoft.Win32.SystemEvents/7.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.CodeDom/9.0.6": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netcoreapp2.0/System.CodeDom.targets": {}
+        }
+      },
+      "System.Drawing.Common/7.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "7.0.0"
+        },
+        "compile": {
+          "lib/net7.0/System.Drawing.Common.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net7.0/System.Drawing.Common.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Management/9.0.6": {
+        "type": "package",
+        "dependencies": {
+          "System.CodeDom": "9.0.6"
+        },
+        "compile": {
+          "lib/netstandard2.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netcoreapp2.0/System.Management.targets": {}
+        }
+      },
+      "System.Net.Http.Json/7.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Json": "7.0.0"
+        },
+        "compile": {
+          "lib/net7.0/System.Net.Http.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/System.Net.Http.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Text.Encodings.Web/7.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
         }
       },
       "System.Text.Json/7.0.0": {
@@ -186,6 +360,34 @@
         "packageIcon.png"
       ]
     },
+    "System.CodeDom/9.0.6": {
+      "sha512": "9u1pyEykc0bWBHf1cIVwRoMqrEtxtXdC2ss1K02pvrkwHPcyYmy1glO+kLbyqPO9ehCTl+2dFyUuTUNl1Fde5g==",
+      "type": "package",
+      "path": "system.codedom/9.0.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.CodeDom.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.CodeDom.targets",
+        "lib/net462/System.CodeDom.dll",
+        "lib/net462/System.CodeDom.xml",
+        "lib/net8.0/System.CodeDom.dll",
+        "lib/net8.0/System.CodeDom.xml",
+        "lib/net9.0/System.CodeDom.dll",
+        "lib/net9.0/System.CodeDom.xml",
+        "lib/netstandard2.0/System.CodeDom.dll",
+        "lib/netstandard2.0/System.CodeDom.xml",
+        "system.codedom.9.0.6.nupkg.sha512",
+        "system.codedom.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "System.Drawing.Common/7.0.0": {
       "sha512": "KIX+oBU38pxkKPxvLcLfIkOV5Ien8ReN78wro7OF5/erwcmortzeFx+iBswlh2Vz6gVne0khocQudGwaO1Ey6A==",
       "type": "package",
@@ -220,6 +422,35 @@
         "runtimes/win/lib/net7.0/System.Drawing.Common.xml",
         "system.drawing.common.7.0.0.nupkg.sha512",
         "system.drawing.common.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Management/9.0.6": {
+      "sha512": "pOc5bCurWL3qVDsPP0iycUCRfXBhI/fVe44SiAlVqoZDIbHP080CLyCzfXV1UbdGKN0hQSLSHqr7OI3BhLBRbA==",
+      "type": "package",
+      "path": "system.management/9.0.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Management.targets",
+        "lib/net462/_._",
+        "lib/net8.0/System.Management.dll",
+        "lib/net8.0/System.Management.xml",
+        "lib/net9.0/System.Management.dll",
+        "lib/net9.0/System.Management.xml",
+        "lib/netstandard2.0/System.Management.dll",
+        "lib/netstandard2.0/System.Management.xml",
+        "runtimes/win/lib/net8.0/System.Management.dll",
+        "runtimes/win/lib/net8.0/System.Management.xml",
+        "runtimes/win/lib/net9.0/System.Management.dll",
+        "runtimes/win/lib/net9.0/System.Management.xml",
+        "system.management.9.0.6.nupkg.sha512",
+        "system.management.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
@@ -357,35 +588,29 @@
     "net7.0-windows10.0.19041": [
       "Newtonsoft.Json >= 13.0.3",
       "System.Drawing.Common >= 7.0.0",
+      "System.Management >= 9.0.6",
       "System.Net.Http.Json >= 7.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\louis\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Perso\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\louis\\Documents\\openSource\\RayCast_Like-app\\RayCast.csproj",
+      "projectUniqueName": "D:\\RayCast_Like-app-main\\RayCast_Like-app-main\\RayCast.csproj",
       "projectName": "RayCast",
-      "projectPath": "C:\\Users\\louis\\Documents\\openSource\\RayCast_Like-app\\RayCast.csproj",
-      "packagesPath": "C:\\Users\\louis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\louis\\Documents\\openSource\\RayCast_Like-app\\obj\\",
+      "projectPath": "D:\\RayCast_Like-app-main\\RayCast_Like-app-main\\RayCast.csproj",
+      "packagesPath": "C:\\Users\\Perso\\.nuget\\packages\\",
+      "outputPath": "D:\\RayCast_Like-app-main\\RayCast_Like-app-main\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\louis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Perso\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0-windows10.0.19041.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -398,13 +623,7 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net7.0-windows10.0.19041": {
@@ -417,6 +636,10 @@
           "System.Drawing.Common": {
             "target": "Package",
             "version": "[7.0.0, )"
+          },
+          "System.Management": {
+            "target": "Package",
+            "version": "[9.0.6, )"
           },
           "System.Net.Http.Json": {
             "target": "Package",
@@ -436,22 +659,39 @@
         "warn": true,
         "downloadDependencies": [
           {
+            "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+            "version": "[7.0.20, 7.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.win-x64",
+            "version": "[7.0.20, 7.0.20]"
+          },
+          {
             "name": "Microsoft.Windows.SDK.NET.Ref",
-            "version": "[10.0.19041.55, 10.0.19041.55]"
+            "version": "[10.0.19041.31, 10.0.19041.31]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+            "version": "[7.0.20, 7.0.20]"
           }
         ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           },
-          "Microsoft.Windows.SDK.NET.Ref.Windows": {
+          "Microsoft.Windows.SDK.NET.Ref": {
             "privateAssets": "all"
           },
           "Microsoft.WindowsDesktop.App": {
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "win-x64": {
+        "#import": []
       }
     }
   }

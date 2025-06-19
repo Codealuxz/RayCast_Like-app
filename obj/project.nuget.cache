@@ -1,16 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "wkEGRpmfu3g=",
+  "dgSpecHash": "ujAwJbKGeGWDehb6OiJmkwH5sBV6OYm3rCgzCO4Z/2su7FrSxQtApAjI8EGUQ4j7yXNHFjT7+zmOKaRTKayOSw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\louis\\Documents\\openSource\\RayCast_Like-app\\RayCast.csproj",
+  "projectFilePath": "D:\\RayCast_Like-app-main\\RayCast_Like-app-main\\RayCast.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\louis\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
-    "C:\\Users\\louis\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
-    "C:\\Users\\louis\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
-    "C:\\Users\\louis\\.nuget\\packages\\system.net.http.json\\7.0.0\\system.net.http.json.7.0.0.nupkg.sha512",
-    "C:\\Users\\louis\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
-    "C:\\Users\\louis\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
-    "C:\\Users\\louis\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.55\\microsoft.windows.sdk.net.ref.10.0.19041.55.nupkg.sha512"
+    "C:\\Users\\Perso\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\system.codedom\\9.0.6\\system.codedom.9.0.6.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\system.management\\9.0.6\\system.management.9.0.6.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\system.net.http.json\\7.0.0\\system.net.http.json.7.0.0.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\7.0.20\\microsoft.netcore.app.runtime.win-x64.7.0.20.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\7.0.20\\microsoft.windowsdesktop.app.runtime.win-x64.7.0.20.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\7.0.20\\microsoft.aspnetcore.app.runtime.win-x64.7.0.20.nupkg.sha512",
+    "C:\\Users\\Perso\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.31\\microsoft.windows.sdk.net.ref.10.0.19041.31.nupkg.sha512"
   ],
   "logs": []
 }

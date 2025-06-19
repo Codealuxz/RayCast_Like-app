@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\Projects\Scripts\RayCast\obj\Release\net7.0-windows10.0.19041.0\win-x64\
+D:\RayCast_Like-app-main\RayCast_Like-app-main\obj\Release\net7.0-windows10.0.19041.0\win-x64\
 RayCast
 none
 false
 TRACE;RELEASE;NET;NET7_0;NETCOREAPP
-D:\Projects\Scripts\RayCast\App.xaml
+D:\RayCast_Like-app-main\RayCast_Like-app-main\App.xaml
 2-2121854466
 11562050264
-12-344760876
-210-1753494641
+131731488752
+211-1723548668
 MainWindow.xaml;SettingsWindow.xaml;
 
 False
