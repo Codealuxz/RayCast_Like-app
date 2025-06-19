@@ -82,10 +82,11 @@
                                             <Setter Property="Template">
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="Thumb">
-                                                        <Border Background="#FFA500" 
-                                                                BorderBrush="#FFA500"
+                                                        <Border Background="#f8bfbf" 
+                                                                BorderBrush="AliceBlue"
                                                                 BorderThickness="1"
-                                                                Margin="2,0"
+                                                                Margin="2,7"
+                                                                
                                                                 CornerRadius="4">
                                                             <Border.Effect>
                                                                 <DropShadowEffect Color="#40FFFFFF" 
@@ -141,7 +142,9 @@
                                 <Border Background="{TemplateBinding Background}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="{TemplateBinding BorderThickness}"
-                                        CornerRadius="25">
+                                        CornerRadius="25"
+                                        ClipToBounds="True"
+                                        >
                                     <Border.Effect>
                                         <DropShadowEffect Color="#f8bfbf" 
                                                         BlurRadius="0" 
@@ -317,7 +320,7 @@
                      IsReadOnly="True"
                      VerticalScrollBarVisibility="Auto"
                      HorizontalScrollBarVisibility="Disabled"
-                     Visibility="{Binding IsIAActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                     Visibility="{Binding IsIAActive, Converter={StaticResource BooleanToVisibilityConverter}}" TextChanged="IAResponseBox_TextChanged">
                 <RichTextBox.Style>
                     <Style TargetType="RichTextBox">
                         <Setter Property="Template">
