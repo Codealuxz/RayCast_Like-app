@@ -1,10 +1,10 @@
 #define MyAppName "RayCast"
-#define MyAppVersion "1.0.1"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "RayCast"
 #define MyAppExeName "RayCast.exe"
 
 [Setup]
-AppId={{B8F1E0A0-0B0B-4B0B-8B0B-0B0B0B0B0B0B}
+AppId=B8F1E0A0-0B0B-4B0B-8B0B-0B0B0B0B0B0B}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
@@ -14,7 +14,7 @@ DisableDirPage=no
 DisableWelcomePage=no
 DisableFinishedPage=no
 OutputDir=installer
-OutputBaseFilename=RayCast-Setup 1.0.2
+OutputBaseFilename=RayCast-Setup 1.1.0
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern

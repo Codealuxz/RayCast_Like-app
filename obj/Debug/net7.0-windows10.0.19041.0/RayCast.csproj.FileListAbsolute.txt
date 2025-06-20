@@ -63,3 +63,5 @@ C:\Users\louis\Documents\openSource\RayCast_Like-app\obj\Debug\net7.0-windows10.
 C:\Users\louis\Documents\openSource\RayCast_Like-app\obj\Debug\net7.0-windows10.0.19041.0\RayCast.pdb
 C:\Users\louis\Documents\openSource\RayCast_Like-app\obj\Debug\net7.0-windows10.0.19041.0\RayCast.genruntimeconfig.cache
 C:\Users\louis\Documents\openSource\RayCast_Like-app\obj\Debug\net7.0-windows10.0.19041.0\ref\RayCast.dll
+C:\Users\louis\Documents\openSource\RayCast_Like-app\bin\Debug\net7.0-windows10.0.19041.0\System.CodeDom.dll
+C:\Users\louis\Documents\openSource\RayCast_Like-app\bin\Debug\net7.0-windows10.0.19041.0\System.Management.dll

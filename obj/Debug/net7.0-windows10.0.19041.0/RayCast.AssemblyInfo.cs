@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RayCast")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d3f017bb6342ad8734662970a23142f66bbdf11")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+54721e1611191807a22dfd1a0c9624b83c33f24d")]
 [assembly: System.Reflection.AssemblyProductAttribute("RayCast")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RayCast")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

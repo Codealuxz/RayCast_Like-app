@@ -24,6 +24,7 @@ using System.Windows.Data;
 using Windows.Management.Deployment;
 using Newtonsoft.Json;
 using System.Windows.Documents;
+using System.Management;
 
 namespace RayCast
 {
@@ -46,6 +47,8 @@ namespace RayCast
         private DateTime lastCacheUpdate = DateTime.MinValue;
         private DispatcherTimer _searchDelayTimer;
         private string logFilePath;
+        private Settings? currentSettings;
+        private Scanner scanner;
 
         public bool IsIAActive
         {
@@ -67,22 +70,22 @@ namespace RayCast
         {
             try
             {
-                System.IO.File.AppendAllText("C:\\Users\\Public\\raycast_startup.log", $"[{DateTime.Now}] Début de l'initialisation de MainWindow.\n");
+                SafeLog("Début de l'initialisation de MainWindow.");
                 InitializeComponent();
-                System.IO.File.AppendAllText("C:\\Users\\Public\\raycast_startup.log", $"[{DateTime.Now}] InitializeComponent terminé.\n");
+                SafeLog("InitializeComponent terminé.");
 
                 
                 string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RayCast");
                 Directory.CreateDirectory(appDataPath);
                 logFilePath = Path.Combine(appDataPath, "raycast.log");
-                System.IO.File.AppendAllText(logFilePath, $"[{DateTime.Now}] Chemins de fichiers initialisés : logFilePath={logFilePath}\n");
+                SafeLog($"Chemins de fichiers initialisés : logFilePath={logFilePath}");
 
                 
                 InitializeSystemTray();
-                System.IO.File.AppendAllText(logFilePath, $"[{DateTime.Now}] Systray initialisée.\n");
+                SafeLog("Systray initialisée.");
 
                 
-                System.IO.File.AppendAllText(logFilePath, $"[{DateTime.Now}] Initialisation de MainWindow terminée.\n");
+                SafeLog("Initialisation de MainWindow terminée.");
 
                 Loaded += MainWindow_Loaded;
                 Closing += MainWindow_Closing;
@@ -103,10 +106,22 @@ namespace RayCast
                 _searchDelayTimer = new DispatcherTimer();
                 _searchDelayTimer.Interval = TimeSpan.FromSeconds(2);
                 _searchDelayTimer.Tick += SearchDelayTimer_Tick;
+
+                LoadSettings();
+
+                scanner = new Scanner();
+                // Scan combiné : API Windows Search + raccourcis utilisateur
+                Task.Run(() =>
+                {
+                    scanner.ScanWithWindowsSearch();
+                    scanner.ScanUserShortcuts();
+                    scanner.FilterAndDeduplicate();
+                    scanner.SaveCache();
+                });
             }
             catch (Exception ex)
             {
-                System.IO.File.AppendAllText("C:\\Users\\Public\\raycast_startup.log", $"[{DateTime.Now}] Erreur lors de l'initialisation de MainWindow : {ex.Message}\n");
+                SafeLog($"Erreur lors de l'initialisation de MainWindow : {ex.Message}");
                 throw;
             }
         }
@@ -115,7 +130,7 @@ namespace RayCast
         {
             try
             {
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Enregistrement des raccourcis...\n");
+                SafeLog("Enregistrement des raccourcis...");
                 var handle = new WindowInteropHelper(this).Handle;
                 
                 
@@ -123,14 +138,10 @@ namespace RayCast
                 _source?.AddHook(WndProc);
                 
                 
-                _hotKey = new HotKey(handle, ModifierKeys.Control, Key.Space);
-                _hotKey.Pressed += HotKey_Pressed;
+                RegisterUserHotkey();
                 
                 
-                _exitHotKey = new HotKey(handle, ModifierKeys.Control, Key.C);
-                _exitHotKey.Pressed += ExitHotKey_Pressed;
-                
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Raccourcis enregistrés avec succès !\n");
+                SafeLog("Raccourcis enregistrés avec succès !");
 
                 
                 if (_notifyIcon != null)
@@ -148,17 +159,17 @@ namespace RayCast
                     try
                     {
                         _notifyIcon.Icon = new System.Drawing.Icon(iconPath);
-                        System.IO.File.AppendAllText(logFilePath, $"[{DateTime.Now}] Icône logo.ico chargée avec succès.\n");
+                        SafeLog("Icône logo.ico chargée avec succès.");
                     }
                     catch (Exception iconEx)
                     {
-                        System.IO.File.AppendAllText(logFilePath, $"[{DateTime.Now}] Erreur lors du chargement de l'icône : {iconEx.Message}\n");
+                        SafeLog($"Erreur lors du chargement de l'icône : {iconEx.Message}");
                         _notifyIcon.Icon = System.Drawing.SystemIcons.Application;
                     }
                 }
                 else
                 {
-                    System.IO.File.AppendAllText(logFilePath, $"[{DateTime.Now}] Le fichier d'icône logo.ico n'a pas été trouvé à {iconPath}. Utilisation de l'icône par défaut.\n");
+                    SafeLog($"Le fichier d'icône logo.ico n'a pas été trouvé à {iconPath}. Utilisation de l'icône par défaut.");
                     _notifyIcon.Icon = System.Drawing.SystemIcons.Application;
                 }
 
@@ -174,6 +185,16 @@ namespace RayCast
                 contextMenu.Items.Add("Ouvrir", null, (s, e) => ShowWindow(s, e));
                 contextMenu.Items.Add("Paramètres", null, (s, e) => {
                     var settingsWindow = new SettingsWindow();
+                    settingsWindow.Closed += (s, args) =>
+                    {
+                        LoadSettings();
+                        ApplyTheme(currentSettings?.Theme ?? "Light");
+                        RegisterUserHotkey();
+                        if (!string.IsNullOrEmpty(SearchBox.Text))
+                        {
+                            _ = UpdateNormalSearch(SearchBox.Text);
+                        }
+                    };
                     settingsWindow.Show();
                 });
                 contextMenu.Items.Add("Quitter", null, (s, e) => ExitApplication(s, e));
@@ -185,7 +206,7 @@ namespace RayCast
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show($"Erreur lors de l'enregistrement des raccourcis ou de la systray : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur globale dans MainWindow_Loaded : {ex.Message}\n");
+                SafeLog($"Erreur globale dans MainWindow_Loaded : {ex.Message}");
             }
         }
 
@@ -194,16 +215,11 @@ namespace RayCast
             const int WM_HOTKEY = 0x0312;
             if (msg == WM_HOTKEY)
             {
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Message WM_HOTKEY reçu.\n");
+                SafeLog("Message WM_HOTKEY reçu.");
                 int id = wParam.ToInt32();
                 if (id == _hotKey?.GetHashCode())
                 {
                     _hotKey.ProcessHotKey();
-                    handled = true;
-                }
-                else if (id == _exitHotKey?.GetHashCode())
-                {
-                    _exitHotKey.ProcessHotKey();
                     handled = true;
                 }
             }
@@ -227,24 +243,11 @@ namespace RayCast
             
             try
             {
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Raccourci Ctrl+Espace pressé (HotKey_Pressed déclenché).\n");
+                SafeLog("Raccourci Ctrl+Espace pressé (HotKey_Pressed déclenché).");
             }
             catch {}
-            System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Raccourci Ctrl + Espace détecté ! Affichage de la fenêtre.\n");
+            SafeLog("Raccourci Ctrl + Espace détecté ! Affichage de la fenêtre.");
             ShowWindow(sender, null);
-        }
-
-        private void ExitHotKey_Pressed(object? sender, EventArgs e)
-        {
-            System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Raccourci Ctrl+C détecté ! Fermeture de l'application.\n");
-            _hotKey?.Dispose();
-            _exitHotKey?.Dispose();
-            if (_notifyIcon != null)
-            {
-                _notifyIcon.Visible = false;
-                _notifyIcon.Dispose();
-            }
-            System.Windows.Application.Current.Shutdown();
         }
 
         private void MainWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -318,13 +321,13 @@ namespace RayCast
             IsIAActive = false; 
             IAResponseBox.Document.Blocks.Clear(); 
             IAResponseBox.Visibility = Visibility.Collapsed; 
-            System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Fenêtre masquée.\n");
+            SafeLog("Fenêtre masquée.");
         }
 
         private void ResultsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
-            System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Sélection changée : {ResultsList.SelectedIndex}\n");
+            SafeLog($"Sélection changée : {ResultsList.SelectedIndex}");
         }
 
         private void ResultsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -457,12 +460,12 @@ namespace RayCast
                     FileName = appPath,
                     UseShellExecute = true
                 });
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Application lancée : {appPath}\n");
+                SafeLog($"Application lancée : {appPath}");
             }
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show($"Erreur lors du lancement de {appPath}: {ex.Message}");
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors du lancement de {appPath}: {ex.Message}\n");
+                SafeLog($"Erreur lors du lancement de {appPath}: {ex.Message}");
             }
         }
 
@@ -536,7 +539,7 @@ namespace RayCast
                                                 }
                                                 catch (Exception ex)
                                                 {
-                                                    System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors de la recherche dans {installLocation}: {ex.Message}\n");
+                                                    SafeLog($"Erreur lors de la recherche dans {installLocation}: {ex.Message}");
                                                 }
                                             }
                                         }
@@ -556,7 +559,7 @@ namespace RayCast
                             }
                             catch (Exception ex)
                             {
-                                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors du chargement de l'application {subKeyName}: {ex.Message}\n");
+                                SafeLog($"Erreur lors du chargement de l'application {subKeyName}: {ex.Message}");
                             }
                         }
                     }
@@ -603,13 +606,13 @@ namespace RayCast
                                 }
                                 catch (Exception ex)
                                 {
-                                    System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors du chargement de l'exécutable {exeFile}: {ex.Message}\n");
+                                    SafeLog($"Erreur lors du chargement de l'exécutable {exeFile}: {ex.Message}");
                                 }
                             }
                         }
                         catch (Exception ex)
                         {
-                            System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors de la recherche dans {programFilesPath}: {ex.Message}\n");
+                            SafeLog($"Erreur lors de la recherche dans {programFilesPath}: {ex.Message}");
                         }
                     }
                 }
@@ -680,7 +683,7 @@ namespace RayCast
                             }
                             catch (Exception ex)
                             {
-                                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors du chargement du raccourci {shortcut}: {ex.Message}\n");
+                                SafeLog($"Erreur lors du chargement du raccourci {shortcut}: {ex.Message}");
                             }
                         }
                     }
@@ -689,7 +692,7 @@ namespace RayCast
                 
                 if (installedApps.Count == 0)
                 {
-                    System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Aucune application trouvée, lancement de la recherche de secours...\n");
+                    SafeLog("Aucune application trouvée, lancement de la recherche de secours...");
                     SearchAllExecutables();
                 }
 
@@ -700,11 +703,11 @@ namespace RayCast
                     .OrderBy(a => a.DisplayName)
                     .ToList();
 
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] {installedApps.Count} applications trouvées.\n");
+                SafeLog($"{installedApps.Count} applications trouvées.");
             }
             catch (Exception ex)
             {
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors du chargement des applications : {ex.Message}\n");
+                SafeLog($"Erreur lors du chargement des applications : {ex.Message}");
             }
         }
 
@@ -784,7 +787,7 @@ namespace RayCast
                         }
                         catch (Exception ex)
                         {
-                            System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors du chargement de l'exécutable {exe.Path}: {ex.Message}\n");
+                            SafeLog($"Erreur lors du chargement de l'exécutable {exe.Path}: {ex.Message}");
                         }
                     }
 
@@ -795,7 +798,7 @@ namespace RayCast
             }
             catch (Exception ex)
             {
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors de la recherche de secours : {ex.Message}\n");
+                SafeLog("Erreur lors de la recherche de secours : " + ex.Message);
             }
         }
 
@@ -803,7 +806,7 @@ namespace RayCast
         {
             try
             {
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Début de la mise à jour du cache...\n");
+                SafeLog("Début de la mise à jour du cache...");
                 var exeList = new List<ExeCacheEntry>();
 
                 // Recherche dans Program Files et Program Files (x86)
@@ -819,7 +822,7 @@ namespace RayCast
                     {
                         try
                         {
-                            System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Recherche dans {programFilesPath}...\n");
+                            SafeLog($"Recherche dans {programFilesPath}...");
                             var exeFiles = Directory.GetFiles(programFilesPath, "*.exe", SearchOption.AllDirectories)
                                 .Where(f => !f.Contains("\\Windows\\") && 
                                           !f.Contains("\\Microsoft\\") && 
@@ -844,13 +847,13 @@ namespace RayCast
                                 }
                                 catch (Exception ex)
                                 {
-                                    System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors du chargement de {exeFile}: {ex.Message}\n");
+                                    SafeLog($"Erreur lors du chargement de {exeFile}: {ex.Message}");
                                 }
                             }
                         }
                         catch (Exception ex)
                         {
-                            System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors de la recherche dans {programFilesPath}: {ex.Message}\n");
+                            SafeLog($"Erreur lors de la recherche dans {programFilesPath}: {ex.Message}");
                         }
                     }
                 }
@@ -871,7 +874,7 @@ namespace RayCast
                     {
                         try
                         {
-                            System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Recherche dans {folder}...\n");
+                            SafeLog($"Recherche dans {folder}...");
                             var exeFiles = Directory.GetFiles(folder, "*.exe", SearchOption.AllDirectories);
                             foreach (var exeFile in exeFiles)
                             {
@@ -891,13 +894,13 @@ namespace RayCast
                                 }
                                 catch (Exception ex)
                                 {
-                                    System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors du chargement de {exeFile}: {ex.Message}\n");
+                                    SafeLog($"Erreur lors du chargement de {exeFile}: {ex.Message}");
                                 }
                             }
                         }
                         catch (Exception ex)
                         {
-                            System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors de la recherche dans {folder}: {ex.Message}\n");
+                            SafeLog($"Erreur lors de la recherche dans {folder}: {ex.Message}");
                         }
                     }
                 }
@@ -905,11 +908,11 @@ namespace RayCast
                 // Sauvegarder le cache
                 var json = JsonConvert.SerializeObject(exeList);
                 File.WriteAllText(CACHE_FILE, json);
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Cache mis à jour avec succès.\n");
+                SafeLog("Cache mis à jour avec succès.");
             }
             catch (Exception ex)
             {
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors de la mise à jour du cache : {ex.Message}\n");
+                SafeLog("Erreur lors de la mise à jour du cache : " + ex.Message);
             }
         }
 
@@ -924,7 +927,7 @@ namespace RayCast
         {
             try
             {
-                File.AppendAllText("raycast.log", $"[{DateTime.Now}] Début de la génération IA pour : {query}\n");
+                SafeLog("Début de la génération IA pour : " + query);
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Add("x-goog-api-key", geminiApiKey);
 
@@ -950,12 +953,12 @@ namespace RayCast
                     }
                 };
 
-                File.AppendAllText("raycast.log", $"[{DateTime.Now}] Envoi de la requête à Gemini...\n");
+                SafeLog("Envoi de la requête à Gemini...");
                 var response = await client.PostAsJsonAsync(
                     $"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={geminiApiKey}",
                     request);
 
-                File.AppendAllText("raycast.log", $"[{DateTime.Now}] Réponse reçue, status: {response.StatusCode}\n");
+                SafeLog("Réponse reçue, status: " + response.StatusCode);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -963,7 +966,7 @@ namespace RayCast
                     using var reader = new StreamReader(stream);
                     var fullResponse = new StringBuilder();
 
-                    File.AppendAllText("raycast.log", $"[{DateTime.Now}] Début de la lecture du stream\n");
+                    SafeLog("Début de la lecture du stream");
 
                     while (!reader.EndOfStream)
                     {
@@ -975,7 +978,7 @@ namespace RayCast
                             var jsonData = line.Substring(6);
                             if (jsonData == "[DONE]") 
                             {
-                                File.AppendAllText("raycast.log", $"[{DateTime.Now}] Stream terminé\n");
+                                SafeLog("Stream terminé");
                                 break;
                             }
 
@@ -987,7 +990,7 @@ namespace RayCast
                                     var text = result.candidates.First().content.parts.First().text;
                                     fullResponse.Append(text);
                                     
-                                    File.AppendAllText("raycast.log", $"[{DateTime.Now}] Nouveau texte reçu : {text}\n");
+                                    SafeLog("Nouveau texte reçu : " + text);
                                     
                                     
                                     await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
@@ -996,31 +999,31 @@ namespace RayCast
                                         if (currentResult != null)
                                         {
                                             currentResult.Title = fullResponse.ToString();
-                                            File.AppendAllText("raycast.log", $"[{DateTime.Now}] Interface mise à jour avec : {fullResponse}\n");
+                                            SafeLog("Interface mise à jour avec : " + fullResponse);
                                         }
                                     });
                                 }
                             }
                             catch (Exception ex)
                             {
-                                File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur parsing JSON : {ex.Message}\n");
+                                SafeLog("Erreur parsing JSON : " + ex.Message);
                             }
                         }
                     }
 
                     var finalResponse = fullResponse.ToString();
-                    File.AppendAllText("raycast.log", $"[{DateTime.Now}] Réponse finale : {finalResponse}\n");
+                    SafeLog("Réponse finale : " + finalResponse);
                     return finalResponse;
                 }
                 else
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur API : {errorContent}\n");
+                    SafeLog("Erreur API : " + errorContent);
                 }
             }
             catch (Exception ex)
             {
-                File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur Gemini : {ex.Message}\n{ex.StackTrace}\n");
+                SafeLog("Erreur Gemini : " + ex.Message + "\n" + ex.StackTrace);
             }
             return string.Empty;
         }
@@ -1061,72 +1064,30 @@ namespace RayCast
             });
 
             var searchLower = searchText.ToLower();
-            var hasResults = false;
 
-            
-            bool isUrl = false;
-            string url = searchText;
-            string[] domainExtensions = { ".com", ".fr", ".dev", ".ai", ".us", ".uk", ".org", ".net", ".io" };
+            // Préparation des listes par type
+            var iaResults = new List<SearchResult>();
+            var appResults = new List<SearchResult>();
+            var webResults = new List<SearchResult>();
 
-            if (searchText.Contains("."))
-            {
-                foreach (string ext in domainExtensions)
-                {
-                    if (searchText.EndsWith(ext) || searchText.Contains(ext + "/"))
-                    {
-                        isUrl = true;
-                        break;
-                    }
-                }
-            }
-
-            
-            if (isUrl)
-            {
-                if (!url.StartsWith("http://") && !url.StartsWith("https://"))
-                {
-                    url = "https://" + url;
-                }
-
-                var favicon = await GetFavicon(url);
-                await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    searchResults.Add(new SearchResult
-                    {
-                        Icon = "🌐",
-                        Title = "Accéder au site",
-                        Description = url,
-                        ActionType = "web",
-                        WebUrl = url,
-                        AppIcon = favicon
-                    });
-                });
-                hasResults = true;
-            }
-
-            
+            // Recherche d'applications
             foreach (var app in installedApps)
             {
                 if (app.DisplayName.ToLower().Contains(searchLower) || app.Name.ToLower().Contains(searchLower))
                 {
                     var appIcon = GetAppIcon(app.Path);
-                    await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
+                    appResults.Add(new SearchResult
                     {
-                        searchResults.Add(new SearchResult
-                        {
-                            Icon = app.Icon,
-                            Title = app.DisplayName,
-                            Description = app.Path,
-                            ActionType = "app",
-                            AppPath = app.Path,
-                            AppIcon = appIcon
-                        });
+                        Icon = app.Icon,
+                        Title = "[Application] " + app.DisplayName,
+                        Description = app.Path,
+                        ActionType = "app",
+                        AppPath = app.Path,
+                        AppIcon = appIcon
                     });
-                    hasResults = true;
                 }
             }
 
-            
             if (IsMathExpression(searchText))
             {
                 var result = CalculateExpression(searchText);
@@ -1140,12 +1101,12 @@ namespace RayCast
                         ActionType = "copy"
                     });
                 });
-                hasResults = true;
+                
             }
 
             if (IsTerminalCommand(searchText))
             {
-                
+
                 await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
                 {
                     searchResults.Add(new SearchResult
@@ -1156,16 +1117,12 @@ namespace RayCast
                         ActionType = "terminal"
                     });
                 });
-                
-                hasResults = true;
+
             }
 
-            string searchEngine;
-            using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\RayCast"))
-            {
-                searchEngine = key?.GetValue("SearchEngine") as string ?? "Google";
-            }
 
+            // Recherche Web
+            string searchEngine = currentSettings?.SearchEngine ?? "Google";
             string searchUrl;
             switch (searchEngine)
             {
@@ -1181,95 +1138,48 @@ namespace RayCast
                 case "Qwant":
                     searchUrl = $"https://www.qwant.com/?q={Uri.EscapeDataString(searchText)}";
                     break;
-                case "Google":
                 default:
                     searchUrl = $"https://www.google.com/search?q={Uri.EscapeDataString(searchText)}";
                     break;
             }
-
-            await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
+            webResults.Add(new SearchResult
             {
-                searchResults.Add(new SearchResult
-                {
-                    Icon = "🌐",
-                    Title = searchText,
-                    Description = "Rechercher sur le web",
-                    ActionType = "web",
-                    WebUrl = searchUrl
-                });
+                Icon = "🌐",
+                Title = "[Web] " + searchText,
+                Description = "Rechercher sur le web",
+                ActionType = "web",
+                WebUrl = searchUrl
             });
-            hasResults = true;
 
-            
-            await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
+            // Résultat IA (bouton)
+            iaResults.Add(new SearchResult
             {
-                searchResults.Add(new SearchResult
-                {
-                    Icon = "🤖",
-                    Title = searchText,
-                    Description = "Générer avec l'IA",
-                    ActionType = "ia"
-                });
+                Icon = "🤖",
+                Title = "[IA] " + searchText,
+                Description = "Générer avec l'IA",
+                ActionType = "ia"
             });
-            hasResults = true;
 
-            
-            if (searchLower.StartsWith("gl:"))
+            // À la fin, ajoute dans searchResults selon l'ordre choisi :
+            string resultsOrder = currentSettings?.ResultsOrder ?? "IA,Application,Web";
+            foreach (var type in resultsOrder.Split(','))
             {
-                var query = searchText.Substring(3).Trim();
-                await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
+                switch (type.Trim().ToLower())
                 {
-                    searchResults.Add(new SearchResult
-                    {
-                        Icon = "🌐",
-                        Title = query,
-                        Description = "Rechercher sur Google",
-                        ActionType = "web",
-                        WebUrl = $"https://www.google.com/search?q={Uri.EscapeDataString(query)}"
-                    });
-                });
-                hasResults = true;
+                    case "ia":
+                        foreach (var r in iaResults) await System.Windows.Application.Current.Dispatcher.InvokeAsync(() => searchResults.Add(r));
+                        break;
+                    case "application":
+                        foreach (var r in appResults) await System.Windows.Application.Current.Dispatcher.InvokeAsync(() => searchResults.Add(r));
+                        break;
+                    case "web":
+                        foreach (var r in webResults) await System.Windows.Application.Current.Dispatcher.InvokeAsync(() => searchResults.Add(r));
+                        break;
+                }
             }
-            else if (searchLower.StartsWith("gh:"))
-            {
-                var query = searchText.Substring(3).Trim();
-                var githubApp = installedApps.FirstOrDefault(app => 
-                    app.Name.ToLower().Contains("github") || 
-                    app.DisplayName.ToLower().Contains("github"));
-
-                await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    if (githubApp != null)
-                    {
-                        searchResults.Add(new SearchResult
-                        {
-                            Icon = "💻",
-                            Title = query,
-                            Description = $"Lancer GitHub Desktop",
-                            ActionType = "app",
-                            AppPath = githubApp.Path,
-                            AppIcon = GetAppIcon(githubApp.Path)
-                        });
-                    }
-                    else
-                    {
-                        searchResults.Add(new SearchResult
-                        {
-                            Icon = "💻",
-                            Title = query,
-                            Description = "Rechercher sur GitHub",
-                            ActionType = "web",
-                            WebUrl = $"https://github.com/search?q={Uri.EscapeDataString(query)}"
-                        });
-                    }
-                });
-                hasResults = true;
-            }
-
-            
             await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                ResultsList.Visibility = hasResults ? Visibility.Visible : Visibility.Collapsed;
+                ResultsList.Visibility = searchResults.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
             });
         }
 
@@ -1277,7 +1187,7 @@ namespace RayCast
         {
             try
             {
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Début de la génération IA pour : {searchText}\n");
+                SafeLog("Début de la génération IA pour : " + searchText);
                 
                 
                 string suggestion = await GetGeminiSuggestion(searchText);
@@ -1291,11 +1201,11 @@ namespace RayCast
                     IAResponseBox.Visibility = Visibility.Visible;
                 });
 
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Génération IA terminée avec succès.\n");
+                SafeLog("Génération IA terminée avec succès.");
             }
             catch (Exception ex)
             {
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors de la génération IA : {ex.Message}\n");
+                SafeLog("Erreur lors de la génération IA : " + ex.Message);
                 await System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
                 {
                     searchResults.Clear();
@@ -1387,7 +1297,7 @@ namespace RayCast
             }
             catch (Exception ex)
             {
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur de calcul : {ex.Message}\n");
+                SafeLog("Erreur de calcul : " + ex.Message);
                 return "Erreur de calcul";
             }
         }
@@ -1453,7 +1363,7 @@ namespace RayCast
                 }
                 catch (Exception iconEx)
                 {
-                    System.IO.File.AppendAllText(logFilePath, $"[{DateTime.Now}] Erreur lors du chargement de l'icône : {iconEx.Message}\n");
+                    SafeLog($"Erreur lors du chargement de l'icône : {iconEx.Message}");
                     _notifyIcon.Icon = System.Drawing.SystemIcons.Application;
                 }
             }
@@ -1473,6 +1383,16 @@ namespace RayCast
                 Dispatcher.Invoke(() => 
                 {
                     var settingsWindow = new SettingsWindow();
+                    settingsWindow.Closed += (s, args) =>
+                    {
+                        LoadSettings();
+                        ApplyTheme(currentSettings?.Theme ?? "Light");
+                        RegisterUserHotkey();
+                        if (!string.IsNullOrEmpty(SearchBox.Text))
+                        {
+                            _ = UpdateNormalSearch(SearchBox.Text);
+                        }
+                    };
                     settingsWindow.Show();
                 });
             };
@@ -1658,7 +1578,7 @@ namespace RayCast
         {
             if (ResultsList.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.AppPath))
             {
-                System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Tentative de lancement de l'application : {selectedResult.AppPath}\n");
+                SafeLog($"Tentative de lancement de l'application : {selectedResult.AppPath}");
                 try
                 {
                     var startInfo = new ProcessStartInfo
@@ -1669,12 +1589,12 @@ namespace RayCast
                     };
                     
                     Process.Start(startInfo);
-                    System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Application lancée avec succès : {selectedResult.AppPath}\n");
+                    SafeLog($"Application lancée avec succès : {selectedResult.AppPath}");
                     HideWindow();
                 }
                 catch (Exception ex)
                 {
-                    System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Erreur lors du lancement de l'application : {ex.Message}\n");
+                    SafeLog($"Erreur lors du lancement de l'application : {ex.Message}");
                 }
             }
         }
@@ -1683,27 +1603,6 @@ namespace RayCast
         {
             switch (e.Key)
             {
-                case Key.C:
-                    if (Keyboard.Modifiers == ModifierKeys.Control)
-                    {
-                        if (!string.IsNullOrEmpty(SearchBox.SelectedText))
-                        {
-                            System.Windows.Clipboard.SetText(SearchBox.SelectedText);
-                            e.Handled = true;
-                        }
-                    }
-                    break;
-                case Key.X:
-                    if (Keyboard.Modifiers == ModifierKeys.Control)
-                    {
-                        if (!string.IsNullOrEmpty(SearchBox.SelectedText))
-                        {
-                            System.Windows.Clipboard.SetText(SearchBox.SelectedText);
-                            SearchBox.SelectedText = "";
-                            e.Handled = true;
-                        }
-                    }
-                    break;
                 case Key.V:
                     if (Keyboard.Modifiers == ModifierKeys.Control)
                     {
@@ -1749,7 +1648,7 @@ namespace RayCast
 
         private void ActivateIA(string prompt)
         {
-            System.IO.File.AppendAllText("raycast.log", $"[{DateTime.Now}] Activation de l'IA avec le prompt : {prompt}\n");
+            SafeLog("Activation de l'IA avec le prompt : " + prompt);
             
             
             ResultsList.Visibility = Visibility.Collapsed;
@@ -1773,11 +1672,16 @@ namespace RayCast
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             var settingsWindow = new SettingsWindow();
-            if (settingsWindow.ShowDialog() == true)
+            settingsWindow.Closed += (s, args) =>
             {
-                
                 LoadSettings();
-            }
+                ApplyTheme(currentSettings?.Theme ?? "Light");
+                if (!string.IsNullOrEmpty(SearchBox.Text))
+                {
+                    _ = UpdateNormalSearch(SearchBox.Text);
+                }
+            };
+            settingsWindow.Show();
         }
 
         private void LoadSettings()
@@ -1787,13 +1691,16 @@ namespace RayCast
                 if (File.Exists("config.json"))
                 {
                     string json = File.ReadAllText("config.json");
-                    var settings = JsonConvert.DeserializeObject<Settings>(json);
-                    if (settings != null)
+                    currentSettings = JsonConvert.DeserializeObject<Settings>(json);
+                    if (currentSettings != null)
                     {
-                        
-                        ApplyTheme(settings.Theme);
-                        
+                        ApplyTheme(currentSettings.Theme);
                     }
+                }
+                else
+                {
+                    currentSettings = new Settings();
+                    ApplyTheme(currentSettings.Theme);
                 }
             }
             catch (Exception ex)
@@ -1804,18 +1711,25 @@ namespace RayCast
 
         private void ApplyTheme(string theme)
         {
-            switch (theme?.ToLower())
+            if (theme?.ToLower() == "dark" || theme?.ToLower() == "sombre")
             {
-                case "clair":
-                    
-                    break;
-                case "sombre":
-                    
-                    break;
-                default:
-                    
-                    break;
+                System.Windows.Application.Current.Resources["BackgroundColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(34, 34, 34));
+                System.Windows.Application.Current.Resources["ForegroundColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 240, 240));
+                System.Windows.Application.Current.Resources["BorderColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(60, 60, 60));
+                System.Windows.Application.Current.Resources["HoverColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(50, 50, 50));
+                System.Windows.Application.Current.Resources["SelectionColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(80, 80, 80));
+                System.Windows.Application.Current.Resources["SubtitleColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(180, 180, 180));
             }
+            else // clair par défaut
+            {
+                System.Windows.Application.Current.Resources["BackgroundColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
+                System.Windows.Application.Current.Resources["ForegroundColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0));
+                System.Windows.Application.Current.Resources["BorderColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(224, 224, 224));
+                System.Windows.Application.Current.Resources["HoverColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(245, 245, 245));
+                System.Windows.Application.Current.Resources["SelectionColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(224, 224, 224));
+                System.Windows.Application.Current.Resources["SubtitleColor"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(102, 102, 102));
+            }
+            UpdateTheme();
         }
 
         public void UpdateTheme()
@@ -1860,7 +1774,7 @@ namespace RayCast
                     }
                     catch (Exception iconEx)
                     {
-                        System.IO.File.AppendAllText(logFilePath, $"[{DateTime.Now}] Erreur lors du chargement de l'icône : {iconEx.Message}\n");
+                        SafeLog($"Erreur lors du chargement de l'icône : {iconEx.Message}");
                         _notifyIcon.Icon = System.Drawing.SystemIcons.Application;
                     }
                 }
@@ -1880,6 +1794,16 @@ namespace RayCast
                     Dispatcher.Invoke(() => 
                     {
                         var settingsWindow = new SettingsWindow();
+                        settingsWindow.Closed += (s, args) =>
+                        {
+                            LoadSettings();
+                            ApplyTheme(currentSettings?.Theme ?? "Light");
+                            RegisterUserHotkey();
+                            if (!string.IsNullOrEmpty(SearchBox.Text))
+                            {
+                                _ = UpdateNormalSearch(SearchBox.Text);
+                            }
+                        };
                         settingsWindow.Show();
                     });
                 };
@@ -2044,6 +1968,240 @@ namespace RayCast
         private void IAResponseBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void SafeLog(string message)
+        {
+            try
+            {
+                using (var stream = new System.IO.FileStream("raycast.log", System.IO.FileMode.Append, System.IO.FileAccess.Write, System.IO.FileShare.ReadWrite))
+                using (var writer = new System.IO.StreamWriter(stream))
+                {
+                    writer.WriteLine($"[{System.DateTime.Now}] {message}");
+                }
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// Recherche tous les exécutables (.exe) sur tous les disques locaux (hors dossiers système)
+        /// </summary>
+        private void SearchAllExecutablesOnAllDrives()
+        {
+            try
+            {
+                var exeList = new List<ExeCacheEntry>();
+                var systemFolders = new[]
+                {
+                    Environment.GetFolderPath(Environment.SpecialFolder.Windows),
+                    Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                    Environment.GetFolderPath(Environment.SpecialFolder.System),
+                    Environment.GetFolderPath(Environment.SpecialFolder.SystemX86)
+                };
+                var drives = DriveInfo.GetDrives().Where(d => d.DriveType == DriveType.Fixed && d.IsReady);
+                foreach (var drive in drives)
+                {
+                    try
+                    {
+                        var root = drive.RootDirectory.FullName;
+                        var exeFiles = Directory.EnumerateFiles(root, "*.exe", SearchOption.AllDirectories)
+                            .Where(f => !systemFolders.Any(sys => f.StartsWith(sys, StringComparison.OrdinalIgnoreCase)));
+                        foreach (var exeFile in exeFiles)
+                        {
+                            try
+                            {
+                                var fileInfo = FileVersionInfo.GetVersionInfo(exeFile);
+                                var displayName = !string.IsNullOrEmpty(fileInfo.FileDescription)
+                                    ? fileInfo.FileDescription
+                                    : Path.GetFileNameWithoutExtension(exeFile);
+                                exeList.Add(new ExeCacheEntry
+                                {
+                                    Path = exeFile,
+                                    DisplayName = displayName,
+                                    LastModified = File.GetLastWriteTime(exeFile)
+                                });
+                            }
+                            catch { }
+                        }
+                    }
+                    catch { }
+                }
+                // Ajout au cache
+                var json = JsonConvert.SerializeObject(exeList);
+                File.WriteAllText(CACHE_FILE, json);
+                SafeLog($"Recherche exhaustive terminée : {exeList.Count} exécutables trouvés.");
+            }
+            catch (Exception ex)
+            {
+                SafeLog("Erreur lors de la recherche exhaustive : " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Recherche les .exe via l'indexation Windows Search (rapide si activée)
+        /// </summary>
+        private void SearchExecutablesWithWindowsSearch()
+        {
+            try
+            {
+                var exeList = new List<ExeCacheEntry>();
+                var query = "SELECT System.ItemPathDisplay FROM SystemIndex WHERE System.FileExtension = '.exe'";
+                using (var searcher = new ManagementObjectSearcher("root\\Search", $"SELECT System.ItemPathDisplay FROM SystemIndex WHERE System.FileExtension = '.exe'"))
+                {
+                    foreach (ManagementObject result in searcher.Get())
+                    {
+                        var path = result["System.ItemPathDisplay"]?.ToString();
+                        if (!string.IsNullOrEmpty(path) && File.Exists(path))
+                        {
+                            try
+                            {
+                                var fileInfo = FileVersionInfo.GetVersionInfo(path);
+                                var displayName = !string.IsNullOrEmpty(fileInfo.FileDescription)
+                                    ? fileInfo.FileDescription
+                                    : Path.GetFileNameWithoutExtension(path);
+                                exeList.Add(new ExeCacheEntry
+                                {
+                                    Path = path,
+                                    DisplayName = displayName,
+                                    LastModified = File.GetLastWriteTime(path)
+                                });
+                            }
+                            catch { }
+                        }
+                    }
+                }
+                var json = JsonConvert.SerializeObject(exeList);
+                File.WriteAllText(CACHE_FILE, json);
+                SafeLog($"Recherche Windows Search terminée : {exeList.Count} exécutables trouvés.");
+            }
+            catch (Exception ex)
+            {
+                SafeLog("Erreur lors de la recherche Windows Search : " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Recherche les raccourcis .lnk dans tous les dossiers utilisateur (Bureau, Documents, etc.)
+        /// </summary>
+        private void SearchShortcutsInUserFolders()
+        {
+            try
+            {
+                var exeList = new List<ExeCacheEntry>();
+                var userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                var userFolders = new[]
+                {
+                    Path.Combine(userProfile, "Desktop"),
+                    Path.Combine(userProfile, "Documents"),
+                    Path.Combine(userProfile, "Downloads"),
+                    Path.Combine(userProfile, "Bureau"),
+                    Path.Combine(userProfile, "Mes documents")
+                };
+                foreach (var folder in userFolders)
+                {
+                    if (Directory.Exists(folder))
+                    {
+                        var shortcuts = Directory.GetFiles(folder, "*.lnk", SearchOption.AllDirectories);
+                        foreach (var shortcut in shortcuts)
+                        {
+                            var targetPath = GetShortcutTarget(shortcut);
+                            if (!string.IsNullOrEmpty(targetPath) && File.Exists(targetPath) && targetPath.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+                            {
+                                var fileInfo = FileVersionInfo.GetVersionInfo(targetPath);
+                                var displayName = !string.IsNullOrEmpty(fileInfo.FileDescription)
+                                    ? fileInfo.FileDescription
+                                    : Path.GetFileNameWithoutExtension(targetPath);
+                                exeList.Add(new ExeCacheEntry
+                                {
+                                    Path = targetPath,
+                                    DisplayName = displayName,
+                                    LastModified = File.GetLastWriteTime(targetPath)
+                                });
+                            }
+                        }
+                    }
+                }
+                var json = JsonConvert.SerializeObject(exeList);
+                File.WriteAllText(CACHE_FILE, json);
+                SafeLog($"Recherche des raccourcis utilisateur terminée : {exeList.Count} exécutables trouvés.");
+            }
+            catch (Exception ex)
+            {
+                SafeLog("Erreur lors de la recherche des raccourcis utilisateur : " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Permet à l'utilisateur d'ajouter des dossiers personnalisés à scanner
+        /// </summary>
+        public void AddCustomFolderToScan(string folderPath)
+        {
+            try
+            {
+                if (Directory.Exists(folderPath))
+                {
+                    var exeList = new List<ExeCacheEntry>();
+                    var exeFiles = Directory.GetFiles(folderPath, "*.exe", SearchOption.AllDirectories);
+                    foreach (var exeFile in exeFiles)
+                    {
+                        var fileInfo = FileVersionInfo.GetVersionInfo(exeFile);
+                        var displayName = !string.IsNullOrEmpty(fileInfo.FileDescription)
+                            ? fileInfo.FileDescription
+                            : Path.GetFileNameWithoutExtension(exeFile);
+                        exeList.Add(new ExeCacheEntry
+                        {
+                            Path = exeFile,
+                            DisplayName = displayName,
+                            LastModified = File.GetLastWriteTime(exeFile)
+                        });
+                    }
+                    var json = JsonConvert.SerializeObject(exeList);
+                    File.WriteAllText(CACHE_FILE, json);
+                    SafeLog($"Scan du dossier personnalisé terminé : {exeList.Count} exécutables trouvés.");
+                }
+            }
+            catch (Exception ex)
+            {
+                SafeLog("Erreur lors du scan du dossier personnalisé : " + ex.Message);
+            }
+        }
+
+        private void RegisterUserHotkey()
+        {
+            if (currentSettings == null || string.IsNullOrEmpty(currentSettings.Hotkey) || !currentSettings.IsHotkeyEnabled)
+                return;
+            try
+            {
+                // Parser le texte du raccourci (ex: Ctrl+Alt+Space)
+                var parts = currentSettings.Hotkey.Split('+');
+                ModifierKeys modifiers = ModifierKeys.None;
+                Key key = Key.None;
+                foreach (var part in parts)
+                {
+                    var p = part.Trim();
+                    if (p.Equals("Ctrl", StringComparison.OrdinalIgnoreCase)) modifiers |= ModifierKeys.Control;
+                    else if (p.Equals("Alt", StringComparison.OrdinalIgnoreCase)) modifiers |= ModifierKeys.Alt;
+                    else if (p.Equals("Shift", StringComparison.OrdinalIgnoreCase)) modifiers |= ModifierKeys.Shift;
+                    else if (p.Equals("Win", StringComparison.OrdinalIgnoreCase)) modifiers |= ModifierKeys.Windows;
+                    else if (!string.IsNullOrWhiteSpace(p))
+                    {
+                        if (Enum.TryParse<Key>(p, true, out var parsedKey))
+                            key = parsedKey;
+                    }
+                }
+                if (key != Key.None)
+                {
+                    _hotKey?.Dispose();
+                    var handle = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+                    _hotKey = new HotKey(handle, modifiers, key);
+                    _hotKey.Pressed += HotKey_Pressed;
+                    SafeLog($"Raccourci utilisateur enregistré : {currentSettings.Hotkey}");
+                }
+            }
+            catch (Exception ex)
+            {
+                SafeLog($"Erreur lors de l'enregistrement du raccourci utilisateur : {ex.Message}");
+            }
         }
     }
 
